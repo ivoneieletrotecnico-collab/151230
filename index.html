@@ -1,0 +1,939 @@
+<!doctype html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ivonei Ferreira Eletrotécnico | Instalações e Projetos Elétricos</title>
+    
+    <!-- Google Fonts Connectivity -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;850&family=JetBrains+Mono:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Play CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                105: '#f1f5f9',
+                250: '#e2e8f0',
+                350: '#cbd5e1',
+                650: '#475569',
+                805: '#1e293b',
+              },
+              brand: {
+                orange: '#FF8C00',
+                darkBlue: '#003366',
+              }
+            },
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+              mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "monospace"],
+              display: ["Space Grotesk", "ui-sans-serif", "sans-serif"]
+            }
+          }
+        }
+      }
+    </script>
+    
+    <!-- Lucide Icons (Browser CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom Style Rules -->
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fadeIn {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+      
+      /* Active state animations and custom classes */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      .font-display {
+        font-family: 'Space Grotesk', sans-serif;
+      }
+      .font-mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
+
+    <!-- 1. HEADER (Cabeçalho) -->
+    <header class="sticky top-0 z-40 bg-[#003366] text-white border-b-4 border-[#FF8C00] shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+          
+          <!-- Logo -->
+          <a href="#inicio" class="flex items-center space-x-3 cursor-pointer no-underline">
+            <div class="bg-[#FF8C00] p-2.5 rounded-sm flex items-center justify-center shadow-lg transition-transform hover:scale-105">
+              <i data-lucide="zap" class="h-6 w-6 text-white animate-pulse"></i>
+            </div>
+            <div>
+              <span class="font-display font-black text-lg sm:text-xl tracking-tight leading-tight uppercase block text-white">
+                Ivonei Ferreira
+              </span>
+              <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-semibold block -mt-1 uppercase">
+                Eletrotécnico
+              </span>
+            </div>
+          </a>
+
+          <!-- Desktop Navigation -->
+          <nav class="hidden lg:flex space-x-8 text-xs font-semibold uppercase tracking-wider">
+            <a href="#inicio" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Início
+            </a>
+            <a href="#sobre" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Sobre Nós
+            </a>
+            <a href="#servicos" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Serviços
+            </a>
+            <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Diferenciais
+            </a>
+            <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+              Contato
+            </a>
+          </nav>
+
+          <!-- Desktop Action Button -->
+          <div class="hidden lg:block">
+            <a href="#contato" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline">
+              Solicitar Orçamento
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="lg:hidden">
+            <button id="mobile-menu-btn" class="p-2 rounded-sm hover:bg-[#002244] transition-colors text-white focus:outline-none" aria-label="Toggle Menu">
+              <i data-lucide="menu" id="menu-icon" class="h-6 w-6"></i>
+              <i data-lucide="x" id="close-icon" class="h-6 w-6 hidden"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Panel -->
+      <div id="mobile-menu" class="hidden lg:hidden bg-[#002244] border-t border-slate-800 py-4 px-6 space-y-3 shadow-inner">
+        <a href="#inicio" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Início
+        </a>
+        <a href="#sobre" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Sobre Nós
+        </a>
+        <a href="#servicos" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Serviços
+        </a>
+        <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Diferenciais
+        </a>
+        <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+          Contato
+        </a>
+        <div class="pt-2">
+          <a href="#contato" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline">
+            Solicitar Orçamento
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="relative min-h-[85vh] flex items-center bg-[#001f3f] text-white overflow-hidden">
+      <!-- Background Image Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1024&q=80" 
+          alt="Painel de Engenharia Elétrica" 
+          class="w-full h-full object-cover object-center opacity-30"
+        />
+        <div class="absolute inset-0 bg-gradient-to-r from-[#002244]/95 via-[#001f3f]/90 to-transparent"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-8 space-y-6">
+            <!-- Badge -->
+            <div class="inline-flex items-center space-x-2 bg-[#FF8C00]/20 border border-[#FF8C00]/30 px-3 py-1.5 rounded-sm text-[#FF8C00] text-xs uppercase tracking-wider font-mono font-bold animate-pulse">
+              <i data-lucide="shield" class="h-4 w-4"></i>
+              <span>Normas NBR 5410 & NR-10 Respeitadas</span>
+            </div>
+            
+            <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+              Segurança e Serviços Técnicos de Ponta para o seu <span class="text-[#FF8C00]">Projeto Elétrico</span>
+            </h1>
+            
+            <p class="text-blue-100 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed font-light">
+              Soluções integradas com rigor técnico para residências, condomínios, construtoras e indústrias na região de <strong class="text-white font-medium">Irecê e arredores</strong>. Projetos elétricos com garantia extrema e conformidade integral com as normas regulamentadoras.
+            </p>
+
+            <div class="pt-4 flex flex-col sm:flex-row gap-4">
+              <!-- Primary Button - WhatsApp CTA -->
+              <button 
+                onclick="handleWhatsAppRedirect()"
+                class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg shadow-[#FF8C00]/20 flex items-center justify-center space-x-3 cursor-pointer group italic focus:outline-none"
+              >
+                <i data-lucide="phone" class="h-5 w-5 text-white"></i>
+                <span>Falar no WhatsApp: (74) 98825-9925</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 transform transition-transform group-hover:translate-x-1"></i>
+              </button>
+
+              <a 
+                href="#servicos"
+                class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline"
+              >
+                Conhecer Serviços
+              </a>
+            </div>
+
+            <!-- Quick Info Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
+              <div class="flex items-center space-x-2">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Garantia Total</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Escopo Credenciado</span>
+              </div>
+              <div class="flex items-center space-x-2 col-span-2 sm:col-span-1">
+                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
+                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Irecê e Região</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Side visual card -->
+          <div class="lg:col-span-4 hidden lg:block bg-slate-900/90 backdrop-blur-md p-8 rounded-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl space-y-6">
+            <h3 class="font-display font-black text-lg text-white border-b border-slate-850 pb-4 uppercase tracking-tight">
+              Atendimento Técnico Rápido
+            </h3>
+            
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-1.5 rounded-sm">
+                  <i data-lucide="map-pin" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Região de Atuação</p>
+                  <p class="text-sm font-medium text-slate-300">Irecê, BA e arredores imediatos</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-1.5 rounded-sm">
+                  <i data-lucide="clock" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Horário de Resposta</p>
+                  <p class="text-sm font-medium text-slate-300">Retorno garantido em até 2 horas</p>
+                </div>
+              </div>
+
+              <div class="flex items-start space-x-3">
+                <div class="mt-1 bg-[#003366] p-1.5 rounded-sm">
+                  <i data-lucide="shield" class="h-4 w-4 text-[#FF8C00]"></i>
+                </div>
+                <div>
+                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Segurança Ativa</p>
+                  <p class="text-sm font-medium text-slate-300">NR-10 e NBR 5410 em 100% das obras</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-[#FF8C00]/10 border border-[#FF8C00]/25 p-4 rounded-sm text-xs space-y-2">
+              <p class="font-black text-[#FF8C00] uppercase tracking-wider">Laudos e Pareceres Rápidos</p>
+              <p class="text-slate-400 leading-normal">
+                Precisa de ART/CRT urgente para aprovação técnica junto à concessionária de energia? Nós cuidamos de tudo.
+              </p>
+            </div>
+
+            <button 
+              onclick="handleWhatsAppRedirect('Olá! Gostaria de esclarecer uma dúvida técnica sobre projetos elétricos.')"
+              class="w-full bg-[#003366] hover:bg-[#002244] border border-[#FF8C00]/30 text-white font-bold py-3 rounded-sm tracking-wider text-xs uppercase text-center transition-colors block cursor-pointer focus:outline-none"
+            >
+              Tire suas Dúvidas Online
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SOBRE NÓS -->
+    <section class="py-20 sm:py-28 bg-white text-slate-900 scroll-mt-20" id="sobre">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Visual Column / Badge boxes -->
+          <div class="lg:col-span-5 relative">
+            <div class="absolute top-0 left-0 w-24 h-24 bg-[#FF8C00]/10 rounded-sm -z-10"></div>
+            <div class="absolute bottom-0 right-0 w-32 h-32 bg-[#003366]/5 rounded-sm -z-10"></div>
+            
+            <div class="bg-[#003366] text-white p-8 rounded-sm shadow-xl border-l-4 border-[#FF8C00] relative overflow-hidden">
+              <div class="absolute top-0 right-0 transform translate-x-8 -translate-y-8 opacity-10">
+                <i data-lucide="zap" class="h-64 w-64 text-white"></i>
+              </div>
+              
+              <h4 class="font-display font-black uppercase text-xl mb-4 border-b border-slate-705 pb-3 tracking-wider">
+                Compromisso Técnico
+              </h4>
+              <p class="text-slate-300 text-sm leading-relaxed font-light mb-6">
+                Atuamos sob a chancela das principais regulamentações elétricas do país. Cada detalhe da fiação, disjuntores e projeto elétrico é exaustivamente calibrado para evitar sobrecarga e riscos de incêndio.
+              </p>
+
+              <div class="space-y-4">
+                <div class="flex items-center space-x-3 bg-slate-900/40 p-3 rounded-sm border-l-2 border-[#FF8C00] border-t border-r border-b border-slate-800">
+                  <i data-lucide="shield" class="h-5 w-5 text-[#FF8C00] shrink-0"></i>
+                  <div>
+                    <p class="text-sm font-semibold text-white">NBR 5410</p>
+                    <p class="text-xs text-slate-400 font-mono uppercase">Instalações Baixa Tensão</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-3 bg-slate-900/40 p-3 rounded-sm border-l-2 border-[#FF8C00] border-t border-r border-b border-slate-800">
+                  <i data-lucide="hard-hat" class="h-5 w-5 text-[#FF8C00] shrink-0"></i>
+                  <div>
+                    <p class="text-sm font-semibold text-white">Norma NR-10</p>
+                    <p class="text-xs text-slate-400 font-mono uppercase">Segurança e Serviços</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Stamp Card -->
+            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-sm shadow-lg border-l-4 border-[#003366] border-t border-r border-b border-slate-100 flex items-center space-x-3 hidden sm:flex">
+              <div class="bg-[#FF8C00]/10 p-2.5 rounded-sm text-[#FF8C00]">
+                <i data-lucide="check" class="h-5 w-5 stroke-[3] text-[#FF8C00]"></i>
+              </div>
+              <div>
+                <p class="text-[10px] text-slate-500 uppercase font-mono tracking-widest font-black">CRT Emitido</p>
+                <p class="text-xs font-bold text-slate-800">Garantia Técnica Total</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Copy Column -->
+          <div class="lg:col-span-7 space-y-6">
+            <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+              Sobre Ivonei Ferreira
+            </span>
+            
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+              Autoridade, Rigor Técnico e Resolução Rápida de Problemas Elétricos
+            </h2>
+            
+            <p class="text-slate-650 leading-relaxed font-light text-base sm:text-lg">
+              Seja para uma residência que necessita de readequação de carga segura, um condomínio que precisa de sistemas de emergência de alta confiabilidade ou uma indústria demandando montagem complexa de painéis de comando — o trabalho de um eletrotécnico faz a diferença entre a segurança operacional e riscos fatais.
+            </p>
+
+            <p class="text-slate-650 leading-relaxed font-light text-base sm:text-lg">
+              <strong class="text-slate-900 font-semibold">Ivonei Ferreira</strong> é especialista em prover soluções que unem cumprimento exato de prazos, uso de materiais no padrão de qualidade adequado e atendimento cirúrgico na região de Irecê. Nosso foco é oferecer um processo transparente, com laudos técnicos precisos, emitindo as devidas documentações e guias de responsabilidade exigidas pelas prefeituras e concessionárias.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+              <ul class="space-y-2 text-slate-700 font-light text-sm list-none p-0">
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Projetos 100% autorais e validados</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Experiência local avançada (Irecê e região)</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Atendimento focado em prevenção de riscos</span>
+                </li>
+              </ul>
+
+              <ul class="space-y-2 text-slate-700 font-light text-sm list-none p-0">
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Montagem técnica avançada de painéis</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Emissão de Termo de Responsabilidade</span>
+                </li>
+                <li class="flex items-center space-x-2">
+                  <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-none inline-block"></span>
+                  <span>Compromisso absoluto com o cronograma</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="pt-6">
+              <a 
+                href="#contato"
+                class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline"
+              >
+                <span>Agendar uma Visita Técnica</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 text-white"></i>
+              </a>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ÁREAS DE ATUAÇÃO (SERVIÇOS) -->
+    <section class="py-20 sm:py-28 bg-slate-100 text-[#003366] scroll-mt-20" id="servicos">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+            Nossas Especialidades
+          </span>
+          <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[#003366] tracking-tight uppercase leading-tight">
+            Áreas de Atuação Técnica
+          </h2>
+          <p class="text-slate-650 text-base sm:text-lg font-light leading-relaxed">
+            Diferentes necessidades demandam conhecimentos técnicos rigorosos. Oferecemos quatro pilares de serviços voltados ao alto desempenho e à estabilidade da sua rede de energia.
+          </p>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          
+          <!-- Card 1: Instalações Residenciais -->
+          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="zap" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Instalações Residenciais
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                BAIXA TENSÃO / RESIDENCIAL / PREDIAL
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Soluções completas abrangendo estruturação completa da fiação, cálculo e adequação de carga elétrica ideal, montagem e organização de quadros de distribuição, e adaptação ao padrão de entrada correto exigido pela concessionária. Seguimos à risca cada norma estabelecida pela <strong class="font-semibold text-slate-800">ABNT NBR 5410</strong> para fiação segura de baixa tensão.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>PADRÃO: ABNT NBR 5410</span>
+              <button 
+                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Instalações Elétricas Residenciais.')"
+                class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none"
+              >
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 2: Sistemas de Emergência e Predial -->
+          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="flame" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Sistemas de Emergência e Predial
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                PROTEÇÃO ATIVA / SEGURANÇA PATRIMONIAL
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Proteção patrimonial profunda. Executamos infraestrutura predial inteligente, rotas redundantes de energia ininterrupta para geradores e no-breaks comerciais, proteção estrutural ativa contra curtos e falhas de aterramento de grandes dimensões, além de instalações específicas voltadas à sinalização, extintores elétricos e rotas de emergência para proteção ativa contra incêndios.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>FIDELIDADE OPERACIONAL</span>
+              <button 
+                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Sistemas de Emergência e Redes Prediais.')"
+                class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none"
+              >
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 3: Instalações Industriais -->
+          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="building-2" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Instalações Industriais
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                AUTOMAÇÃO / MOTORES / PAINÉIS DE FORÇA
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Foco na produtividade e redução de paradas não programadas. Especialidade em engenharia reversa e montagem de painéis de distribuição e comando de maquinário, instalação de infraestrutura pesada de alta e baixa tensão, dimensionamento térmico e ligação profissional de motores trifásicos, além de automação industrial de base e CLP.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>PADRÃO DE POTÊNCIA</span>
+              <button 
+                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Montagem e Instalações Elétricas Industriais.')"
+                class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none"
+              >
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Card 4: Projetos Elétricos -->
+          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+            <div class="space-y-4">
+              <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
+                <i data-lucide="file-text" class="h-7 w-7"></i>
+              </div>
+              
+              <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
+                Projetos Elétricos e Laudos
+              </h3>
+              <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
+                CERTIFICAÇÃO CRT / ART / SEGURANÇA
+              </span>
+              
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Da ideia conceitual à validação oficial. Oferecemos planejamento meticuloso em software técnico, desenho esquemático e unifilar detalhado, emissão de laudo de conformidade, perícias elétricas de queima de equipamentos, renovação de cadastro, e emissão formal de CRT/ART para regularização de obras perante os órgãos de fiscalização pública e Coelba.
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+              <span>NR10 RESPEITADA</span>
+              <button 
+                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de conversar sobre Projetos Elétricos, Laudos ou emissão de CRT/ART.')"
+                class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none"
+              >
+                <span>Orçar via WhatsApp</span>
+                <i data-lucide="arrow-right" class="h-3 w-3"></i>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Call and Emergency Box Highlight -->
+        <div class="mt-16 bg-[#003366] text-white rounded-sm p-8 sm:p-12 shadow-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-blue-900 flex flex-col md:flex-row items-center justify-between gap-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 p-8 opacity-10 font-mono text-9xl pointer-events-none select-none">
+            ⚡
+          </div>
+          
+          <div class="space-y-4 max-w-2xl relative z-10">
+            <h3 class="font-display font-black uppercase text-2xl sm:text-3xl leading-tight">
+              Seu projeto elétrico precisa de um Laudo de Conformidade Técnica?
+            </h3>
+            <p class="text-blue-100 text-sm sm:text-base font-light">
+              Evite multas e atrasos na sua obra. Ivonei Ferreira executa de forma ágil o levantamento físico e a entrega de sua documentação no padrão formal.
+            </p>
+          </div>
+          <button 
+            onclick="handleWhatsAppRedirect('Olá Ivonei, preciso de um Laudo e Certificado Técnico (CRT/ART) urgente para o meu projeto elétrico.')"
+            class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold tracking-wider text-xs uppercase transition-all text-center block w-full md:w-auto cursor-pointer shadow-lg border-none focus:outline-none"
+          >
+            Consultar Urgência
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. DIFERENCIAIS -->
+    <section class="py-20 sm:py-28 bg-white text-slate-900 scroll-mt-20" id="diferenciais">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left Content Header -->
+          <div class="lg:col-span-4 space-y-4">
+            <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
+              Por que escolher a nossa empresa?
+            </span>
+            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight leading-tight uppercase">
+              Os Diferenciais da Marca Ivonei Ferreira
+            </h2>
+            <p class="text-slate-650 font-light text-base leading-relaxed">
+              Tornamos as etapas elétricas a parte mais simples e segura do seu planejamento de obra ou expansão predial. Atendimento com velocidade em toda a região de Irecê.
+            </p>
+            
+            <div class="pt-4">
+              <a 
+                href="#contato"
+                class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline"
+              >
+                <span>Solicitar Atendimento</span>
+                <i data-lucide="arrow-right" class="h-4 w-4 text-[#003366]"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Pillars Details -->
+          <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-6">
+            
+            <!-- Pillar 1 -->
+            <div class="bg-slate-50 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="clock" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Atendimento Rápido em Irecê
+              </h3>
+              <p class="text-slate-650 text-xs sm:text-sm leading-relaxed font-light">
+                Seja para vistorias, laudos de emergência ou reuniões de obra. Atendemos com extrema presteza em Irecê e toda a região circunvizinha, respeitando prazos e urgências.
+              </p>
+            </div>
+
+            <!-- Pillar 2 -->
+            <div class="bg-slate-50 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="users" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Corpo Técnico Qualificado
+              </h3>
+              <p class="text-slate-650 text-xs sm:text-sm leading-relaxed font-light">
+                Eletrotécnico experiente e devidamente registrado com sólidos anos de atuação, focado na mais pura precisão da engenharia de baixa e média tensão e normas.
+              </p>
+            </div>
+
+            <!-- Pillar 3 -->
+            <div class="bg-slate-50 border-l-4 border-[#003366] border-t border-r border-b border-slate-250 p-6 rounded-sm space-y-4 hover:border-[#FF8C00]/30 transition-all shadow-sm">
+              <div class="bg-[#FF8C00]/10 p-3 rounded-sm w-12 h-12 flex items-center justify-center text-[#FF8C00]">
+                <i data-lucide="shield" class="h-6 w-6 text-[#FF8C00]"></i>
+              </div>
+              <h3 class="font-display font-black text-sm uppercase tracking-wider text-[#003366]">
+                Agilidade e Garantia Total
+              </h3>
+              <p class="text-slate-650 text-xs sm:text-sm leading-relaxed font-light">
+                Tranquilidade de ponta a ponta. Garantimos o funcionamento correto pós-entrega, fornecendo suporte ágil e imediato aos nossos parceiros comerciais e residenciais.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Testimonial Quote Highlight -->
+        <div class="border-t border-slate-100 pt-16 mt-16 max-w-4xl mx-auto">
+          <blockquote class="text-center space-y-4">
+            <p class="font-display font-light text-lg sm:text-xl text-[#003366] leading-relaxed italic">
+              &ldquo;Em eletricidade, desvios pequenos geram acidentes gravíssimos. Nosso compromisso absoluto com as normas técnicas (NBR 5410 e NR-10) garante a proteção da sua vida, dos seus funcionários e do seu patrimônio.&rdquo;
+            </p>
+            <footer class="font-mono text-[10px] uppercase tracking-widest text-slate-500 font-black">
+              — Ivonei Ferreira, Diretor Técnico
+            </footer>
+          </blockquote>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. CONCESSIONÁRIA & INFRAESTRUTURA COMPATÍVEL BANNER -->
+    <section class="bg-slate-900 py-12 text-white border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <p class="text-xs font-mono uppercase tracking-widest text-[#FF8C00] font-bold">Projetos Técnicos Padronizados</p>
+        <div class="flex flex-wrap items-center justify-center gap-6 sm:gap-12 opacity-60 hover:opacity-100 transition-opacity">
+          <span class="font-display font-extrabold text-xl sm:text-2xl tracking-tight text-white/90">PADRÃO COELBA</span>
+          <span class="h-6 w-px bg-slate-705 hidden sm:block"></span>
+          <span class="font-display font-semibold text-lg sm:text-xl tracking-tight text-white/90">ABNT SEGURO</span>
+          <span class="h-6 w-px bg-slate-705 hidden sm:block"></span>
+          <span class="font-display font-bold text-lg sm:text-xl tracking-tight text-white/90">CREA / CFT REGISTRADO</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. FOOTER & CONTATO -->
+    <section class="bg-[#001c37] text-white py-20 scroll-mt-20" id="contato">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+          
+          <!-- Quick Contact Form Column -->
+          <div class="lg:col-span-7 bg-[#00264d] p-8 sm:p-10 rounded-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-blue-909 shadow-xl flex flex-col justify-between">
+            
+            <div>
+              <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block mb-2">
+                Contato Direto
+              </span>
+              <h3 class="font-display font-black text-2xl sm:text-3xl text-white uppercase mb-4 tracking-tight">
+                Solicite um Orçamento Sem Compromisso
+              </h3>
+              <p class="text-blue-100/70 text-sm font-light leading-relaxed mb-6">
+                Preencha o formulário abaixo descrevendo seu caso técnico, ou clique diretamente no botão para nos enviar uma mensagem imediata via WhatsApp.
+              </p>
+            </div>
+
+            <!-- Success block (initially hidden) -->
+            <div id="form-success" class="hidden bg-[#FF8C00]/10 border-l-4 border-[#FF8C00] border-t border-r border-b border-[#FF8C00]/40 p-6 rounded-sm space-y-4 animate-fadeIn my-auto text-center py-12">
+              <div class="bg-[#FF8C00] p-3 rounded-sm w-12 h-12 flex items-center justify-center mx-auto text-white">
+                <i data-lucide="check" class="h-6 w-6 stroke-[3] text-white"></i>
+              </div>
+              <h4 class="font-display font-black text-xl text-white uppercase tracking-wider">Solicitação Recebida com Sucesso!</h4>
+              <p class="text-sm text-blue-100/90 leading-relaxed max-w-md mx-auto">
+                Excelente, <span id="submitter-name" class="font-semibold text-white">Cliente</span>. Suas informações foram registradas. Retornaremos em até 2 horas úteis. Deseja agilizar o fluxo de sua resposta e falar imediatamente com o especialista no WhatsApp?
+              </p>
+              <button 
+                id="whatsapp-success-btn"
+                onclick="handleWhatsAppRedirect()"
+                class="mt-4 bg-[#FF8C00] hover:bg-[#e07b00] text-white px-6 py-3 rounded-sm text-xs font-bold uppercase tracking-widest transition-transform inline-flex items-center space-x-2 cursor-pointer shadow-md focus:outline-none border-none"
+              >
+                <i data-lucide="phone" class="h-4 w-4 text-white"></i>
+                <span>Chamar Ivonei no WhatsApp</span>
+              </button>
+            </div>
+
+            <!-- Standard interactive Form -->
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono uppercase text-blue-100/80 font-black block">Seu Nome *</label>
+                  <input 
+                    type="text" 
+                    id="form-nome"
+                    required
+                    placeholder="Nome Sobrenome" 
+                    class="w-full bg-[#001c37] border border-blue-900 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+                
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono uppercase text-blue-100/80 font-black block">Seu E-mail *</label>
+                  <input 
+                    type="email" 
+                    id="form-email"
+                    required
+                    placeholder="contato@empresa.com" 
+                    class="w-full bg-[#001c37] border border-blue-900 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1">
+                  <label class="text-[10px] font-mono uppercase text-blue-100/80 font-black block">Seu Telefone *</label>
+                  <input 
+                    type="tel" 
+                    id="form-telefone"
+                    required
+                    placeholder="(74) 99999-9999" 
+                    class="w-full bg-[#001c37] border border-blue-900 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm text-white focus:outline-none transition-colors"
+                  />
+                </div>
+
+                <div class="space-y-1 relative">
+                  <label class="text-[10px] font-mono uppercase text-blue-100/80 font-black block">Serviço Desejado</label>
+                  <select 
+                    id="form-servico"
+                    class="id-select w-full bg-[#001c37] border border-blue-900 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs text-white focus:outline-none transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="Projetos Elétricos">Projetos Elétricos</option>
+                    <option value="Laudos e ART/CRT">Laudos e ART/CRT</option>
+                    <option value="Instalações Residenciais">Instalações Residenciais</option>
+                    <option value="Instalações Industriais">Instalações Industriais</option>
+                    <option value="Sistemas de Emergência">Sistemas de Emergência</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="space-y-1">
+                <label class="text-[10px] font-mono uppercase text-blue-100/80 font-black block">Mensagem Técnica</label>
+                <textarea 
+                  rows="3"
+                  id="form-mensagem"
+                  placeholder="Descreva aqui o seu projeto, sua obra, laudo ou adequação necessária..."
+                  class="w-full bg-[#001c37] border border-blue-900 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-sm text-white focus:outline-none transition-colors"
+                ></textarea>
+              </div>
+
+              <button 
+                type="submit"
+                class="w-full bg-[#FF8C00] hover:bg-[#e07b00] text-white py-3.5 rounded-sm font-bold uppercase text-xs tracking-widest flex items-center justify-center space-x-2 cursor-pointer shadow-lg active:scale-95 transition-all border-none focus:outline-none"
+              >
+                <i data-lucide="send" class="h-4 w-4 text-white"></i>
+                <span>Enviar Mensagem</span>
+              </button>
+            </form>
+
+          </div>
+
+          <!-- Corporate/Contact Details Column -->
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-8">
+            
+            <div class="space-y-6">
+              <div>
+                <span class="font-display font-black text-2xl uppercase tracking-tight leading-tight block">
+                  Ivonei Ferreira
+                </span>
+                <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black block uppercase -mt-0.5">
+                  Eletrotécnico Especialista
+                </span>
+              </div>
+
+              <div class="space-y-4">
+                <!-- Phone -->
+                <div class="flex items-start space-x-3 cursor-pointer group" onclick="handleWhatsAppRedirect()">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] group-hover:bg-[#FF8C00] group-hover:text-white transition-colors border border-blue-900">
+                    <i data-lucide="phone" class="h-4 w-4"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Contato Direto / WhatsApp</p>
+                    <p class="text-sm font-semibold text-white group-hover:underline">(74) 98825-9925</p>
+                  </div>
+                </div>
+
+                <!-- E-mail -->
+                <div class="flex items-start space-x-3 cursor-pointer group" onclick="window.open('mailto:ivonei.energia@gmail.com')">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] group-hover:bg-[#FF8C00] group-hover:text-white transition-colors border border-blue-900">
+                    <i data-lucide="mail" class="h-4 w-4"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">E-mail de Contato</p>
+                    <p class="text-sm font-semibold text-white group-hover:underline">ivonei.energia@gmail.com</p>
+                  </div>
+                </div>
+
+                <!-- Geolocation -->
+                <div class="flex items-start space-x-3">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] border border-blue-900">
+                    <i data-lucide="map-pin" class="h-4 w-4 text-[#FF8C00]"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Área Sede</p>
+                    <p class="text-sm text-white">Irecê, Bahia e Cidades Vizinhas</p>
+                  </div>
+                </div>
+
+                <!-- Calendar / Hours -->
+                <div class="flex items-start space-x-3">
+                  <div class="mt-1 bg-[#001c37] p-2 rounded-sm text-[#FF8C00] border border-blue-900">
+                    <i data-lucide="calendar" class="h-4 w-4 text-[#FF8C00]"></i>
+                  </div>
+                  <div>
+                    <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Horário de Atendimento Comercial</p>
+                    <p class="text-sm text-white leading-relaxed">
+                      Segunda a Sexta: 08:00 às 18:00 <br />
+                      Sábados: 08:00 às 12:05
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Secure Stamp -->
+            <div class="bg-[#00264d] p-5 rounded-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-blue-900 text-xs text-blue-100/80 space-y-2 shadow-sm">
+              <div class="flex items-center space-x-2 text-[#FF8C00]">
+                <i data-lucide="shield" class="h-4 w-4 shrink-0 text-[#FF8C00]"></i>
+                <span class="font-black uppercase tracking-wider font-mono text-[10px]">Garantia Segurança Máxima</span>
+              </div>
+              <p class="leading-relaxed font-light text-blue-100/70">
+                Nossa atuação segue rigorosamente as diretrizes federais vigentes e normas de segurança em instalações e serviços em eletricidade do Ministério do Trabalho e Emprego.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Copyright Row -->
+        <div class="border-t border-blue-900/60 mt-16 pt-8 text-center sm:text-left flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-blue-100/50">
+          <p>
+            &copy; 2026 Ivonei Ferreira Eletrotécnico. Todos os direitos reservados.
+          </p>
+          <p class="font-mono uppercase tracking-wider text-[10px]">
+            Instalações & Projetos Elétricos de Alta Segurança
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- JavaScript Interactions Logic -->
+    <script>
+      // Initialize Lucide Icons in the browser DOM
+      lucide.createIcons();
+
+      // Mobile Menu functionality
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const menuIcon = document.getElementById('menu-icon');
+      const closeIcon = document.getElementById('close-icon');
+
+      mobileMenuBtn.addEventListener('click', () => {
+        const isClosed = mobileMenu.classList.contains('hidden');
+        if (isClosed) {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
+      });
+
+      // Auto-hide mobile navigation panel on link click
+      const mobileLinks = mobileMenu.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
+      });
+
+      // Redirect helper for WhatsApp integration
+      function handleWhatsAppRedirect(customMessage) {
+        const defaultText = customMessage || "Olá, Ivonei Ferreira! Gostaria de fazer um orçamento de serviços elétricos.";
+        const url = `https://wa.me/5574988259925?text=${encodeURIComponent(defaultText)}`;
+        window.open(url, "_blank");
+      }
+
+      // Contact Form interactive submission helper
+      const contactForm = document.getElementById('contact-form');
+      const formSuccess = document.getElementById('form-success');
+      const submitterNameSpan = document.getElementById('submitter-name');
+      const whatsappSuccessBtn = document.getElementById('whatsapp-success-btn');
+
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const nameVal = document.getElementById('form-nome').value.trim();
+        const serviceVal = document.getElementById('form-servico').value;
+        
+        submitterNameSpan.textContent = nameVal;
+        
+        // Dynamically inject customized WhatsApp template parameters based on fields input
+        const customizedText = `Olá Ivonei, me chamo ${nameVal}. Gostaria de agilizar o orçamento de meu formulário de ${serviceVal}.`;
+        whatsappSuccessBtn.setAttribute('onclick', `handleWhatsAppRedirect("${customizedText}")`);
+        
+        // Stagger transitions
+        contactForm.classList.add('hidden');
+        formSuccess.classList.remove('hidden');
+      });
+    </script>
+  </body>
+</html>
