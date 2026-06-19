@@ -352,9 +352,12 @@
         <p style="margin-top: 0.5rem; font-size: 0.75rem;">Serviços em conformidade com NBR 5410 e NR-10</p>
     </footer>
     
+    <!-- Dados dos Downloads -->
+    <script src="downloads-data.js"></script>
+    
     <script>
-        // Carregar downloads do localStorage
-        let downloads = JSON.parse(localStorage.getItem('downloads')) || [];
+        // Carregar downloads do arquivo de dados
+        let downloads = getAllDownloads();
         
         // Renderizar downloads
         function renderDownloads() {
@@ -432,11 +435,7 @@
         
         // Incrementar contador de downloads
         function incrementDownload(id) {
-            const download = downloads.find(d => d.id === id);
-            if (download) {
-                download.downloads = (download.downloads || 0) + 1;
-                localStorage.setItem('downloads', JSON.stringify(downloads));
-            }
+            incrementDownloadCount(id);
         }
         
         // Inicializar

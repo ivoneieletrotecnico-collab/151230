@@ -538,6 +538,9 @@
         </div>
     </div>
     
+    <!-- Dados dos Downloads -->
+    <script src="downloads-data.js"></script>
+    
     <script>
         // Verificar autenticação
         if (!sessionStorage.getItem('adminLoggedIn')) {
@@ -547,43 +550,12 @@
         // Exibir email do usuário
         document.getElementById('user-email').textContent = sessionStorage.getItem('adminEmail') || '';
         
-        // Dados dos downloads (simulando um banco de dados)
-        let downloads = JSON.parse(localStorage.getItem('downloads')) || [
-            {
-                id: 1,
-                name: 'Catálogo de Serviços 2024',
-                description: 'Catálogo completo de serviços elétricos',
-                type: 'pdf',
-                url: 'https://exemplo.com/catalogo.pdf',
-                size: '2.5 MB',
-                downloads: 45,
-                date: '2024-01-15'
-            },
-            {
-                id: 2,
-                name: 'Manual de Segurança NR-10',
-                description: 'Normas de segurança para eletricidade',
-                type: 'pdf',
-                url: 'https://exemplo.com/nr10.pdf',
-                size: '1.8 MB',
-                downloads: 32,
-                date: '2024-01-20'
-            },
-            {
-                id: 3,
-                name: 'Orçamento Padrão',
-                description: 'Template de orçamento para serviços',
-                type: 'xls',
-                url: 'https://exemplo.com/orcamento.xlsx',
-                size: '850 KB',
-                downloads: 28,
-                date: '2024-02-01'
-            }
-        ];
+        // Dados dos downloads (usando a função do downloads-data.js)
+        let downloads = getAllDownloads();
         
         // Salvar no localStorage
         function saveToLocalStorage() {
-            localStorage.setItem('downloads', JSON.stringify(downloads));
+            saveDownloads(downloads);
         }
         
         // Renderizar tabela

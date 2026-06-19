@@ -1,0 +1,105 @@
+╔════════════════════════════════════════════════════════════════╗
+║                                                                ║
+║   🌐 URLS DE ACESSO - SITE IVONEI FERREIRA                    ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+📱 SITE PRINCIPAL
+════════════════════════════════════════════════════════════════
+
+https://ivonei-eletrotecnico.netlify.app/
+
+
+📥 PÁGINA DE DOWNLOADS (PÚBLICA)
+════════════════════════════════════════════════════════════════
+
+https://ivonei-eletrotecnico.netlify.app/downloads.html
+
+
+🔐 PAINEL ADMINISTRATIVO
+════════════════════════════════════════════════════════════════
+
+LOGIN:
+https://ivonei-eletrotecnico.netlify.app/admin-login.html
+
+PAINEL ADMIN:
+https://ivonei-eletrotecnico.netlify.app/admin-panel.html
+
+
+🔑 CREDENCIAIS DE ACESSO
+════════════════════════════════════════════════════════════════
+
+Email:  ivonei.energia@gmail.com
+Senha:  Miguel151230@
+
+
+📋 COMO ACESSAR O PAINEL
+════════════════════════════════════════════════════════════════
+
+OPÇÃO 1: Através do menu do site
+- Acesse o site principal
+- Clique em "Admin" no menu superior direito
+- Ou clique em "Downloads" e depois em "Admin"
+
+OPÇÃO 2: Diretamente pela URL
+- Acesse: https://ivonei-eletrotecnico.netlify.app/admin-login.html
+- Digite email e senha
+- Clique em "Entrar no Painel"
+
+
+✨ FUNCIONALIDADES
+════════════════════════════════════════════════════════════════
+
+PAINEL ADMIN:
+✅ Adicionar novos downloads
+✅ Editar downloads existentes
+✅ Excluir downloads
+✅ Buscar e filtrar
+✅ Ver estatísticas
+
+PÁGINA DOWNLOADS:
+✅ Visitantes veem todos os arquivos
+✅ Botões de download funcionais
+✅ Contador automático
+✅ Design responsivo
+
+
+⏱️ TEMPO DE DEPLOY
+════════════════════════════════════════════════════════════════
+
+O Netlify leva 1-2 minutos para processar.
+
+Se as páginas ainda não aparecerem:
+- Aguarde alguns minutos
+- Limpe o cache do navegador (Ctrl+Shift+R)
+- Ou acesse pelo modo anônimo
+
+
+🔗 LINKS ÚTEIS
+════════════════════════════════════════════════════════════════
+
+Dashboard Netlify:
+https://app.netlify.com
+
+Repositório GitHub:
+https://github.com/eletrotcnico151230/ivonei-eletrotecnico
+
+
+📊 STATUS ATUAL
+════════════════════════════════════════════════════════════════
+
+✅ Site principal - ONLINE
+✅ Sistema de downloads - ONLINE
+✅ Painel administrativo - ONLINE
+✅ Links no menu - ADICIONADOS
+✅ Deploy automático - CONFIGURADO
+
+
+═══════════════════════════════════════════════════════════════
+
+🎉 TUDO PRONTO!
+
+Acesse: https://ivonei-eletrotecnico.netlify.app/admin-login.html
+
+Faça login e comece a gerenciar seus downloads!
