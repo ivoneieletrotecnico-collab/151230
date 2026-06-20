@@ -191,7 +191,7 @@
               <!-- Primary Button - WhatsApp CTA -->
               <button 
                 onclick="handleWhatsAppRedirect()"
-                class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg shadow-[#FF8C00]/20 flex items-center justify-center space-x-3 cursor-pointer group italic focus:outline-none"
+                class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg shadow-[#FF8C00]/20 flex items-center justify-center space-x-3 cursor-pointer group italic focus:outline-none w-full sm:w-auto"
               >
                 <i data-lucide="phone" class="h-5 w-5 text-white"></i>
                 <span>Falar no WhatsApp: (74) 98825-9925</span>
@@ -200,14 +200,14 @@
 
               <a 
                 href="#servicos"
-                class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline"
+                class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto"
               >
                 Conhecer Serviços
               </a>
             </div>
 
             <!-- Quick Info Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
               <div class="flex items-center space-x-2">
                 <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
                 <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Garantia Total</span>
@@ -290,7 +290,7 @@
             <div class="absolute top-0 left-0 w-24 h-24 bg-[#FF8C00]/10 rounded-sm -z-10"></div>
             <div class="absolute bottom-0 right-0 w-32 h-32 bg-[#003366]/5 rounded-sm -z-10"></div>
             
-            <div class="bg-[#003366] text-white p-8 rounded-sm shadow-xl border-l-4 border-[#FF8C00] relative overflow-hidden">
+            <div class="bg-[#003366] text-white p-6 sm:p-8 rounded-sm shadow-xl border-l-4 border-[#FF8C00] relative overflow-hidden">
               <div class="absolute top-0 right-0 transform translate-x-8 -translate-y-8 opacity-10">
                 <i data-lucide="zap" class="h-64 w-64 text-white"></i>
               </div>
@@ -420,7 +420,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           
           <!-- Card 1: Instalações Residenciais -->
-          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm p-6 sm:p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="zap" class="h-7 w-7"></i>
@@ -438,7 +438,7 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>PADRÃO: ABNT NBR 5410</span>
               <button 
                 onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Instalações Elétricas Residenciais.')"
@@ -451,7 +451,7 @@
           </div>
 
           <!-- Card 2: Sistemas de Emergência e Predial -->
-          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm p-6 sm:p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="flame" class="h-7 w-7"></i>
@@ -469,7 +469,7 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>FIDELIDADE OPERACIONAL</span>
               <button 
                 onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Sistemas de Emergência e Redes Prediais.')"
@@ -482,7 +482,7 @@
           </div>
 
           <!-- Card 3: Instalações Industriais -->
-          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm p-6 sm:p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="building-2" class="h-7 w-7"></i>
@@ -500,7 +500,7 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>PADRÃO DE POTÊNCIA</span>
               <button 
                 onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Montagem e Instalações Elétricas Industriais.')"
@@ -513,7 +513,7 @@
           </div>
 
           <!-- Card 4: Projetos Elétricos -->
-          <div class="bg-white rounded-sm p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
+          <div class="bg-white rounded-sm p-6 sm:p-8 shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
                 <i data-lucide="file-text" class="h-7 w-7"></i>
@@ -531,7 +531,7 @@
               </p>
             </div>
 
-            <div class="border-t border-slate-100 pt-6 mt-6 flex justify-between items-center text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
+            <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>NR10 RESPEITADA</span>
               <button 
                 onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de conversar sobre Projetos Elétricos, Laudos ou emissão de CRT/ART.')"
@@ -759,7 +759,7 @@
 
                 <button 
                   type="submit"
-                  class="bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none"
+                  class="bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none w-full sm:w-auto"
                 >
                   <i data-lucide="log-in" class="h-4 w-4"></i>
                   <span>Entrar no Painel</span>
