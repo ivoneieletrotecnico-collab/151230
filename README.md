@@ -25,3 +25,7 @@ Serve o conteúdo gerado em `dist/`:
 
 O painel administrativo salva os downloads em um armazenamento compartilhado.
 Assim, quando o administrador adiciona, edita ou remove arquivos, os usuários veem a atualização automaticamente após a próxima sincronização da página.
+
+## Solicitações do formulário
+
+Os envios do formulário público são registrados no painel administrativo com nome, telefone, e-mail, serviço e mensagem completa.

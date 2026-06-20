@@ -904,6 +904,21 @@
                 </div>
 
               </div>
+
+              <div class="border-t border-slate-100 pt-6 space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                    <i data-lucide="inbox" class="h-4 w-4 text-[#FF8C00]"></i>
+                    Solicitações Recebidas
+                  </h5>
+                </div>
+                <p class="text-[11px] text-slate-500 leading-relaxed font-light">
+                  Cada envio do formulário público aparece aqui com nome, telefone, e-mail, serviço e mensagem completa.
+                </p>
+                <div id="admin-requests-list" class="space-y-3 max-h-[360px] overflow-y-auto pr-1">
+                  <!-- Dynamic request cards rendered by JS -->
+                </div>
+              </div>
             </div>
 
           </div>
@@ -1059,15 +1074,16 @@
                   Obrigado, <span id="submitter-name" class="text-[#FF8C00]">Nenhum</span>!
                 </h3>
                 <p class="text-blue-100 text-sm max-w-md mx-auto leading-relaxed">
-                  Sua solicitação de orçamento elétrico foi pré-processada com extrema segurança. Para acelerar o agendamento de sua vistoria técnica presencial, clique no botão rápido abaixo:
+                  Sua solicitação foi enviada diretamente para o painel administrativo e ficará disponível para análise.
                 </p>
               </div>
               <button 
-                id="whatsapp-success-btn"
-                class="bg-[#25D366] hover:bg-[#20ba5a] text-white font-bold px-8 py-4 rounded-sm text-xs uppercase tracking-widest transition-transform hover:scale-105 inline-flex items-center gap-2 cursor-pointer border-none shadow-md"
+                id="contact-reset-btn"
+                type="button"
+                class="bg-[#003366] hover:bg-[#002244] text-white font-bold px-8 py-4 rounded-sm text-xs uppercase tracking-widest transition-transform hover:scale-105 inline-flex items-center gap-2 cursor-pointer border-none shadow-md"
               >
-                <i data-lucide="phone-call" class="h-4 w-4"></i>
-                <span>Acelerar Atendimento via WhatsApp</span>
+                <i data-lucide="refresh-cw" class="h-4 w-4"></i>
+                <span>Nova Solicitação</span>
               </button>
             </div>
 
@@ -1290,6 +1306,8 @@
 
       const DOWNLOADS_CACHE_KEY = 'downloads';
       const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+      const CONTACT_REQUESTS_CACHE_KEY = 'contact-requests';
+      const CONTACT_REQUESTS_API_ENDPOINTS = ['/.netlify/functions/contact-requests', '/api/contact-requests'];
 
       function getCachedDownloads() {
         const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);
@@ -1310,6 +1328,25 @@
         localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
       }
 
+      function getCachedContactRequests() {
+        const stored = localStorage.getItem(CONTACT_REQUESTS_CACHE_KEY);
+        if (stored) {
+          try {
+            const parsedData = JSON.parse(stored);
+            if (Array.isArray(parsedData)) {
+              return parsedData;
+            }
+          } catch (e) {
+            console.error('Erro ao carregar solicitações do cache local:', e);
+          }
+        }
+        return [];
+      }
+
+      function saveCachedContactRequests(requests) {
+        localStorage.setItem(CONTACT_REQUESTS_CACHE_KEY, JSON.stringify(requests));
+      }
+
       function getAllDownloads() {
         return downloadsList.length > 0 ? downloadsList : getCachedDownloads();
       }
@@ -1317,6 +1354,27 @@
       function getDownloadById(id) {
         const downloads = getAllDownloads();
         return downloads.find(d => String(d.id) === String(id));
+      }
+
+      async function requestContactRequests(method, payload = null) {
+        const requestOptions = {
+          method,
+          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
+          body: payload ? JSON.stringify(payload) : undefined,
+          keepalive: method !== 'GET',
+        };
+
+        for (const endpoint of CONTACT_REQUESTS_API_ENDPOINTS) {
+          try {
+            const response = await fetch(endpoint, requestOptions);
+            if (!response.ok) continue;
+            return await response.json();
+          } catch (error) {
+            console.warn(`Falha ao acessar ${endpoint}:`, error);
+          }
+        }
+
+        throw new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
       }
 
       async function requestDownloads(method, payload = null) {
@@ -1347,6 +1405,13 @@
         return [];
       }
 
+      function normalizeContactRequestList(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.requests)) return data.requests;
+        if (data && data.request) return [data.request];
+        return [];
+      }
+
       async function loadDownloadsFromSource() {
         try {
           const remoteData = await requestDownloads('GET');
@@ -1361,6 +1426,21 @@
         updateAdminPanelSecs();
         renderDownloads();
         return downloadsList;
+      }
+
+      async function loadContactRequestsFromSource() {
+        try {
+          const remoteData = await requestContactRequests('GET');
+          const normalizedRequests = normalizeContactRequestList(remoteData);
+          contactRequestsList = normalizedRequests;
+          saveCachedContactRequests(contactRequestsList);
+        } catch (error) {
+          console.warn('Usando cache local de solicitações:', error);
+          contactRequestsList = getCachedContactRequests();
+        }
+
+        renderContactRequests();
+        return contactRequestsList;
       }
 
       async function addDownload(download) {
@@ -1390,6 +1470,25 @@
         return true;
       }
 
+      async function addContactRequest(request) {
+        const response = await requestContactRequests('POST', { request });
+        const updatedRequests = normalizeContactRequestList(response);
+        contactRequestsList = updatedRequests;
+        saveCachedContactRequests(contactRequestsList);
+        if (response && response.request) {
+          return response.request;
+        }
+        return contactRequestsList[0] || null;
+      }
+
+      async function deleteContactRequest(id) {
+        const response = await requestContactRequests('DELETE', { id });
+        const updatedRequests = normalizeContactRequestList(response);
+        contactRequestsList = updatedRequests;
+        saveCachedContactRequests(contactRequestsList);
+        return true;
+      }
+
       async function incrementDownloadCount(id) {
         try {
           const response = await requestDownloads('POST', { action: 'increment', id });
@@ -1410,6 +1509,8 @@
       window.updateDownload = updateDownload;
       window.deleteDownload = deleteDownload;
       window.incrementDownloadCount = incrementDownloadCount;
+      window.addContactRequest = addContactRequest;
+      window.deleteContactRequest = deleteContactRequest;
 
       // Initialize Lucide Icons in the browser DOM
       lucide.createIcons();
@@ -1454,23 +1555,44 @@
       const contactForm = document.getElementById('contact-form');
       const formSuccess = document.getElementById('form-success');
       const submitterNameSpan = document.getElementById('submitter-name');
-      const whatsappSuccessBtn = document.getElementById('whatsapp-success-btn');
+      const contactResetBtn = document.getElementById('contact-reset-btn');
 
-      contactForm.addEventListener('submit', (e) => {
+      if (contactResetBtn) {
+        contactResetBtn.addEventListener('click', () => {
+          contactForm.classList.remove('hidden');
+          formSuccess.classList.add('hidden');
+          contactForm.reset();
+          document.getElementById('form-nome')?.focus({ preventScroll: true });
+        });
+      }
+
+      contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const nameVal = document.getElementById('form-nome').value.trim();
+        const phoneVal = document.getElementById('form-telefone').value.trim();
+        const emailVal = document.getElementById('form-email').value.trim();
         const serviceVal = document.getElementById('form-servico').value;
+        const messageVal = document.getElementById('form-mensagem').value.trim();
         
-        submitterNameSpan.textContent = nameVal;
-        
-        // Dynamically inject customized WhatsApp template parameters based on fields input
-        const customizedText = `Olá Ivonei, me chamo ${nameVal}. Gostaria de agilizar o orçamento de meu formulário de ${serviceVal}.`;
-        whatsappSuccessBtn.onclick = () => handleWhatsAppRedirect(customizedText);
-        
-        // Stagger transitions
-        contactForm.classList.add('hidden');
-        formSuccess.classList.remove('hidden');
+        try {
+          await addContactRequest({
+            name: nameVal,
+            phone: phoneVal,
+            email: emailVal,
+            service: serviceVal,
+            message: messageVal,
+          });
+
+          submitterNameSpan.textContent = nameVal || 'Cliente';
+          contactForm.classList.add('hidden');
+          formSuccess.classList.remove('hidden');
+          contactForm.reset();
+          await loadContactRequests();
+        } catch (error) {
+          console.error('Erro ao enviar solicitação:', error);
+          showCustomAlert('Falha no envio', 'Não foi possível registrar sua solicitação agora. Tente novamente.');
+        }
       });
 
       // ----------------------------------------------------
@@ -1478,6 +1600,7 @@
       // ----------------------------------------------------
       
       let downloadsList = [];
+      let contactRequestsList = [];
       let editingDownloadId = null;
 
       function isMasterAdmin() {
@@ -1644,6 +1767,16 @@
         }
       }
 
+      async function loadContactRequests() {
+        try {
+          await loadContactRequestsFromSource();
+        } catch (e) {
+          console.error("Erro ao carregar solicitações:", e);
+          contactRequestsList = getCachedContactRequests();
+          renderContactRequests();
+        }
+      }
+
       function renderDownloads(customList) {
         const grid = document.getElementById('downloads-grid');
         if (!grid) return;
@@ -1779,6 +1912,75 @@
         lucide.createIcons();
       }
 
+      function formatContactRequestDate(value) {
+        if (!value) return 'Data não informada';
+
+        try {
+          return new Intl.DateTimeFormat('pt-BR', {
+            dateStyle: 'short',
+            timeStyle: 'short',
+          }).format(new Date(value));
+        } catch {
+          return value;
+        }
+      }
+
+      function renderContactRequests() {
+        const container = document.getElementById('admin-requests-list');
+        if (!container) return;
+
+        if (contactRequestsList.length === 0) {
+          container.innerHTML = `
+            <div class="py-6 text-center text-slate-400 text-xs font-mono">
+              Nenhuma solicitação recebida.
+            </div>
+          `;
+          lucide.createIcons();
+          return;
+        }
+
+        container.innerHTML = contactRequestsList.map((request) => `
+          <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 sm:p-5 space-y-4 shadow-sm">
+            <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+              <div class="space-y-1 min-w-0">
+                <p class="text-[11px] font-black text-[#003366] uppercase tracking-wider truncate">${escapeHtml(request.name || 'Sem nome')}</p>
+                <p class="text-[10px] font-mono text-slate-500 uppercase tracking-widest">${escapeHtml(request.service || 'Sem serviço')}</p>
+              </div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[9px] font-mono font-bold px-2 py-1 rounded-sm uppercase bg-amber-50 text-[#FF8C00] border border-amber-100">
+                  ${escapeHtml(request.status || 'new')}
+                </span>
+                <button
+                  type="button"
+                  onclick="confirmDeleteContactRequest('${request.id}')"
+                  title="Remover solicitação"
+                  class="text-slate-400 hover:text-red-650 hover:bg-red-50 p-2 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                >
+                  <i data-lucide="trash-2" class="h-4 w-4"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">Telefone</span>${escapeHtml(request.phone || '—')}</p>
+              <p class="text-slate-700"><span class="font-bold text-slate-500 uppercase tracking-wider text-[10px] block">E-mail</span>${escapeHtml(request.email || '—')}</p>
+            </div>
+
+            <div class="space-y-1">
+              <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Mensagem</p>
+              <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${escapeHtml(request.message || '—')}</p>
+            </div>
+
+            <div class="flex items-center justify-between gap-3 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+              <span>ID #${escapeHtml(String(request.id ?? '—'))}</span>
+              <span>${escapeHtml(formatContactRequestDate(request.createdAt))}</span>
+            </div>
+          </div>
+        `).join('');
+
+        lucide.createIcons();
+      }
+
       // Combined custom search filter of downloaded files
       window.filterDownloads = function() {
         const query = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
@@ -1890,6 +2092,7 @@
             resetDownloadEditor();
             updateAdminPanelSecs();
             await loadDownloads();
+            await loadContactRequests();
           } else {
             errorMsg.classList.remove('hidden');
           }
@@ -1905,6 +2108,7 @@
           resetDownloadEditor();
           updateAdminPanelSecs();
           await loadDownloads();
+          await loadContactRequests();
         });
       }
 
@@ -1996,6 +2200,18 @@
         });
       };
 
+      window.confirmDeleteContactRequest = function(id) {
+        if (!isMasterAdmin()) {
+          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+          return;
+        }
+
+        showCustomConfirm("Remover Solicitação", "Deseja realmente remover esta solicitação recebida?", "Sim, Remover", async () => {
+          await deleteContactRequest(Number(id) || id);
+          await loadContactRequests();
+        });
+      };
+
       const cancelEditBtn = document.getElementById('cancel-edit-download-btn');
       if (cancelEditBtn) {
         cancelEditBtn.addEventListener('click', () => {
@@ -2024,21 +2240,28 @@
         if (e.key === DOWNLOADS_CACHE_KEY) {
           void loadDownloads();
         }
+        if (e.key === CONTACT_REQUESTS_CACHE_KEY) {
+          void loadContactRequests();
+        }
       });
 
       window.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'visible') {
           void loadDownloads();
+          void loadContactRequests();
         }
       });
 
       setInterval(() => {
         void loadDownloads();
+        void loadContactRequests();
       }, 15000);
 
       // Bootstrap Downloads list
       renderDownloads();
+      renderContactRequests();
       void loadDownloads();
+      void loadContactRequests();
       openAdminDownloadsFromUrl();
     </script>
   </body>

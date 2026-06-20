@@ -4,11 +4,13 @@ import { existsSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import defaultDownloads from './downloads.defaults.js';
+import defaultContactRequests from './contact-requests.defaults.js';
 
 const rootDir = dirname(fileURLToPath(import.meta.url));
 const useDist = process.argv.includes('--dist');
 const serveDir = useDist && existsSync(resolve(rootDir, 'dist')) ? resolve(rootDir, 'dist') : rootDir;
 const storePath = resolve(rootDir, 'downloads.store.json');
+const contactStorePath = resolve(rootDir, 'contact-requests.store.json');
 
 async function readStore() {
   try {
@@ -26,6 +28,22 @@ async function writeStore(downloads) {
   return downloads;
 }
 
+async function readContactStore() {
+  try {
+    const raw = await readFile(contactStorePath, 'utf8');
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : defaultContactRequests;
+  } catch {
+    await writeContactStore(defaultContactRequests);
+    return defaultContactRequests;
+  }
+}
+
+async function writeContactStore(requests) {
+  await writeFile(contactStorePath, JSON.stringify(requests, null, 2), 'utf8');
+  return requests;
+}
+
 function nextId(downloads) {
   return downloads.reduce((maxId, item) => Math.max(maxId, Number(item.id) || 0), 0) + 1;
 }
@@ -40,6 +58,23 @@ function normalizeDownload(download) {
     url: download.url || '#',
     downloads: Number(download.downloads || 0),
     date: download.date || new Date().toISOString().split('T')[0],
+  };
+}
+
+function nextContactRequestId(requests) {
+  return requests.reduce((maxId, item) => Math.max(maxId, Number(item.id) || 0), 0) + 1;
+}
+
+function normalizeContactRequest(request) {
+  return {
+    id: request.id ?? Date.now(),
+    name: request.name || '',
+    phone: request.phone || '',
+    email: request.email || '',
+    service: request.service || '',
+    message: request.message || '',
+    status: request.status || 'new',
+    createdAt: request.createdAt || new Date().toISOString(),
   };
 }
 
@@ -107,6 +142,28 @@ app.delete('/api/downloads', async (request, response) => {
   const filteredDownloads = downloads.filter((item) => String(item.id) !== targetId);
   await writeStore(filteredDownloads);
   response.json({ downloads: filteredDownloads });
+});
+
+app.get('/api/contact-requests', async (_, response) => {
+  const requests = await readContactStore();
+  response.json({ requests });
+});
+
+app.post('/api/contact-requests', async (request, response) => {
+  const requests = await readContactStore();
+  const createdRequest = normalizeContactRequest(request.body?.request || request.body || {});
+  createdRequest.id = nextContactRequestId(requests);
+  requests.unshift(createdRequest);
+  await writeContactStore(requests);
+  response.status(201).json({ requests, request: createdRequest });
+});
+
+app.delete('/api/contact-requests', async (request, response) => {
+  const requests = await readContactStore();
+  const targetId = String(request.body?.id);
+  const filteredRequests = requests.filter((item) => String(item.id) !== targetId);
+  await writeContactStore(filteredRequests);
+  response.json({ requests: filteredRequests });
 });
 
 app.use(express.static(serveDir));
