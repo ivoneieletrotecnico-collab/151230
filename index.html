@@ -911,6 +911,9 @@
                     <i data-lucide="inbox" class="h-4 w-4 text-[#FF8C00]"></i>
                     Solicitações Recebidas
                   </h5>
+                  <span id="admin-requests-count" class="text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-1 rounded-sm border border-[#FF8C00]/20 bg-[#FF8C00]/10 text-[#FF8C00]">
+                    0
+                  </span>
                 </div>
                 <p class="text-[11px] text-slate-500 leading-relaxed font-light">
                   Cada envio do formulário público aparece aqui com nome, telefone, e-mail, serviço e mensagem completa.
@@ -997,6 +1000,7 @@
                     type="text" 
                     id="form-nome"
                     required
+                    autocomplete="name"
                     placeholder="Ex: Miguel da Silva" 
                     class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white"
                   />
@@ -1008,6 +1012,8 @@
                     type="tel" 
                     id="form-telefone"
                     required
+                    autocomplete="tel"
+                    inputmode="tel"
                     placeholder="Ex: (74) 99999-9999" 
                     class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white"
                   />
@@ -1023,6 +1029,7 @@
                     type="email" 
                     id="form-email"
                     required
+                    autocomplete="email"
                     placeholder="Ex: cliente@dominio.com" 
                     class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white"
                   />
@@ -1032,6 +1039,7 @@
                   <label class="text-[10px] font-mono text-slate-400 uppercase font-black tracking-wider block">Serviço Pretendido *</label>
                   <select 
                     id="form-servico"
+                    required
                     class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none focus:text-white transition-colors text-slate-400 cursor-pointer"
                   >
                     <option value="Adequação e Projeto Residencial">Instalações Elétricas Residenciais</option>
@@ -1050,6 +1058,7 @@
                   id="form-mensagem"
                   rows="4"
                   required
+                  maxlength="1500"
                   placeholder="Por favor, explique brevemente sua necessidade técnica, problemas atuais na rede ou detalhes técnicos da sua fiação atual..."
                   class="w-full bg-slate-900/60 border border-slate-800 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-white resize-none"
                 ></textarea>
@@ -1557,11 +1566,25 @@
       const submitterNameSpan = document.getElementById('submitter-name');
       const contactResetBtn = document.getElementById('contact-reset-btn');
 
+      function resetContactSubmitButton() {
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector('span');
+        const submitIcon = submitButton?.querySelector('i');
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.classList.remove('opacity-80', 'cursor-wait');
+        }
+        if (submitLabel) submitLabel.textContent = 'Enviar Solicitação de Orçamento';
+        if (submitIcon) submitIcon.className = 'h-4 w-4';
+      }
+
       if (contactResetBtn) {
         contactResetBtn.addEventListener('click', () => {
           contactForm.classList.remove('hidden');
           formSuccess.classList.add('hidden');
           contactForm.reset();
+          resetContactSubmitButton();
           document.getElementById('form-nome')?.focus({ preventScroll: true });
         });
       }
@@ -1574,6 +1597,16 @@
         const emailVal = document.getElementById('form-email').value.trim();
         const serviceVal = document.getElementById('form-servico').value;
         const messageVal = document.getElementById('form-mensagem').value.trim();
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector('span');
+        const submitIcon = submitButton?.querySelector('i');
+
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.classList.add('opacity-80', 'cursor-wait');
+        }
+        if (submitLabel) submitLabel.textContent = 'Enviando...';
+        if (submitIcon) submitIcon.className = 'h-4 w-4 animate-spin';
         
         try {
           await addContactRequest({
@@ -1588,10 +1621,13 @@
           contactForm.classList.add('hidden');
           formSuccess.classList.remove('hidden');
           contactForm.reset();
+          resetContactSubmitButton();
           await loadContactRequests();
         } catch (error) {
           console.error('Erro ao enviar solicitação:', error);
           showCustomAlert('Falha no envio', 'Não foi possível registrar sua solicitação agora. Tente novamente.');
+        } finally {
+          resetContactSubmitButton();
         }
       });
 
@@ -1925,11 +1961,73 @@
         }
       }
 
+      function updateContactRequestsSummary() {
+        const badge = document.getElementById('admin-requests-count');
+        if (!badge) return;
+        badge.textContent = String(contactRequestsList.length);
+      }
+
+      function formatWhatsAppDigits(phone) {
+        return String(phone || '').replace(/\D/g, '');
+      }
+
+      async function copyContactRequestValue(value, label = 'Valor copiado') {
+        const text = String(value || '').trim();
+        if (!text) {
+          showCustomAlert('Dados indisponíveis', 'Não há conteúdo para copiar neste campo.');
+          return;
+        }
+
+        try {
+          if (navigator.clipboard?.writeText) {
+            await navigator.clipboard.writeText(text);
+          } else {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.setAttribute('readonly', 'true');
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            tempInput.remove();
+          }
+          showCustomAlert('Copiado', `${label} para a área de transferência.`);
+        } catch (error) {
+          console.error('Falha ao copiar contato:', error);
+          showCustomAlert('Falha ao copiar', 'O navegador bloqueou a cópia automática.');
+        }
+      }
+
+      function openContactRequestWhatsApp(name, phone, message) {
+        const digits = formatWhatsAppDigits(phone);
+        if (!digits) {
+          showCustomAlert('Telefone ausente', 'Esta solicitação não possui telefone válido.');
+          return;
+        }
+
+        const text = [
+          `Olá, ${name || 'cliente'}!`,
+          'Recebemos sua solicitação pelo site e retornamos o contato.',
+          message ? `Mensagem: ${message}` : null,
+        ].filter(Boolean).join('\n\n');
+
+        window.open(`https://wa.me/${digits}?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+      }
+
       function renderContactRequests() {
         const container = document.getElementById('admin-requests-list');
         if (!container) return;
 
-        if (contactRequestsList.length === 0) {
+        updateContactRequestsSummary();
+
+        const requestsToRender = [...contactRequestsList].sort((left, right) => {
+          const leftTime = new Date(left?.createdAt || 0).getTime();
+          const rightTime = new Date(right?.createdAt || 0).getTime();
+          return rightTime - leftTime;
+        });
+
+        if (requestsToRender.length === 0) {
           container.innerHTML = `
             <div class="py-6 text-center text-slate-400 text-xs font-mono">
               Nenhuma solicitação recebida.
@@ -1939,7 +2037,7 @@
           return;
         }
 
-        container.innerHTML = contactRequestsList.map((request) => `
+        container.innerHTML = requestsToRender.map((request) => `
           <div class="bg-slate-50 border border-slate-200 rounded-sm p-4 sm:p-5 space-y-4 shadow-sm">
             <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
               <div class="space-y-1 min-w-0">
@@ -1969,6 +2067,33 @@
             <div class="space-y-1">
               <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Mensagem</p>
               <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-line">${escapeHtml(request.message || '—')}</p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button
+                type="button"
+                onclick='copyContactRequestValue(${JSON.stringify(request.phone || '')}, "Telefone copiado")'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
+              >
+                <i data-lucide="copy" class="h-3.5 w-3.5"></i>
+                <span>Copiar telefone</span>
+              </button>
+              <button
+                type="button"
+                onclick='copyContactRequestValue(${JSON.stringify(request.email || '')}, "E-mail copiado")'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-slate-200 text-slate-600 hover:border-[#FF8C00]/30 hover:text-[#003366] hover:bg-white transition-colors"
+              >
+                <i data-lucide="mail" class="h-3.5 w-3.5"></i>
+                <span>Copiar e-mail</span>
+              </button>
+              <button
+                type="button"
+                onclick='openContactRequestWhatsApp(${JSON.stringify(request.name || 'Cliente')}, ${JSON.stringify(request.phone || '')}, ${JSON.stringify(request.message || '')})'
+                class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest px-3 py-2 rounded-sm border border-[#FF8C00]/20 text-[#FF8C00] hover:bg-[#FF8C00]/10 transition-colors"
+              >
+                <i data-lucide="message-circle" class="h-3.5 w-3.5"></i>
+                <span>Abrir WhatsApp</span>
+              </button>
             </div>
 
             <div class="flex items-center justify-between gap-3 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
