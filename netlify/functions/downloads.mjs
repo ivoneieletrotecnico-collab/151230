@@ -57,14 +57,25 @@ function nextContactRequestId(requests) {
 function normalizeContactRequest(request) {
   return {
     id: request.id ?? Date.now(),
-    name: request.name || '',
-    phone: request.phone || '',
-    email: request.email || '',
-    service: request.service || '',
-    message: request.message || '',
+    name: String(request.name || '').trim(),
+    phone: String(request.phone || '').trim(),
+    email: String(request.email || '').trim(),
+    service: String(request.service || '').trim(),
+    message: String(request.message || '').trim(),
     status: request.status || 'new',
     createdAt: request.createdAt || new Date().toISOString(),
   };
+}
+
+function isValidContactRequest(request) {
+  return Boolean(
+    request &&
+    request.name &&
+    request.phone &&
+    request.email &&
+    request.service &&
+    request.message
+  );
 }
 
 export const handler = async (event) => {
@@ -143,6 +154,12 @@ export const contactRequestsHandler = async (event) => {
 
   if (method === 'POST') {
     const createdRequest = normalizeContactRequest(body.request || body);
+    if (!isValidContactRequest(createdRequest)) {
+      return jsonResponse(400, {
+        error: 'Invalid contact request',
+        message: 'Name, phone, email, service, and message are required.',
+      });
+    }
     createdRequest.id = nextContactRequestId(requests);
     requests.unshift(createdRequest);
     await writeContactRequests(requests);
