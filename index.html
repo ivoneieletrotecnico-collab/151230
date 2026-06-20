@@ -910,7 +910,7 @@
                 <div>
                   <p class="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400">Atendimento Digital Instantâneo</p>
                   <p class="text-sm font-medium text-white hover:text-[#FF8C00] transition-colors">
-                    <a href="https://wa.me/5574988259925" target="_blank" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
+                    <a href="https://wa.me/5574988259925" target="_blank" rel="noopener noreferrer" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
                   </p>
                 </div>
               </div>
@@ -1092,7 +1092,7 @@
                   <div>
                     <p class="text-[10px] text-blue-100/60 uppercase font-mono font-bold tracking-wider">Lique para mais informações</p>
                     <p class="text-sm font-medium text-white">
-                      <a href="https://wa.me/5574988259925" target="_blank" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
+                      <a href="https://wa.me/5574988259925" target="_blank" rel="noopener noreferrer" class="text-white no-underline hover:text-[#FF8C00]">(74) 98825-9925</a>
                     </p>
                   </div>
                 </div>
@@ -1399,7 +1399,7 @@
         
         // Dynamically inject customized WhatsApp template parameters based on fields input
         const customizedText = `Olá Ivonei, me chamo ${nameVal}. Gostaria de agilizar o orçamento de meu formulário de ${serviceVal}.`;
-        whatsappSuccessBtn.setAttribute('onclick', `handleWhatsAppRedirect("${customizedText}")`);
+        whatsappSuccessBtn.onclick = () => handleWhatsAppRedirect(customizedText);
         
         // Stagger transitions
         contactForm.classList.add('hidden');
@@ -1529,7 +1529,7 @@
                 ${item.size || 'N/A'}
               </span>
               <a 
-                href="${escapeHtml(item.url)}" 
+                href="${sanitizeUrl(item.url)}" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onclick="incrementDownloadCount(${item.id})"
@@ -1558,7 +1558,7 @@
                 <div class="min-w-0 flex-1">
                   <p class="text-[11px] font-bold text-[#003366] truncate uppercase tracking-tight">${escapeHtml(item.name)}</p>
                   <p class="text-[10px] text-slate-500 truncate font-light">${escapeHtml(item.description || item.desc)}</p>
-                  <a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-[#FF8C00] hover:underline font-mono truncate block max-w-xs sm:max-w-md">
+                  <a href="${sanitizeUrl(item.url)}" target="_blank" rel="noopener noreferrer" class="text-[9px] text-[#FF8C00] hover:underline font-mono truncate block max-w-xs sm:max-w-md">
                     ${escapeHtml(item.url)}
                   </a>
                 </div>
@@ -1655,6 +1655,19 @@
           .replace(/'/g, "&#039;");
       }
 
+      function sanitizeUrl(url) {
+        const trimmedUrl = (url || '').trim();
+        if (!trimmedUrl) return '#';
+
+        try {
+          const parsedUrl = new URL(trimmedUrl, window.location.origin);
+          const allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+          return allowedProtocols.includes(parsedUrl.protocol) ? trimmedUrl : '#';
+        } catch {
+          return '#';
+        }
+      }
+
       // Handle Authentication Form Submission
       const loginForm = document.getElementById('admin-login-form');
       if (loginForm) {
@@ -1708,13 +1721,19 @@
           const nameInput = document.getElementById('new-file-name');
           const urlInput = document.getElementById('new-file-url');
           const descInput = document.getElementById('new-file-desc');
+          const safeUrl = sanitizeUrl(urlInput.value);
+
+          if (safeUrl === '#') {
+            showCustomAlert("URL Inválida", "Informe um link válido começando com http, https, mailto ou tel.");
+            return;
+          }
 
           const newDl = {
             name: nameInput.value.trim(),
             description: descInput.value.trim(),
             type: 'pdf',
             size: 'Vária',
-            url: urlInput.value.trim()
+            url: safeUrl
           };
 
           addDownload(newDl);
