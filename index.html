@@ -800,7 +800,7 @@
                 
                 <!-- Left panel: Form to add new file -->
                 <div class="lg:col-span-5 space-y-4 border-b lg:border-b-0 lg:border-r border-slate-150 pb-6 lg:pb-0 lg:pr-8">
-                  <h5 class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
+                  <h5 id="download-form-title" class="font-display font-black text-xs text-[#003366] uppercase tracking-wider flex items-center gap-2">
                     <span class="w-2 h-2 bg-[#FF8C00]"></span>
                     Cadastrar Novo Arquivo
                   </h5>
@@ -828,6 +828,36 @@
                       />
                     </div>
 
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tipo do Arquivo *</label>
+                        <select
+                          id="new-file-type"
+                          required
+                          class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900 cursor-pointer"
+                        >
+                          <option value="pdf">PDF</option>
+                          <option value="xls">XLS</option>
+                          <option value="xlsx">XLSX</option>
+                          <option value="doc">DOC</option>
+                          <option value="docx">DOCX</option>
+                          <option value="zip">ZIP</option>
+                          <option value="rar">RAR</option>
+                          <option value="link">Link</option>
+                        </select>
+                      </div>
+
+                      <div class="space-y-1">
+                        <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Tamanho / Observação</label>
+                        <input 
+                          type="text" 
+                          id="new-file-size"
+                          placeholder="Ex: 2.4 MB"
+                          class="w-full bg-slate-50 border border-slate-200 focus:border-[#FF8C00] px-4 py-3 rounded-sm text-xs focus:outline-none transition-colors text-slate-900"
+                        />
+                      </div>
+                    </div>
+
                     <div class="space-y-1">
                       <label class="text-[10px] font-mono uppercase text-slate-600 font-black block">Descrição Curta *</label>
                       <input 
@@ -842,10 +872,19 @@
                     <div class="flex flex-wrap gap-2 pt-2">
                       <button 
                         type="submit"
+                        id="save-download-btn"
                         class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border-none grow"
                       >
                         <i data-lucide="save" class="h-4 w-4"></i>
-                        <span>Salvar</span>
+                        <span id="save-download-btn-label">Salvar</span>
+                      </button>
+                      <button 
+                        type="button"
+                        id="cancel-edit-download-btn"
+                        class="hidden bg-slate-100 hover:bg-slate-200 text-slate-700 px-4 py-3 rounded-sm font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 cursor-pointer transition-colors focus:outline-none border border-slate-200"
+                      >
+                        <i data-lucide="x" class="h-4 w-4"></i>
+                        <span>Cancelar edição</span>
                       </button>
                       <button 
                         type="button"
@@ -1411,6 +1450,7 @@
       // ----------------------------------------------------
       
       let downloadsList = [];
+      let editingDownloadId = null;
 
       function isMasterAdmin() {
         return sessionStorage.getItem('adminLoggedIn') === 'true';
@@ -1428,6 +1468,74 @@
           loginSec.classList.remove('hidden');
           toolsSec.classList.add('hidden');
         }
+      }
+
+      function getDownloadFormValues() {
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        return {
+          name: nameInput?.value.trim() || '',
+          url: sanitizeUrl(urlInput?.value || ''),
+          description: descInput?.value.trim() || '',
+          type: (typeInput?.value || 'pdf').trim(),
+          size: (sizeInput?.value.trim() || 'VÃ¡ria'),
+        };
+      }
+
+      function setDownloadFormMode(mode, download = null) {
+        const formTitle = document.getElementById('download-form-title');
+        const submitLabel = document.getElementById('save-download-btn-label');
+        const submitBtn = document.getElementById('save-download-btn');
+        const cancelBtn = document.getElementById('cancel-edit-download-btn');
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        if (mode === 'edit' && download) {
+          editingDownloadId = download.id;
+          if (formTitle) formTitle.textContent = 'Editar Arquivo';
+          if (submitLabel) submitLabel.textContent = 'Atualizar';
+          if (submitBtn) submitBtn.classList.remove('grow');
+          if (cancelBtn) cancelBtn.classList.remove('hidden');
+          if (nameInput) nameInput.value = download.name || '';
+          if (urlInput) urlInput.value = download.url || '';
+          if (descInput) descInput.value = download.description || download.desc || '';
+          if (typeInput) typeInput.value = download.type || 'pdf';
+          if (sizeInput) sizeInput.value = download.size || '';
+          nameInput?.focus();
+          return;
+        }
+
+        editingDownloadId = null;
+        if (formTitle) formTitle.textContent = 'Cadastrar Novo Arquivo';
+        if (submitLabel) submitLabel.textContent = 'Salvar';
+        if (submitBtn) submitBtn.classList.add('grow');
+        if (cancelBtn) cancelBtn.classList.add('hidden');
+      }
+
+      function clearDownloadForm() {
+        const nameInput = document.getElementById('new-file-name');
+        const urlInput = document.getElementById('new-file-url');
+        const descInput = document.getElementById('new-file-desc');
+        const typeInput = document.getElementById('new-file-type');
+        const sizeInput = document.getElementById('new-file-size');
+
+        if (nameInput) nameInput.value = '';
+        if (urlInput) urlInput.value = '';
+        if (descInput) descInput.value = '';
+        if (typeInput) typeInput.value = 'pdf';
+        if (sizeInput) sizeInput.value = '';
+      }
+
+      function resetDownloadEditor() {
+        clearDownloadForm();
+        setDownloadFormMode('create');
       }
 
       // Programmatic triggers for single-page administration access
@@ -1507,6 +1615,15 @@
                   <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm uppercase ${badgeClass}">
                     ${fileType}
                   </span>
+                  ${isAdmin ? `
+                  <button
+                    onclick="startEditDownload('${item.id}')"
+                    title="Editar Link"
+                    class="text-slate-400 hover:text-[#003366] hover:bg-slate-50 p-1.5 rounded-sm transition-all focus:outline-none cursor-pointer border-none bg-transparent"
+                  >
+                    <i data-lucide="pencil" class="h-4 w-4"></i>
+                  </button>
+                  ` : ''}
                   ${deleteBtnHtml}
                 </div>
               </div>
@@ -1688,6 +1805,7 @@
             errorMsg.classList.add('hidden');
             emailInput.value = '';
             passwordInput.value = '';
+            resetDownloadEditor();
             updateAdminPanelSecs();
             renderDownloads();
           } else {
@@ -1702,54 +1820,60 @@
         logoutBtn.addEventListener('click', () => {
           sessionStorage.removeItem('adminLoggedIn');
           sessionStorage.removeItem('adminEmail');
+          resetDownloadEditor();
           updateAdminPanelSecs();
           renderDownloads();
         });
       }
 
-      // Add new link
+      // Add new link / update existing link
       const addForm = document.getElementById('add-download-form');
       if (addForm) {
         addForm.addEventListener('submit', (e) => {
           e.preventDefault();
-          
+
           if (!isMasterAdmin()) {
             showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
             return;
           }
 
-          const nameInput = document.getElementById('new-file-name');
-          const urlInput = document.getElementById('new-file-url');
-          const descInput = document.getElementById('new-file-desc');
-          const safeUrl = sanitizeUrl(urlInput.value);
+          const formData = getDownloadFormValues();
 
-          if (safeUrl === '#') {
+          if (!formData.name || !formData.description || !formData.url) {
+            showCustomAlert("Campos obrigatórios", "Preencha nome, URL e descrição antes de salvar.");
+            return;
+          }
+
+          if (formData.url === '#') {
             showCustomAlert("URL Inválida", "Informe um link válido começando com http, https, mailto ou tel.");
             return;
           }
 
-          const newDl = {
-            name: nameInput.value.trim(),
-            description: descInput.value.trim(),
-            type: 'pdf',
-            size: 'Vária',
-            url: safeUrl
+          const payload = {
+            name: formData.name,
+            description: formData.description,
+            type: formData.type || 'pdf',
+            size: formData.size || 'Vária',
+            url: formData.url
           };
 
-          addDownload(newDl);
-          downloadsList = getAllDownloads();
-          
-          // Clear inputs
-          nameInput.value = '';
-          urlInput.value = '';
-          descInput.value = '';
+          const isEditing = editingDownloadId !== null;
+          const savedDownload = isEditing
+            ? updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
+            : addDownload(payload);
 
+          if (!savedDownload) {
+            showCustomAlert("Erro", "Não foi possível salvar o arquivo. Tente novamente.");
+            return;
+          }
+
+          downloadsList = getAllDownloads();
+          resetDownloadEditor();
           renderDownloads();
-          
-          // Micro interaction callback
+
           const btn = addForm.querySelector('button[type="submit"]');
           const originalHTML = btn.innerHTML;
-          btn.innerHTML = `<i data-lucide="check" class="h-4 w-4"></i> <span>Cadastrado!</span>`;
+          btn.innerHTML = `<i data-lucide="check" class="h-4 w-4"></i> <span>${isEditing ? 'Atualizado!' : 'Cadastrado!'}</span>`;
           lucide.createIcons();
           setTimeout(() => {
             btn.innerHTML = originalHTML;
@@ -1757,6 +1881,23 @@
           }, 1500);
         });
       }
+
+      window.startEditDownload = function(id) {
+        if (!isMasterAdmin()) {
+          showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
+          return;
+        }
+
+        const targetId = Number(id) || id;
+        const download = getDownloadById(targetId);
+        if (!download) {
+          showCustomAlert("Arquivo não encontrado", "O item selecionado não existe mais.");
+          return;
+        }
+
+        setDownloadFormMode('edit', download);
+        document.getElementById('add-download-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
 
       // Delete link
       window.confirmDeleteDownload = function(id) {
@@ -1767,10 +1908,20 @@
 
         showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", () => {
           deleteDownload(Number(id) || id);
+          if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
+            resetDownloadEditor();
+          }
           downloadsList = getAllDownloads();
           renderDownloads();
         });
       };
+
+      const cancelEditBtn = document.getElementById('cancel-edit-download-btn');
+      if (cancelEditBtn) {
+        cancelEditBtn.addEventListener('click', () => {
+          resetDownloadEditor();
+        });
+      }
 
       // Reset standard values
       const resetBtn = document.getElementById('reset-downloads-btn');
@@ -1784,11 +1935,11 @@
           showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", () => {
             localStorage.removeItem('downloads');
             downloadsList = getAllDownloads();
+            resetDownloadEditor();
             renderDownloads();
           });
         });
       }
-
       // Toggle configuration panel drawer
       const toggleAdminBtn = document.getElementById('toggle-admin-btn');
       const adminPanel = document.getElementById('admin-panel');
