@@ -1,0 +1,14 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/downloads"
+  to = "/.netlify/functions/downloads"
+  status = 200
+
+[[redirects]]
+  from = "/api/contact-requests"
+  to = "/.netlify/functions/contact-requests"
+  status = 200
