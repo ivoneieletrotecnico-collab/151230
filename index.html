@@ -1515,6 +1515,21 @@
           loginSec.classList.remove('hidden');
           toolsSec.classList.add('hidden');
         }
+
+        window.setTimeout(focusAdminPanelPrimaryControl, 0);
+      }
+
+      function focusAdminPanelPrimaryControl() {
+        const emailInput = document.getElementById('login-email');
+        const nameInput = document.getElementById('new-file-name');
+        const target = isMasterAdmin() ? nameInput : emailInput;
+
+        if (typeof target?.focus === 'function') {
+          target.focus({ preventScroll: true });
+          if (typeof target.select === 'function') {
+            target.select();
+          }
+        }
       }
 
       function getDownloadFormValues() {
@@ -1606,6 +1621,7 @@
 
         if (isOpen) {
           adminPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          window.setTimeout(focusAdminPanelPrimaryControl, 250);
         }
 
         if (window.lucide && typeof lucide.createIcons === 'function') {
