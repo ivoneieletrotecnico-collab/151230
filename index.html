@@ -1305,71 +1305,116 @@
         }
       ];
 
-      // LocalStorage Get All Helper
-      function getAllDownloads() {
-        const stored = localStorage.getItem('downloads');
+      const DOWNLOADS_CACHE_KEY = 'downloads';
+      const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+
+      function getCachedDownloads() {
+        const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);
         if (stored) {
           try {
             const parsedData = JSON.parse(stored);
-            if (parsedData && parsedData.length > 0) {
+            if (Array.isArray(parsedData)) {
               return parsedData;
             }
           } catch (e) {
-            console.error('Erro ao carregar downloads do localStorage:', e);
+            console.error('Erro ao carregar downloads do cache local:', e);
           }
         }
         return DOWNLOADS_DATABASE;
       }
 
-      // LocalStorage Save Helper
-      function saveDownloads(downloads) {
-        localStorage.setItem('downloads', JSON.stringify(downloads));
+      function saveCachedDownloads(downloads) {
+        localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
       }
 
-      // Get Item by ID
+      function getAllDownloads() {
+        return downloadsList.length > 0 ? downloadsList : getCachedDownloads();
+      }
+
       function getDownloadById(id) {
         const downloads = getAllDownloads();
-        return downloads.find(d => d.id === id);
+        return downloads.find(d => String(d.id) === String(id));
       }
 
-      // Add New Item
-      function addDownload(download) {
-        const downloads = getAllDownloads();
-        download.id = Date.now();
-        download.downloads = 0;
-        download.date = new Date().toISOString().split('T')[0];
-        downloads.unshift(download);
-        saveDownloads(downloads);
-        return download;
-      }
+      async function requestDownloads(method, payload = null) {
+        const requestOptions = {
+          method,
+          headers: payload ? { 'Content-Type': 'application/json' } : undefined,
+          body: payload ? JSON.stringify(payload) : undefined,
+          keepalive: method !== 'GET',
+        };
 
-      // Update Existing Item
-      function updateDownload(id, updatedData) {
-        const downloads = getAllDownloads();
-        const index = downloads.findIndex(d => d.id === id);
-        if (index !== -1) {
-          downloads[index] = { ...downloads[index], ...updatedData };
-          saveDownloads(downloads);
-          return downloads[index];
+        for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
+          try {
+            const response = await fetch(endpoint, requestOptions);
+            if (!response.ok) continue;
+            return await response.json();
+          } catch (error) {
+            console.warn(`Falha ao acessar ${endpoint}:`, error);
+          }
         }
-        return null;
+
+        throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
       }
 
-      // Delete Item
-      function deleteDownload(id) {
-        let downloads = getAllDownloads();
-        downloads = downloads.filter(d => d.id !== id);
-        saveDownloads(downloads);
+      function normalizeDownloadList(data) {
+        if (Array.isArray(data)) return data;
+        if (data && Array.isArray(data.downloads)) return data.downloads;
+        if (data && data.download) return [data.download];
+        return [];
+      }
+
+      async function loadDownloadsFromSource() {
+        try {
+          const remoteData = await requestDownloads('GET');
+          const normalizedDownloads = normalizeDownloadList(remoteData);
+          downloadsList = normalizedDownloads.length > 0 ? normalizedDownloads : DOWNLOADS_DATABASE;
+          saveCachedDownloads(downloadsList);
+        } catch (error) {
+          console.warn('Usando cache local de downloads:', error);
+          downloadsList = getCachedDownloads();
+        }
+
+        updateAdminPanelSecs();
+        renderDownloads();
+        return downloadsList;
+      }
+
+      async function addDownload(download) {
+        const response = await requestDownloads('POST', { action: 'create', download });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
+        if (response && response.download) {
+          return response.download;
+        }
+        return downloadsList[0] || null;
+      }
+
+      async function updateDownload(id, updatedData) {
+        const response = await requestDownloads('PUT', { id, updatedData });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
+        return downloadsList.find(d => String(d.id) === String(id)) || null;
+      }
+
+      async function deleteDownload(id) {
+        const response = await requestDownloads('DELETE', { id });
+        const updatedDownloads = normalizeDownloadList(response);
+        downloadsList = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloadsList);
         return true;
       }
 
-      // Increment Counter
-      function incrementDownloadCount(id) {
-        const downloads = getAllDownloads();
-        const download = downloads.find(d => d.id === id);
-        if (download) {
-          download.downloads = (download.downloads || 0) + 1;
-          saveDownloads(downloads);
+      async function incrementDownloadCount(id) {
+        try {
+          const response = await requestDownloads('POST', { action: 'increment', id });
+          const updatedDownloads = normalizeDownloadList(response);
+          downloadsList = updatedDownloads.length > 0 ? updatedDownloads : downloadsList;
+          saveCachedDownloads(downloadsList);
+        } catch (error) {
+          console.warn('Não foi possível incrementar o contador de download:', error);
         }
       }
 
@@ -1551,15 +1596,15 @@
         }
       };
 
-      function loadDownloads() {
+      async function loadDownloads() {
         try {
-          downloadsList = getAllDownloads();
+          await loadDownloadsFromSource();
         } catch (e) {
           console.error("Erro ao carregar downloads:", e);
-          downloadsList = [];
+          downloadsList = getCachedDownloads();
+          updateAdminPanelSecs();
+          renderDownloads();
         }
-        updateAdminPanelSecs();
-        renderDownloads();
       }
 
       function renderDownloads(customList) {
@@ -1788,7 +1833,7 @@
       // Handle Authentication Form Submission
       const loginForm = document.getElementById('admin-login-form');
       if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
           e.preventDefault();
           const emailInput = document.getElementById('login-email');
           const passwordInput = document.getElementById('login-password');
@@ -1807,7 +1852,7 @@
             passwordInput.value = '';
             resetDownloadEditor();
             updateAdminPanelSecs();
-            renderDownloads();
+            await loadDownloads();
           } else {
             errorMsg.classList.remove('hidden');
           }
@@ -1817,19 +1862,19 @@
       // Handle Authentication Logout Click
       const logoutBtn = document.getElementById('admin-logout-btn');
       if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
+        logoutBtn.addEventListener('click', async () => {
           sessionStorage.removeItem('adminLoggedIn');
           sessionStorage.removeItem('adminEmail');
           resetDownloadEditor();
           updateAdminPanelSecs();
-          renderDownloads();
+          await loadDownloads();
         });
       }
 
       // Add new link / update existing link
       const addForm = document.getElementById('add-download-form');
       if (addForm) {
-        addForm.addEventListener('submit', (e) => {
+        addForm.addEventListener('submit', async (e) => {
           e.preventDefault();
 
           if (!isMasterAdmin()) {
@@ -1859,17 +1904,16 @@
 
           const isEditing = editingDownloadId !== null;
           const savedDownload = isEditing
-            ? updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
-            : addDownload(payload);
+            ? await updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
+            : await addDownload(payload);
 
           if (!savedDownload) {
             showCustomAlert("Erro", "Não foi possível salvar o arquivo. Tente novamente.");
             return;
           }
 
-          downloadsList = getAllDownloads();
           resetDownloadEditor();
-          renderDownloads();
+          await loadDownloads();
 
           const btn = addForm.querySelector('button[type="submit"]');
           const originalHTML = btn.innerHTML;
@@ -1906,13 +1950,12 @@
           return;
         }
 
-        showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", () => {
-          deleteDownload(Number(id) || id);
+        showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", async () => {
+          await deleteDownload(Number(id) || id);
           if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
             resetDownloadEditor();
           }
-          downloadsList = getAllDownloads();
-          renderDownloads();
+          await loadDownloads();
         });
       };
 
@@ -1926,17 +1969,16 @@
       // Reset standard values
       const resetBtn = document.getElementById('reset-downloads-btn');
       if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
+        resetBtn.addEventListener('click', async () => {
           if (!isMasterAdmin()) {
             showCustomAlert("Acesso Restrito", "Acesso restrito apenas ao administrador!");
             return;
           }
 
-          showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", () => {
-            localStorage.removeItem('downloads');
-            downloadsList = getAllDownloads();
+          showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", async () => {
+            await requestDownloads('POST', { action: 'reset' });
             resetDownloadEditor();
-            renderDownloads();
+            await loadDownloads();
           });
         });
       }
@@ -1959,13 +2001,24 @@
 
       // Real-time synchronization when database changes in another window/tab
       window.addEventListener('storage', (e) => {
-        if (e.key === 'downloads') {
-          loadDownloads();
+        if (e.key === DOWNLOADS_CACHE_KEY) {
+          void loadDownloads();
         }
       });
 
+      window.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          void loadDownloads();
+        }
+      });
+
+      setInterval(() => {
+        void loadDownloads();
+      }, 15000);
+
       // Bootstrap Downloads list
-      loadDownloads();
+      renderDownloads();
+      void loadDownloads();
     </script>
   </body>
 </html>

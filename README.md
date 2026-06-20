@@ -20,3 +20,8 @@ Gera a pasta `dist/` com `index.html` e os ativos estáticos:
 Serve o conteúdo gerado em `dist/`:
 
 `npm run preview`
+
+## Downloads sincronizados
+
+O painel administrativo salva os downloads em um armazenamento compartilhado.
+Assim, quando o administrador adiciona, edita ou remove arquivos, os usuários veem a atualização automaticamente após a próxima sincronização da página.
