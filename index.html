@@ -1641,6 +1641,17 @@
 
       window.toggleAdminPanel = toggleAdminPanel;
 
+      function isAdminDownloadsUrl() {
+        const currentUrl = new URL(window.location.href);
+        return currentUrl.searchParams.get('admin') === 'downloads' || currentUrl.hash === '#painel-downloads';
+      }
+
+      function openAdminDownloadsFromUrl() {
+        if (isAdminDownloadsUrl()) {
+          toggleAdminPanel(true);
+        }
+      }
+
       async function loadDownloads() {
         try {
           await loadDownloadsFromSource();
@@ -2047,6 +2058,7 @@
       // Bootstrap Downloads list
       renderDownloads();
       void loadDownloads();
+      openAdminDownloadsFromUrl();
     </script>
   </body>
 </html>
