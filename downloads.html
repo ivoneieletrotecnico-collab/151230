@@ -12,6 +12,11 @@
 
             clearFragment();
             window.addEventListener('pageshow', clearFragment);
+            window.addEventListener('popstate', clearFragment);
+            window.addEventListener('hashchange', clearFragment);
+            document.addEventListener('click', () => {
+                window.setTimeout(clearFragment, 0);
+            }, true);
         })();
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -332,7 +337,7 @@
     <!-- Header -->
     <header>
         <div class="header-content">
-            <a href="/?fresh=1" class="logo">
+            <a href="/index.html?fresh=1" class="logo">
                 <div class="logo-icon">
                     <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
                 </div>
@@ -341,7 +346,7 @@
                     <div class="logo-subtitle">Eletrotécnico</div>
                 </div>
             </a>
-            <a href="/?fresh=1" class="btn-back">Voltar ao Site</a>
+            <a href="/index.html?fresh=1" class="btn-back">Voltar ao Site</a>
         </div>
     </header>
     

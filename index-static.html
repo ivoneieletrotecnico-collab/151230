@@ -31,6 +31,11 @@
 
             normalizeUrl();
             window.addEventListener('pageshow', normalizeUrl);
+            window.addEventListener('popstate', normalizeUrl);
+            window.addEventListener('hashchange', normalizeUrl);
+            document.addEventListener('click', () => {
+                window.setTimeout(normalizeUrl, 0);
+            }, true);
         })();
     </script>
     <style>
