@@ -12,3 +12,13 @@
   from = "/api/contact-requests"
   to = "/.netlify/functions/contact-requests"
   status = 200
+
+[[redirects]]
+  from = "/painel"
+  to = "/admin-login.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin-login.html"
+  status = 200
