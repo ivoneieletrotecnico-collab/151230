@@ -1,5 +1,75 @@
 const DOWNLOADS_CACHE_KEY = 'downloads';
 const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+const DOWNLOADS_SUPPORT_NUMBER = '5574988259925';
+
+function buildDownloadRequestUrl(downloadName = 'material tecnico') {
+    const message = `Ola! Gostaria de receber o arquivo: ${downloadName}.`;
+    return `https://wa.me/${DOWNLOADS_SUPPORT_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
+function sanitizeDownloadUrl(url) {
+    const trimmedUrl = String(url || '').trim();
+    if (!trimmedUrl) return '#';
+
+    try {
+        const parsedUrl = new URL(trimmedUrl, window.location.origin);
+        const allowedProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+        return allowedProtocols.includes(parsedUrl.protocol) ? trimmedUrl : '#';
+    } catch (error) {
+        console.warn('URL de download invalida:', error);
+        return '#';
+    }
+}
+
+function isPlaceholderDownloadUrl(url) {
+    const safeUrl = sanitizeDownloadUrl(url);
+    if (safeUrl === '#') return true;
+
+    try {
+        const parsedUrl = new URL(safeUrl, window.location.origin);
+        return ['exemplo.com', 'www.exemplo.com'].includes(parsedUrl.hostname);
+    } catch {
+        return true;
+    }
+}
+
+function resolveDownloadAction(download) {
+    const safeUrl = sanitizeDownloadUrl(download?.url || '');
+
+    if (isPlaceholderDownloadUrl(safeUrl)) {
+        return {
+            href: buildDownloadRequestUrl(download?.name || 'material tecnico'),
+            label: 'Solicitar arquivo',
+            helperText: 'Arquivo enviado sob demanda no WhatsApp.',
+            isDirectDownload: false,
+        };
+    }
+
+    if (safeUrl.includes('wa.me/')) {
+        return {
+            href: safeUrl,
+            label: 'Pedir no WhatsApp',
+            helperText: 'Atendimento direto para liberar o material.',
+            isDirectDownload: false,
+        };
+    }
+
+    if (safeUrl.startsWith('mailto:') || safeUrl.startsWith('tel:')) {
+        return {
+            href: safeUrl,
+            label: 'Entrar em contato',
+            helperText: 'Canal direto para solicitar o material.',
+            isDirectDownload: false,
+        };
+    }
+
+    return {
+        href: safeUrl,
+        label: 'Fazer download',
+        helperText: 'Link publico disponivel para abertura imediata.',
+        isDirectDownload: true,
+    };
+}
 
 const DOWNLOADS_DATABASE = [
     {
@@ -7,7 +77,7 @@ const DOWNLOADS_DATABASE = [
         name: 'Catálogo de Serviços 2024',
         description: 'Catálogo completo com todos os serviços elétricos oferecidos. Instalações residenciais, industriais, projetos e laudos técnicos.',
         type: 'pdf',
-        url: 'https://exemplo.com/catalogo-servicos-2024.pdf',
+        url: buildDownloadRequestUrl('Catalogo de Servicos 2024'),
         size: '2.5 MB',
         downloads: 0,
         date: '2024-01-15'
@@ -17,7 +87,7 @@ const DOWNLOADS_DATABASE = [
         name: 'Manual de Segurança NR-10',
         description: 'Normas regulamentadoras de segurança em instalações e serviços em eletricidade. Procedimentos obrigatórios e boas práticas.',
         type: 'pdf',
-        url: 'https://exemplo.com/manual-nr10.pdf',
+        url: 'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-normas-regulamentadoras/norma-regulamentadora-nr-10.pdf',
         size: '1.8 MB',
         downloads: 0,
         date: '2024-01-20'
@@ -27,7 +97,7 @@ const DOWNLOADS_DATABASE = [
         name: 'Template de Orçamento',
         description: 'Planilha modelo para elaboração de orçamentos de serviços elétricos. Inclui todos os itens necessários e cálculos automáticos.',
         type: 'xls',
-        url: 'https://exemplo.com/template-orcamento.xlsx',
+        url: buildDownloadRequestUrl('Template de Orcamento'),
         size: '850 KB',
         downloads: 0,
         date: '2024-02-01'
@@ -37,7 +107,7 @@ const DOWNLOADS_DATABASE = [
         name: 'Checklist NBR 5410',
         description: 'Lista de verificação completa baseada na norma NBR 5410 para instalações elétricas de baixa tensão.',
         type: 'pdf',
-        url: 'https://exemplo.com/checklist-nbr5410.pdf',
+        url: buildDownloadRequestUrl('Checklist NBR 5410'),
         size: '1.2 MB',
         downloads: 0,
         date: '2024-02-10'
@@ -47,7 +117,7 @@ const DOWNLOADS_DATABASE = [
         name: 'Catálogo de Produtos',
         description: 'Catálogo com os principais produtos e equipamentos elétricos utilizados em nossos projetos. Marcas e especificações técnicas.',
         type: 'pdf',
-        url: 'https://exemplo.com/catalogo-produtos.pdf',
+        url: buildDownloadRequestUrl('Catalogo de Produtos'),
         size: '3.2 MB',
         downloads: 0,
         date: '2024-02-15'
@@ -166,3 +236,7 @@ window.addDownload = addDownload;
 window.updateDownload = updateDownload;
 window.deleteDownload = deleteDownload;
 window.incrementDownloadCount = incrementDownloadCount;
+window.buildDownloadRequestUrl = buildDownloadRequestUrl;
+window.sanitizeDownloadUrl = sanitizeDownloadUrl;
+window.isPlaceholderDownloadUrl = isPlaceholderDownloadUrl;
+window.resolveDownloadAction = resolveDownloadAction;

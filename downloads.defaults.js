@@ -1,3 +1,10 @@
+const SUPPORT_NUMBER = '5574988259925';
+
+function buildSupportUrl(downloadName) {
+  const message = `Ola! Gostaria de receber o arquivo: ${downloadName}.`;
+  return `https://wa.me/${SUPPORT_NUMBER}?text=${encodeURIComponent(message)}`;
+}
+
 export default [
   {
     id: 1,
@@ -24,7 +31,7 @@ export default [
     name: 'Checklist de Conformidade NBR 5410',
     description: 'Lista de verificação completa baseada na norma NBR 5410 para instalações elétricas de baixa tensão.',
     type: 'pdf',
-    url: 'https://exemplo.com/checklist-nbr5410.pdf',
+    url: buildSupportUrl('Checklist de Conformidade NBR 5410'),
     size: '1.2 MB',
     downloads: 75,
     date: '2024-02-10',
@@ -34,7 +41,7 @@ export default [
     name: 'Template de Elaboração de Orçamento',
     description: 'Planilha modelo para elaboração de orçamentos de serviços elétricos com cálculos de materiais automáticos.',
     type: 'xls',
-    url: 'https://exemplo.com/template-orcamento.xlsx',
+    url: buildSupportUrl('Template de Elaboracao de Orcamento'),
     size: '850 KB',
     downloads: 50,
     date: '2024-02-01',
@@ -44,7 +51,7 @@ export default [
     name: 'Portfólio de Projetos | Ivonei Ferreira',
     description: 'Apresentação técnica unificada compilando projetos comerciais, subestações e laudos já entregues com ART/CRT.',
     type: 'pdf',
-    url: 'https://wa.me/5574988259925',
+    url: buildSupportUrl('Portfolio de Projetos | Ivonei Ferreira'),
     size: '3.5 MB',
     downloads: 215,
     date: '2024-03-05',
