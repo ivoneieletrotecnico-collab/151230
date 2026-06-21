@@ -707,7 +707,7 @@
         </div>
 
         <!-- Controls Trigger & Admin Panel -->
-        <div id="painel-downloads" class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80 scroll-mt-20">
+        <div class="mt-12 bg-white rounded-sm p-6 sm:p-8 shadow-sm border border-slate-200/80">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h4 class="font-display font-black text-sm text-[#003366] uppercase tracking-wider flex items-center gap-2">
@@ -1798,25 +1798,6 @@
 
       window.toggleAdminPanel = toggleAdminPanel;
 
-      function isAdminDownloadsUrl() {
-        const currentUrl = new URL(window.location.href);
-        return currentUrl.searchParams.get('admin') === 'downloads' || currentUrl.hash === '#painel-downloads';
-      }
-
-      function openAdminDownloadsFromUrl() {
-        if (isAdminDownloadsUrl()) {
-          toggleAdminPanel(true);
-          document.getElementById('painel-downloads')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
-      function syncAdminPanelFromUrl() {
-        if (isAdminDownloadsUrl()) {
-          toggleAdminPanel(true);
-          document.getElementById('painel-downloads')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }
-
       async function loadDownloads() {
         try {
           await loadDownloadsFromSource();
@@ -2399,12 +2380,8 @@
         if (document.visibilityState === 'visible') {
           void loadDownloads();
           void loadContactRequests();
-          syncAdminPanelFromUrl();
         }
       });
-
-      window.addEventListener('hashchange', syncAdminPanelFromUrl);
-      window.addEventListener('popstate', syncAdminPanelFromUrl);
 
       setInterval(() => {
         void loadDownloads();
@@ -2416,7 +2393,6 @@
       renderContactRequests();
       void loadDownloads();
       void loadContactRequests();
-      openAdminDownloadsFromUrl();
     </script>
   </body>
 </html>
