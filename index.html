@@ -74,7 +74,7 @@
         <div class="flex justify-between items-center h-20">
           
           <!-- Logo -->
-          <a href="#inicio" class="flex items-center space-x-3 cursor-pointer no-underline">
+          <button type="button" onclick="scrollToSection('inicio')" class="flex items-center space-x-3 cursor-pointer no-underline bg-transparent border-0 p-0 text-left">
             <div class="bg-[#FF8C00] p-2.5 rounded-sm flex items-center justify-center shadow-lg transition-transform hover:scale-105">
               <i data-lucide="zap" class="h-6 w-6 text-white animate-pulse"></i>
             </div>
@@ -86,35 +86,35 @@
                 Eletrotécnico
               </span>
             </div>
-          </a>
+          </button>
 
           <!-- Desktop Navigation -->
           <nav class="hidden lg:flex space-x-8 text-xs font-semibold uppercase tracking-wider">
-            <a href="#inicio" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+            <button type="button" onclick="scrollToSection('inicio')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Início
-            </a>
-            <a href="#sobre" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+            </button>
+            <button type="button" onclick="scrollToSection('sobre')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Sobre Nós
-            </a>
-            <a href="#servicos" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+            </button>
+            <button type="button" onclick="scrollToSection('servicos')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Serviços
-            </a>
-            <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+            </button>
+            <button type="button" onclick="scrollToSection('diferenciais')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Diferenciais
-            </a>
+            </button>
             <a href="/downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
               Downloads
             </a>
-            <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
+            <button type="button" onclick="scrollToSection('contato')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Contato
-            </a>
+            </button>
           </nav>
 
           <!-- Desktop Action Button -->
           <div class="hidden lg:block">
-            <a href="#contato" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline">
+            <button type="button" onclick="scrollToSection('contato')" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline border-0">
               Solicitar Orçamento
-            </a>
+            </button>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -130,28 +130,28 @@
 
       <!-- Mobile Navigation Panel -->
       <div id="mobile-menu" class="hidden lg:hidden bg-[#002244] border-t border-slate-800 py-4 px-6 space-y-3 shadow-inner">
-        <a href="#inicio" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        <button type="button" onclick="scrollToSection('inicio')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Início
-        </a>
-        <a href="#sobre" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        </button>
+        <button type="button" onclick="scrollToSection('sobre')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Sobre Nós
-        </a>
-        <a href="#servicos" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        </button>
+        <button type="button" onclick="scrollToSection('servicos')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Serviços
-        </a>
-        <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        </button>
+        <button type="button" onclick="scrollToSection('diferenciais')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Diferenciais
-        </a>
+        </button>
         <a href="/downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Downloads
         </a>
-        <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        <button type="button" onclick="scrollToSection('contato')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Contato
-        </a>
+        </button>
         <div class="pt-2">
-          <a href="#contato" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline">
+          <button type="button" onclick="scrollToSection('contato')" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline border-0">
             Solicitar Orçamento
-          </a>
+          </button>
         </div>
       </div>
     </header>
@@ -199,11 +199,12 @@
               </button>
 
               <a 
-                href="#servicos"
+                type="button"
+                onclick="scrollToSection('servicos')"
                 class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto"
               >
                 Conhecer Serviços
-              </a>
+              </button>
             </div>
 
             <!-- Quick Info Grid -->
@@ -384,13 +385,14 @@
             </div>
 
             <div class="pt-6">
-              <a 
-                href="#contato"
-                class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline"
+              <button 
+                type="button"
+                onclick="scrollToSection('contato')"
+                class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline border-0"
               >
                 <span>Agendar uma Visita Técnico</span>
                 <i data-lucide="arrow-right" class="h-4 w-4 text-white"></i>
-              </a>
+              </button>
             </div>
 
           </div>
@@ -589,13 +591,14 @@
             </p>
             
             <div class="pt-4">
-              <a 
-                href="#contato"
-                class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline"
+              <button 
+                type="button"
+                onclick="scrollToSection('contato')"
+                class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline border-0"
               >
                 <span>Solicitar Atendimento</span>
                 <i data-lucide="arrow-right" class="h-4 w-4 text-[#003366]"></i>
-              </a>
+              </button>
             </div>
           </div>
 
@@ -1580,7 +1583,7 @@
       });
 
       // Auto-hide mobile navigation panel on link click
-      const mobileLinks = mobileMenu.querySelectorAll('a');
+      const mobileLinks = mobileMenu.querySelectorAll('a, button');
       mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');
@@ -1594,6 +1597,13 @@
         const defaultText = customMessage || "Olá, Ivonei Ferreira! Gostaria de fazer um orçamento de serviços elétricos.";
         const url = `https://wa.me/5574988259925?text=${encodeURIComponent(defaultText)}`;
         window.open(url, "_blank");
+      }
+
+      function scrollToSection(id) {
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
 
       // Contact Form interactive submission helper

@@ -845,10 +845,10 @@
                 </div>
                 
                 <nav class="desktop">
-                    <a href="#inicio">Início</a>
-                    <a href="#sobre">Sobre Nós</a>
-                    <a href="#servicos">Serviços</a>
-                    <a href="#contato">Contato</a>
+                    <button type="button" onclick="scrollToSection('inicio')">Início</button>
+                    <button type="button" onclick="scrollToSection('sobre')">Sobre Nós</button>
+                    <button type="button" onclick="scrollToSection('servicos')">Serviços</button>
+                    <button type="button" onclick="scrollToSection('contato')">Contato</button>
                 </nav>
                 
                 <button class="btn-primary" onclick="scrollToSection('contato')" style="display: none;" id="desktop-btn">
@@ -862,10 +862,10 @@
         </div>
         
         <div class="mobile-menu" id="mobile-menu">
-            <a href="#inicio" onclick="toggleMenu()">Início</a>
-            <a href="#sobre" onclick="toggleMenu()">Sobre Nós</a>
-            <a href="#servicos" onclick="toggleMenu()">Serviços</a>
-            <a href="#contato" onclick="toggleMenu()">Contato</a>
+            <button type="button" onclick="scrollToSection('inicio'); toggleMenu()">Início</button>
+            <button type="button" onclick="scrollToSection('sobre'); toggleMenu()">Sobre Nós</button>
+            <button type="button" onclick="scrollToSection('servicos'); toggleMenu()">Serviços</button>
+            <button type="button" onclick="scrollToSection('contato'); toggleMenu()">Contato</button>
             <button class="btn-primary" onclick="scrollToSection('contato'); toggleMenu();">
                 Solicitar Orçamento
             </button>
@@ -902,7 +902,7 @@
                             <span>Falar no WhatsApp: (74) 98825-9925</span>
                         </a>
                         
-                        <a href="#servicos" class="btn-secondary">Conhecer Serviços</a>
+                        <button type="button" onclick="scrollToSection('servicos')" class="btn-secondary">Conhecer Serviços</button>
                     </div>
                     
                     <div class="info-grid">
