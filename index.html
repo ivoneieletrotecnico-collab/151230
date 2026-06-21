@@ -1805,19 +1805,15 @@
 
       function openAdminDownloadsFromUrl() {
         if (isAdminDownloadsUrl()) {
+          toggleAdminPanel(true);
           document.getElementById('painel-downloads')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          if (isMasterAdmin()) {
-            toggleAdminPanel(true);
-          }
         }
       }
 
       function syncAdminPanelFromUrl() {
         if (isAdminDownloadsUrl()) {
+          toggleAdminPanel(true);
           document.getElementById('painel-downloads')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          if (isMasterAdmin()) {
-            toggleAdminPanel(true);
-          }
         }
       }
 
