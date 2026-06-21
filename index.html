@@ -1810,6 +1810,12 @@
         }
       }
 
+      function syncAdminPanelFromUrl() {
+        if (isAdminDownloadsUrl()) {
+          toggleAdminPanel(true);
+        }
+      }
+
       async function loadDownloads() {
         try {
           await loadDownloadsFromSource();
@@ -2392,8 +2398,12 @@
         if (document.visibilityState === 'visible') {
           void loadDownloads();
           void loadContactRequests();
+          syncAdminPanelFromUrl();
         }
       });
+
+      window.addEventListener('hashchange', syncAdminPanelFromUrl);
+      window.addEventListener('popstate', syncAdminPanelFromUrl);
 
       setInterval(() => {
         void loadDownloads();
