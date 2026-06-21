@@ -7,6 +7,32 @@
     <meta name="keywords" content="eletrotécnico, projetos elétricos, Irecê, instalações elétricas, laudos técnicos, NBR 5410, NR-10">
     <title>Ivonei Ferreira Eletrotécnico - Projetos Elétricos em Irecê-BA</title>
     
+    <script>
+        (function () {
+            function normalizeUrl() {
+                const currentUrl = new URL(window.location.href);
+                let changed = false;
+
+                if (currentUrl.hash) {
+                    currentUrl.hash = '';
+                    changed = true;
+                }
+
+                if (currentUrl.searchParams.get('fresh') === '1') {
+                    currentUrl.searchParams.delete('fresh');
+                    changed = true;
+                }
+
+                if (changed) {
+                    const normalizedPath = currentUrl.pathname + currentUrl.search + currentUrl.hash;
+                    window.history.replaceState(null, '', normalizedPath || '/');
+                }
+            }
+
+            normalizeUrl();
+            window.addEventListener('pageshow', normalizeUrl);
+        })();
+    </script>
     <style>
         * {
             margin: 0;
