@@ -7,9 +7,15 @@
     <link rel="canonical" href="https://ivonei-eletrotecnico.netlify.app/" />
     <title>Ivonei Ferreira Eletrotécnico | Instalações e Projetos Elétricos</title>
     <script>
-      if (window.location.hash === '#downloads') {
-        window.location.replace('/downloads');
+      function redirectDownloadsHash() {
+        if (window.location.hash === '#downloads') {
+          window.location.replace('/downloads');
+        }
       }
+
+      redirectDownloadsHash();
+      window.addEventListener('hashchange', redirectDownloadsHash);
+      window.addEventListener('pageshow', redirectDownloadsHash);
     </script>
     
     <!-- Google Fonts Connectivity -->
