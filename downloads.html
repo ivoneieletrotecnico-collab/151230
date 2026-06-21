@@ -357,7 +357,7 @@
     
     <script>
         // Carregar downloads do arquivo de dados
-        let downloads = getAllDownloads();
+        let downloads = [];
         
         // Renderizar downloads
         function renderDownloads() {
@@ -434,12 +434,15 @@
         }
         
         // Incrementar contador de downloads
-        function incrementDownload(id) {
-            incrementDownloadCount(id);
+        async function incrementDownload(id) {
+            await incrementDownloadCount(id);
         }
         
         // Inicializar
-        renderDownloads();
+        getAllDownloads().then((data) => {
+            downloads = data;
+            renderDownloads();
+        });
     </script>
 </body>
 </html>

@@ -551,7 +551,8 @@
         document.getElementById('user-email').textContent = sessionStorage.getItem('adminEmail') || '';
         
         // Dados dos downloads (usando a função do downloads-data.js)
-        let downloads = getAllDownloads();
+        let downloads = [];
+        const deleteDownloadApi = window.deleteDownload;
         
         // Salvar no localStorage
         function saveToLocalStorage() {
@@ -624,7 +625,7 @@
                 document.getElementById('download-id').value = '';
             } else if (mode === 'edit' && downloadId) {
                 modalTitle.textContent = 'Editar Download';
-                const download = downloads.find(d => d.id === downloadId);
+                const download = downloads.find(d => String(d.id) === String(downloadId));
                 
                 if (download) {
                     document.getElementById('download-id').value = download.id;
@@ -646,33 +647,25 @@
         }
         
         // Adicionar/Editar download
-        document.getElementById('download-form').addEventListener('submit', function(e) {
+        document.getElementById('download-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const id = document.getElementById('download-id').value;
             const downloadData = {
-                id: id ? parseInt(id) : Date.now(),
                 name: document.getElementById('file-name').value,
                 description: document.getElementById('file-description').value,
                 type: document.getElementById('file-type').value,
                 url: document.getElementById('file-url').value,
-                size: document.getElementById('file-size').value,
-                downloads: 0,
-                date: new Date().toISOString().split('T')[0]
+                size: document.getElementById('file-size').value
             };
             
             if (id) {
-                // Editar
-                const index = downloads.findIndex(d => d.id === parseInt(id));
-                if (index !== -1) {
-                    downloads[index] = { ...downloads[index], ...downloadData };
-                }
+                await updateDownload(id, downloadData);
             } else {
-                // Adicionar
-                downloads.unshift(downloadData);
+                await addDownload(downloadData);
             }
             
-            saveToLocalStorage();
+            downloads = await getAllDownloads();
             renderTable();
             closeModal();
         });
@@ -683,10 +676,10 @@
         }
         
         // Excluir download
-        function deleteDownload(id) {
+        async function deleteDownload(id) {
             if (confirm('Tem certeza que deseja excluir este download?')) {
-                downloads = downloads.filter(d => d.id !== id);
-                saveToLocalStorage();
+                await deleteDownloadApi(id);
+                downloads = await getAllDownloads();
                 renderTable();
             }
         }
@@ -762,7 +755,10 @@
         });
         
         // Inicializar
-        renderTable();
+        getAllDownloads().then((data) => {
+            downloads = data;
+            renderTable();
+        });
     </script>
 </body>
 </html>

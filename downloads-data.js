@@ -1,5 +1,5 @@
-// Banco de dados de downloads (simulado)
-// Em produção, isso viria de uma API/Backend
+const DOWNLOADS_CACHE_KEY = 'downloads';
+const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
 
 const DOWNLOADS_DATABASE = [
     {
@@ -54,73 +54,115 @@ const DOWNLOADS_DATABASE = [
     }
 ];
 
-// Função para obter todos os downloads
-function getAllDownloads() {
-    // Tenta carregar do localStorage primeiro (para dados do admin)
-    const stored = localStorage.getItem('downloads');
+function getCachedDownloads() {
+    const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);
     if (stored) {
         try {
             const parsedData = JSON.parse(stored);
-            if (parsedData && parsedData.length > 0) {
+            if (Array.isArray(parsedData)) {
                 return parsedData;
             }
-        } catch (e) {
-            console.error('Erro ao carregar downloads do localStorage:', e);
+        } catch (error) {
+            console.error('Erro ao carregar downloads do cache local:', error);
         }
     }
-    
-    // Se não houver dados no localStorage, usa os dados padrão
     return DOWNLOADS_DATABASE;
 }
 
-// Função para salvar downloads
-function saveDownloads(downloads) {
-    localStorage.setItem('downloads', JSON.stringify(downloads));
+function saveCachedDownloads(downloads) {
+    localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
 }
 
-// Função para obter um download por ID
-function getDownloadById(id) {
-    const downloads = getAllDownloads();
-    return downloads.find(d => d.id === id);
+function normalizeDownloadList(data) {
+    if (Array.isArray(data)) return data;
+    if (data && Array.isArray(data.downloads)) return data.downloads;
+    if (data && data.download) return [data.download];
+    return [];
 }
 
-// Função para adicionar download
-function addDownload(download) {
-    const downloads = getAllDownloads();
-    download.id = Date.now();
-    download.downloads = 0;
-    download.date = new Date().toISOString().split('T')[0];
-    downloads.unshift(download);
-    saveDownloads(downloads);
-    return download;
-}
+async function requestDownloads(method, payload = null) {
+    const requestOptions = {
+        method,
+        headers: payload ? { 'Content-Type': 'application/json' } : undefined,
+        body: payload ? JSON.stringify(payload) : undefined,
+        keepalive: method !== 'GET',
+    };
 
-// Função para atualizar download
-function updateDownload(id, updatedData) {
-    const downloads = getAllDownloads();
-    const index = downloads.findIndex(d => d.id === id);
-    if (index !== -1) {
-        downloads[index] = { ...downloads[index], ...updatedData };
-        saveDownloads(downloads);
-        return downloads[index];
+    for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
+        try {
+            const response = await fetch(endpoint, requestOptions);
+            if (!response.ok) continue;
+            return await response.json();
+        } catch (error) {
+            console.warn(`Falha ao acessar ${endpoint}:`, error);
+        }
     }
-    return null;
+
+    throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
 }
 
-// Função para deletar download
-function deleteDownload(id) {
-    let downloads = getAllDownloads();
-    downloads = downloads.filter(d => d.id !== id);
-    saveDownloads(downloads);
+async function getAllDownloads() {
+    try {
+        const remoteData = await requestDownloads('GET');
+        const normalizedDownloads = normalizeDownloadList(remoteData);
+        const downloads = normalizedDownloads.length > 0 ? normalizedDownloads : DOWNLOADS_DATABASE;
+        saveCachedDownloads(downloads);
+        return downloads;
+    } catch (error) {
+        console.warn('Usando cache local de downloads:', error);
+        return getCachedDownloads();
+    }
+}
+
+async function getDownloadById(id) {
+    const downloads = await getAllDownloads();
+    return downloads.find((download) => String(download.id) === String(id));
+}
+
+async function addDownload(download) {
+    const response = await requestDownloads('POST', { action: 'create', download });
+    const updatedDownloads = normalizeDownloadList(response);
+    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+    saveCachedDownloads(downloads);
+    return response && response.download ? response.download : downloads[0] || null;
+}
+
+async function updateDownload(id, updatedData) {
+    const response = await requestDownloads('PUT', { id, updatedData });
+    const updatedDownloads = normalizeDownloadList(response);
+    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+    saveCachedDownloads(downloads);
+    return downloads.find((download) => String(download.id) === String(id)) || null;
+}
+
+async function deleteDownload(id) {
+    const response = await requestDownloads('DELETE', { id });
+    const updatedDownloads = normalizeDownloadList(response);
+    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+    saveCachedDownloads(downloads);
     return true;
 }
 
-// Função para incrementar contador de downloads
-function incrementDownloadCount(id) {
-    const downloads = getAllDownloads();
-    const download = downloads.find(d => d.id === id);
-    if (download) {
-        download.downloads = (download.downloads || 0) + 1;
-        saveDownloads(downloads);
+async function incrementDownloadCount(id) {
+    try {
+        const response = await requestDownloads('POST', { action: 'increment', id });
+        const updatedDownloads = normalizeDownloadList(response);
+        const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloads);
+    } catch (error) {
+        console.warn('Não foi possível incrementar o contador de download:', error);
     }
 }
+
+function saveDownloads(downloads) {
+    saveCachedDownloads(downloads);
+}
+
+window.DOWNLOADS_DATABASE = DOWNLOADS_DATABASE;
+window.getAllDownloads = getAllDownloads;
+window.saveDownloads = saveDownloads;
+window.getDownloadById = getDownloadById;
+window.addDownload = addDownload;
+window.updateDownload = updateDownload;
+window.deleteDownload = deleteDownload;
+window.incrementDownloadCount = incrementDownloadCount;
