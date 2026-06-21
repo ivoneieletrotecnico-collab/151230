@@ -160,16 +160,16 @@
     <script>
         // Credenciais (em produção, isso deve estar no backend!)
         const ADMIN_EMAIL = 'ivonei.energia@gmail.com';
-        const ADMIN_PASSWORD = 'Miguel151230@#@#@()';
+        const ADMIN_PASSWORDS = ['Miguel151230@#@#@()', 'Miguel151230@', 'Miguel151@'];
         
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const password = document.getElementById('password').value.trim();
             const errorMessage = document.getElementById('error-message');
             
-            if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+            if (email === ADMIN_EMAIL && ADMIN_PASSWORDS.includes(password)) {
                 // Login bem-sucedido
                 sessionStorage.setItem('adminLoggedIn', 'true');
                 sessionStorage.setItem('adminEmail', email);
