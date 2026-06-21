@@ -13,6 +13,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      NETLIFY_SITE_ID: 053ba750-f7d5-400a-a37e-34c3711934da
 
     steps:
       - name: Checkout repository
@@ -31,4 +33,4 @@ jobs:
         run: npm run build
 
       - name: Deploy to Netlify
-        run: npx netlify-cli deploy --dir=dist --prod --site="${{ secrets.NETLIFY_SITE_ID }}" --auth="${{ secrets.NETLIFY_AUTH_TOKEN }}"
+        run: npx netlify-cli deploy --dir=dist --prod --site="$NETLIFY_SITE_ID" --auth="${{ secrets.NETLIFY_AUTH_TOKEN }}"
