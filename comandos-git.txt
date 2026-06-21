@@ -1,0 +1,116 @@
+# ========================================
+# COMANDOS GIT - COPIAR E COLAR
+# ========================================
+
+# 1. CONFIGURAÇÃO INICIAL (apenas uma vez)
+# ----------------------------------------
+git init
+git config user.name "Seu Nome"
+git config user.email "seu@email.com"
+
+
+# 2. PRIMEIRO COMMIT
+# ----------------------------------------
+git add .
+git commit -m "Site Ivonei Ferreira Eletrotécnico - Deploy automático"
+
+
+# 3. CONECTAR COM GITHUB (substituir SEU_USUARIO)
+# ----------------------------------------
+git remote add origin https://github.com/SEU_USUARIO/ivonei-eletrotecnico.git
+git branch -M main
+git push -u origin main
+
+
+# 4. FAZER ALTERAÇÕES (uso diário)
+# ----------------------------------------
+# Edite os arquivos, depois:
+
+git add .
+git commit -m "Descrição da alteração"
+git push
+
+
+# 5. VER STATUS
+# ----------------------------------------
+git status
+git log --oneline
+
+
+# 6. RENOMEAR ARQUIVO PARA index.html
+# ----------------------------------------
+git mv index-static.html index.html
+git commit -m "Renomear para index.html"
+git push
+
+
+# ========================================
+# CONFIGURAÇÃO NETLIFY
+# ========================================
+
+1. Acesse: https://app.netlify.com
+2. Clique: "Add new site" > "Import an existing project"
+3. Escolha: "Deploy with GitHub"
+4. Selecione: repositório "ivonei-eletrotecnico"
+5. Configurações:
+   - Branch: main
+   - Build command: (vazio)
+   - Publish directory: .
+6. Clique: "Deploy site"
+
+7. OPCIONAL: Configurar domínio personalizado
+   - Site settings > Domain management
+   - Add custom domain
+
+
+# ========================================
+# LINKS IMPORTANTES
+# ========================================
+
+Site atual: https://ivonei-eletrotecnico.netlify.app/
+GitHub: https://github.com
+Netlify: https://app.netlify.com
+Git Download: https://git-scm.com/download/win
+
+
+# ========================================
+# COMANDOS ÚTEIS
+# ========================================
+
+# Ver diferenças
+git diff
+
+# Desfazer último commit (mantém arquivos)
+git reset --soft HEAD~1
+
+# Ver histórico detalhado
+git log
+
+# Criar nova branch
+git checkout -b nova-feature
+
+# Voltar para main
+git checkout main
+
+# Ver branches
+git branch -a
+
+# Atualizar do GitHub
+git pull
+
+
+# ========================================
+# TROUBLESHOOTING
+# ========================================
+
+# Se der erro de autenticação GitHub:
+# Use Personal Access Token em vez de senha
+# Settings > Developer settings > Personal access tokens
+
+# Se o site não atualizar no Netlify:
+# 1. Verifique se o push foi bem-sucedido
+# 2. Veja logs em: Netlify Dashboard > Deploys
+# 3. Limpe cache: Site settings > Build & deploy > Clear cache
+
+# Se precisar forçar push:
+git push -f origin main

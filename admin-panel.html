@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - Downloads</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        
+        /* Header */
+        .admin-header {
+            background: #003366;
+            color: white;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .header-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF8C00;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .header-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .header-info h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+        
+        .header-info p {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .user-email {
+            font-size: 0.875rem;
+        }
+        
+        .btn-logout {
+            background: transparent;
+            border: 2px solid #FF8C00;
+            color: #FF8C00;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-logout:hover {
+            background: #FF8C00;
+            color: white;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+        
+        /* Action Bar */
+        .action-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .btn-add {
+            background: #FF8C00;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-add:hover {
+            background: #e07b00;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(255,140,0,0.3);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 0.5rem;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.875rem;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #FF8C00;
+        }
+        
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+        }
+        
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        tbody tr:hover {
+            background: #f8fafc;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            background: #FF8C00;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .file-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .file-name {
+            font-weight: 600;
+            color: #003366;
+        }
+        
+        .file-description {
+            font-size: 0.875rem;
+            color: #64748b;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .badge-pdf { background: #fee; color: #c00; }
+        .badge-doc { background: #e0e7ff; color: #3730a3; }
+        .badge-xls { background: #d1fae5; color: #065f46; }
+        .badge-zip { background: #fef3c7; color: #92400e; }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .btn-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 2;
+        }
+        
+        .btn-edit {
+            background: #e0e7ff;
+            color: #3730a3;
+        }
+        
+        .btn-edit:hover {
+            background: #c7d2fe;
+        }
+        
+        .btn-delete {
+            background: #fee;
+            color: #c00;
+        }
+        
+        .btn-delete:hover {
+            background: #fecaca;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .modal.show {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            color: #003366;
+            font-size: 1.25rem;
+        }
+        
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #64748b;
+            padding: 0.5rem;
+        }
+        
+        .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            color: #003366;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-family: inherit;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #FF8C00;
+            box-shadow: 0 0 0 3px rgba(255,140,0,0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .modal-footer {
+            padding: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+        }
+        
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #64748b;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-save {
+            background: #FF8C00;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .btn-save:hover {
+            background: #e07b00;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+        
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            stroke: #cbd5e1;
+        }
+        
+        @media (max-width: 768px) {
+            .action-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-box {
+                max-width: none;
+            }
+            
+            table {
+                font-size: 0.875rem;
+            }
+            
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="header-content">
+            <div class="header-title">
+                <div class="header-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                </div>
+                <div class="header-info">
+                    <h1>Gerenciar Downloads</h1>
+                    <p>Painel Administrativo</p>
+                </div>
+            </div>
+            <div class="user-info">
+                <span class="user-email" id="user-email"></span>
+                <button class="btn-logout" onclick="logout()">Sair</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Container -->
+    <div class="container">
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Buscar downloads..." onkeyup="filterDownloads()">
+            </div>
+            <button class="btn-add" onclick="openModal('add')">
+                <svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                Adicionar Download
+            </button>
+        </div>
+        
+        <!-- Table -->
+        <div class="table-container">
+            <table id="downloads-table">
+                <thead>
+                    <tr>
+                        <th>Arquivo</th>
+                        <th>Tipo</th>
+                        <th>Tamanho</th>
+                        <th>Data</th>
+                        <th>Downloads</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="downloads-tbody">
+                    <!-- Conteúdo dinâmico -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <!-- Modal Add/Edit -->
+    <div class="modal" id="modal-form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Adicionar Download</h2>
+                <button class="btn-close" onclick="closeModal()">
+                    <svg viewBox="0 0 24 24" style="width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            <form id="download-form">
+                <div class="modal-body">
+                    <input type="hidden" id="download-id">
+                    
+                    <div class="form-group">
+                        <label for="file-name">Nome do Arquivo *</label>
+                        <input type="text" id="file-name" required placeholder="Ex: Catálogo de Produtos 2024">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-description">Descrição</label>
+                        <textarea id="file-description" placeholder="Descrição do arquivo..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-type">Tipo de Arquivo *</label>
+                        <select id="file-type" required>
+                            <option value="">Selecione...</option>
+                            <option value="pdf">PDF</option>
+                            <option value="doc">DOC/DOCX</option>
+                            <option value="xls">XLS/XLSX</option>
+                            <option value="zip">ZIP/RAR</option>
+                            <option value="img">Imagem</option>
+                            <option value="other">Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-url">URL do Arquivo *</label>
+                        <input type="url" id="file-url" required placeholder="https://exemplo.com/arquivo.pdf">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="file-size">Tamanho do Arquivo</label>
+                        <input type="text" id="file-size" placeholder="Ex: 2.5 MB">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancel" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="btn-save">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Dados dos Downloads -->
+    <script src="downloads-data.js"></script>
+    
+    <script>
+        // Verificar autenticação
+        if (!sessionStorage.getItem('adminLoggedIn')) {
+            window.location.href = 'admin-login.html';
+        }
+        
+        // Exibir email do usuário
+        document.getElementById('user-email').textContent = sessionStorage.getItem('adminEmail') || '';
+        
+        // Dados dos downloads (usando a função do downloads-data.js)
+        let downloads = getAllDownloads();
+        
+        // Salvar no localStorage
+        function saveToLocalStorage() {
+            saveDownloads(downloads);
+        }
+        
+        // Renderizar tabela
+        function renderTable() {
+            const tbody = document.getElementById('downloads-tbody');
+            
+            if (downloads.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            <p>Nenhum download cadastrado</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = downloads.map(download => `
+                <tr>
+                    <td>
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            </div>
+                            <div>
+                                <div class="file-name">${download.name}</div>
+                                <div class="file-description">${download.description || '-'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-${download.type}">${download.type.toUpperCase()}</span></td>
+                    <td>${download.size || '-'}</td>
+                    <td>${formatDate(download.date)}</td>
+                    <td>${download.downloads || 0}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon btn-edit" onclick="editDownload(${download.id})" title="Editar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteDownload(${download.id})" title="Excluir">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Formatar data
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR');
+        }
+        
+        // Abrir modal
+        function openModal(mode, downloadId = null) {
+            const modal = document.getElementById('modal-form');
+            const modalTitle = document.getElementById('modal-title');
+            const form = document.getElementById('download-form');
+            
+            form.reset();
+            
+            if (mode === 'add') {
+                modalTitle.textContent = 'Adicionar Download';
+                document.getElementById('download-id').value = '';
+            } else if (mode === 'edit' && downloadId) {
+                modalTitle.textContent = 'Editar Download';
+                const download = downloads.find(d => d.id === downloadId);
+                
+                if (download) {
+                    document.getElementById('download-id').value = download.id;
+                    document.getElementById('file-name').value = download.name;
+                    document.getElementById('file-description').value = download.description || '';
+                    document.getElementById('file-type').value = download.type;
+                    document.getElementById('file-url').value = download.url;
+                    document.getElementById('file-size').value = download.size || '';
+                }
+            }
+            
+            modal.classList.add('show');
+        }
+        
+        // Fechar modal
+        function closeModal() {
+            const modal = document.getElementById('modal-form');
+            modal.classList.remove('show');
+        }
+        
+        // Adicionar/Editar download
+        document.getElementById('download-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('download-id').value;
+            const downloadData = {
+                id: id ? parseInt(id) : Date.now(),
+                name: document.getElementById('file-name').value,
+                description: document.getElementById('file-description').value,
+                type: document.getElementById('file-type').value,
+                url: document.getElementById('file-url').value,
+                size: document.getElementById('file-size').value,
+                downloads: 0,
+                date: new Date().toISOString().split('T')[0]
+            };
+            
+            if (id) {
+                // Editar
+                const index = downloads.findIndex(d => d.id === parseInt(id));
+                if (index !== -1) {
+                    downloads[index] = { ...downloads[index], ...downloadData };
+                }
+            } else {
+                // Adicionar
+                downloads.unshift(downloadData);
+            }
+            
+            saveToLocalStorage();
+            renderTable();
+            closeModal();
+        });
+        
+        // Editar download
+        function editDownload(id) {
+            openModal('edit', id);
+        }
+        
+        // Excluir download
+        function deleteDownload(id) {
+            if (confirm('Tem certeza que deseja excluir este download?')) {
+                downloads = downloads.filter(d => d.id !== id);
+                saveToLocalStorage();
+                renderTable();
+            }
+        }
+        
+        // Filtrar downloads
+        function filterDownloads() {
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const filteredDownloads = downloads.filter(download => 
+                download.name.toLowerCase().includes(searchTerm) ||
+                (download.description && download.description.toLowerCase().includes(searchTerm)) ||
+                download.type.toLowerCase().includes(searchTerm)
+            );
+            
+            const tbody = document.getElementById('downloads-tbody');
+            
+            if (filteredDownloads.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="empty-state">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                            <p>Nenhum resultado encontrado</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            tbody.innerHTML = filteredDownloads.map(download => `
+                <tr>
+                    <td>
+                        <div class="file-info">
+                            <div class="file-icon">
+                                <svg viewBox="0 0 24 24"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                            </div>
+                            <div>
+                                <div class="file-name">${download.name}</div>
+                                <div class="file-description">${download.description || '-'}</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="badge badge-${download.type}">${download.type.toUpperCase()}</span></td>
+                    <td>${download.size || '-'}</td>
+                    <td>${formatDate(download.date)}</td>
+                    <td>${download.downloads || 0}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-icon btn-edit" onclick="editDownload(${download.id})" title="Editar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            </button>
+                            <button class="btn-icon btn-delete" onclick="deleteDownload(${download.id})" title="Excluir">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        // Logout
+        function logout() {
+            if (confirm('Deseja realmente sair?')) {
+                sessionStorage.removeItem('adminLoggedIn');
+                sessionStorage.removeItem('adminEmail');
+                window.location.href = 'admin-login.html';
+            }
+        }
+        
+        // Fechar modal ao clicar fora
+        document.getElementById('modal-form').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Inicializar
+        renderTable();
+    </script>
+</body>
+</html>

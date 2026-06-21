@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Downloads de materiais e documentos - Ivonei Ferreira Eletrotécnico">
+    <title>Downloads - Ivonei Ferreira Eletrotécnico</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --color-primary: #003366;
+            --color-secondary: #FF8C00;
+            --color-light: #f8fafc;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--color-light);
+            color: #1e293b;
+        }
+        
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--color-primary);
+            color: white;
+            border-bottom: 4px solid var(--color-secondary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .logo-icon {
+            background: var(--color-secondary);
+            padding: 0.625rem;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .logo-text h1 {
+            font-weight: 900;
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: -0.025em;
+        }
+        
+        .logo-subtitle {
+            color: var(--color-secondary);
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .btn-back {
+            background: transparent;
+            border: 2px solid var(--color-secondary);
+            color: var(--color-secondary);
+            padding: 0.625rem 1.25rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+        
+        .btn-back:hover {
+            background: var(--color-secondary);
+            color: white;
+        }
+        
+        /* Hero Section */
+        .hero-downloads {
+            background: linear-gradient(135deg, var(--color-primary) 0%, #001f3f 100%);
+            color: white;
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+        }
+        
+        .hero-downloads h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-downloads p {
+            font-size: 1.125rem;
+            color: #bfdbfe;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+        
+        /* Downloads Grid */
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+        
+        .download-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--color-secondary);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .download-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+        }
+        
+        .download-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .file-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--color-secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .file-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: white;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .download-info {
+            flex: 1;
+        }
+        
+        .file-name {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .file-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .badge-pdf { background: #fee; color: #c00; }
+        .badge-doc { background: #e0e7ff; color: #3730a3; }
+        .badge-xls { background: #d1fae5; color: #065f46; }
+        .badge-zip { background: #fef3c7; color: #92400e; }
+        .badge-img { background: #fce7f3; color: #9f1239; }
+        .badge-other { background: #f1f5f9; color: #475569; }
+        
+        .file-description {
+            color: #64748b;
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin: 1rem 0;
+            flex: 1;
+        }
+        
+        .file-meta {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .meta-item svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+        }
+        
+        .btn-download {
+            background: var(--color-secondary);
+            color: white;
+            padding: 0.875rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-decoration: none;
+        }
+        
+        .btn-download:hover {
+            background: #e07b00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255,140,0,0.3);
+        }
+        
+        .btn-download svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #64748b;
+        }
+        
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            stroke: #cbd5e1;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--color-primary);
+            color: white;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        footer p {
+            font-size: 0.875rem;
+            color: #94a3b8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-downloads h2 {
+                font-size: 1.75rem;
+            }
+            
+            .downloads-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                </div>
+                <div class="logo-text">
+                    <h1>Ivonei Ferreira</h1>
+                    <div class="logo-subtitle">Eletrotécnico</div>
+                </div>
+            </a>
+            <a href="index.html" class="btn-back">Voltar ao Site</a>
+        </div>
+    </header>
+    
+    <!-- Hero -->
+    <section class="hero-downloads">
+        <h2>Downloads</h2>
+        <p>Materiais técnicos, catálogos e documentos para download</p>
+    </section>
+    
+    <!-- Downloads -->
+    <div class="container">
+        <div class="downloads-grid" id="downloads-grid">
+            <!-- Conteúdo carregado dinamicamente -->
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Ivonei Ferreira Eletrotécnico. Todos os direitos reservados. | Irecê - BA</p>
+        <p style="margin-top: 0.5rem; font-size: 0.75rem;">Serviços em conformidade com NBR 5410 e NR-10</p>
+    </footer>
+    
+    <!-- Dados dos Downloads -->
+    <script src="downloads-data.js"></script>
+    
+    <script>
+        // Carregar downloads do arquivo de dados
+        let downloads = getAllDownloads();
+        
+        // Renderizar downloads
+        function renderDownloads() {
+            const grid = document.getElementById('downloads-grid');
+            
+            if (downloads.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        <h3>Nenhum download disponível</h3>
+                        <p>Os materiais estarão disponíveis em breve.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = downloads.map(download => `
+                <div class="download-card">
+                    <div class="download-header">
+                        <div class="file-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                                <polyline points="13 2 13 9 20 9"></polyline>
+                            </svg>
+                        </div>
+                        <div class="download-info">
+                            <div class="file-name">${download.name}</div>
+                            <span class="file-type badge-${download.type}">${download.type.toUpperCase()}</span>
+                        </div>
+                    </div>
+                    
+                    <p class="file-description">${download.description || 'Documento disponível para download.'}</p>
+                    
+                    <div class="file-meta">
+                        ${download.size ? `
+                            <div class="meta-item">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                ${download.size}
+                            </div>
+                        ` : ''}
+                        <div class="meta-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            ${formatDate(download.date)}
+                        </div>
+                    </div>
+                    
+                    <a href="${download.url}" target="_blank" class="btn-download" onclick="incrementDownload(${download.id})">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="7 10 12 15 17 10"></polyline>
+                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                        </svg>
+                        Fazer Download
+                    </a>
+                </div>
+            `).join('');
+        }
+        
+        // Formatar data
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('pt-BR');
+        }
+        
+        // Incrementar contador de downloads
+        function incrementDownload(id) {
+            incrementDownloadCount(id);
+        }
+        
+        // Inicializar
+        renderDownloads();
+    </script>
+</body>
+</html>
