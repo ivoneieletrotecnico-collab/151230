@@ -6,7 +6,7 @@
 ╚════════════════════════════════════════════════════════════════╝
 
 ✅ Seus arquivos estão no GitHub:
-   https://github.com/eletrotcnico151230/ivonei-eletrotecnico
+   https://github.com/ivoneieletrotecnico-collab/151230
 
 
 🚀 ÚLTIMO PASSO - CONFIGURAR NETLIFY (2 minutos)
@@ -38,7 +38,7 @@
    4. Se pedir, autorize o Netlify a acessar seus repositórios
    
    5. Procure e selecione:
-      📁 eletrotcnico151230/ivonei-eletrotecnico
+      📁 ivoneieletrotecnico-collab/151230
 
 
 3️⃣  CONFIGURAR O DEPLOY
@@ -96,7 +96,7 @@
    
    
    URL FINAL:
-   👉 https://ivonei-eletrotecnico.netlify.app
+   👉 https://eletrotecnico.vercel.app
 
 
 ═══════════════════════════════════════════════════════════════
@@ -135,9 +135,9 @@ A partir de agora, sempre que você fizer alterações:
 
 🔗 LINKS IMPORTANTES:
 
-GitHub (código):     https://github.com/eletrotcnico151230/ivonei-eletrotecnico
+GitHub (código):     https://github.com/ivoneieletrotecnico-collab/151230
 Netlify (deploy):    https://app.netlify.com
-Site em produção:    https://ivonei-eletrotecnico.netlify.app (após deploy)
+Site em produção:    https://eletrotecnico.vercel.app (após deploy)
 
 
 ═══════════════════════════════════════════════════════════════

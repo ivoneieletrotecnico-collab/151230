@@ -1,9 +1,11 @@
+
 <!doctype html>
 <html lang="pt-BR" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Landing page profissional de Ivonei Ferreira Eletrotecnico, com projetos, instalacoes, laudos e atendimento em Irece e regiao." />
+    <link rel="canonical" href="https://eletrotecnico.vercel.app/" />
     <title>Ivonei Ferreira Eletrotécnico | Instalações e Projetos Elétricos</title>
     <script>
       (function () {
@@ -99,7 +101,7 @@
   <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
 
     <!-- 1. HEADER (Cabeçalho) -->
-    <header id="site-header" class="sticky top-0 z-40 bg-[#003366] text-white border-b-4 border-[#FF8C00] shadow-sm">
+    <header class="sticky top-0 z-40 bg-[#003366] text-white border-b-4 border-[#FF8C00] shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           
@@ -120,22 +122,22 @@
 
           <!-- Desktop Navigation -->
           <nav class="hidden lg:flex space-x-8 text-xs font-semibold uppercase tracking-wider">
-            <button type="button" data-nav-target="inicio" onclick="scrollToSection('inicio')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline bg-transparent border-0 p-0">
+            <button type="button" onclick="scrollToSection('inicio')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Início
             </button>
-            <button type="button" data-nav-target="sobre" onclick="scrollToSection('sobre')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline bg-transparent border-0 p-0">
+            <button type="button" onclick="scrollToSection('sobre')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Sobre Nós
             </button>
-            <button type="button" data-nav-target="servicos" onclick="scrollToSection('servicos')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline bg-transparent border-0 p-0">
+            <button type="button" onclick="scrollToSection('servicos')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Serviços
             </button>
-            <button type="button" data-nav-target="diferenciais" onclick="scrollToSection('diferenciais')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline bg-transparent border-0 p-0">
+            <button type="button" onclick="scrollToSection('diferenciais')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Diferenciais
             </button>
-            <a href="/downloads.html" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline font-semibold">
+            <a href="/downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
               Downloads
             </a>
-            <button type="button" data-nav-target="contato" onclick="scrollToSection('contato')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all no-underline bg-transparent border-0 p-0">
+            <button type="button" onclick="scrollToSection('contato')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
               Contato
             </button>
           </nav>
@@ -149,7 +151,7 @@
 
           <!-- Mobile Menu Button -->
           <div class="lg:hidden">
-            <button id="mobile-menu-btn" class="p-2 rounded-sm hover:bg-[#002244] transition-colors text-white focus:outline-none" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
+            <button id="mobile-menu-btn" class="p-2 rounded-sm hover:bg-[#002244] transition-colors text-white focus:outline-none" aria-label="Toggle Menu">
               <i data-lucide="menu" id="menu-icon" class="h-6 w-6"></i>
               <i data-lucide="x" id="close-icon" class="h-6 w-6 hidden"></i>
             </button>
@@ -160,22 +162,22 @@
 
       <!-- Mobile Navigation Panel -->
       <div id="mobile-menu" class="hidden lg:hidden bg-[#002244] border-t border-slate-800 py-4 px-6 space-y-3 shadow-inner">
-        <button type="button" data-nav-target="inicio" onclick="scrollToSection('inicio')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline bg-transparent border-0">
+        <button type="button" onclick="scrollToSection('inicio')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Início
         </button>
-        <button type="button" data-nav-target="sobre" onclick="scrollToSection('sobre')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline bg-transparent border-0">
+        <button type="button" onclick="scrollToSection('sobre')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Sobre Nós
         </button>
-        <button type="button" data-nav-target="servicos" onclick="scrollToSection('servicos')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline bg-transparent border-0">
+        <button type="button" onclick="scrollToSection('servicos')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Serviços
         </button>
-        <button type="button" data-nav-target="diferenciais" onclick="scrollToSection('diferenciais')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline bg-transparent border-0">
+        <button type="button" onclick="scrollToSection('diferenciais')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Diferenciais
         </button>
-        <a href="/downloads.html" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline">
+        <a href="/downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Downloads
         </a>
-        <button type="button" data-nav-target="contato" onclick="scrollToSection('contato')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider no-underline bg-transparent border-0">
+        <button type="button" onclick="scrollToSection('contato')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
           Contato
         </button>
         <div class="pt-2">
@@ -228,7 +230,7 @@
                 <i data-lucide="arrow-right" class="h-4 w-4 transform transition-transform group-hover:translate-x-1"></i>
               </button>
 
-              <a 
+              <button 
                 type="button"
                 onclick="scrollToSection('servicos')"
                 class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto"
@@ -469,15 +471,6 @@
                 Soluções completas abrangendo estruturação completa da fiação, cálculo e adequação de carga elétrica ideal, montagem e organização de quadros de distribuição, e adaptação ao padrão de entrada correto exigido pela concessionária. Seguimos à risca cada norma estabelecida pela <strong class="font-semibold text-slate-800">ABNT NBR 5410</strong> para fiação segura de baixa tensão.
               </p>
             </div>
-
-            <button
-              type="button"
-              onclick="openResidentialDetails()"
-              class="inline-flex items-center gap-2 text-[10px] font-mono font-black tracking-widest uppercase text-[#003366] hover:text-[#FF8C00] transition-colors cursor-pointer border-none bg-transparent p-0 focus:outline-none mt-4"
-            >
-              <span>Saber mais</span>
-              <i data-lucide="plus" class="h-3 w-3"></i>
-            </button>
 
             <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
               <span>PADRÃO: ABNT NBR 5410</span>
@@ -763,7 +756,7 @@
                 Adicione novos links de download ou remova os existentes. As mudanças são enviadas ao servidor e ficam públicas para todos.
               </p>
             </div>
-            <a href="/downloads.html" class="inline-flex items-center justify-center rounded-sm border border-[#FF8C00] bg-[#FF8C00] px-4 py-3 text-xs font-black uppercase tracking-wider text-white no-underline hover:bg-[#e57d00] transition-colors">
+            <a href="/downloads" class="inline-flex items-center justify-center rounded-sm border border-[#FF8C00] bg-[#FF8C00] px-4 py-3 text-xs font-black uppercase tracking-wider text-white no-underline hover:bg-[#e57d00] transition-colors">
               Abrir Downloads Públicos
             </a>
           </div>
@@ -1240,13 +1233,13 @@
                 Links oficiais
               </h4>
               <div class="space-y-3 text-sm">
-                <a href="https://vercel.com/ivonei-eletrotecnico/151230" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
-                  Projeto no Vercel
+                <a href="https://eletrotecnico.vercel.app/" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                  Site publicado no Vercel
                 </a>
-                <a href="/admin-login.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="https://eletrotecnico.vercel.app/admin" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Painel de Gestão
                 </a>
-                <a href="/downloads.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="https://eletrotecnico.vercel.app/downloads" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Downloads Públicos
                 </a>
                 <a href="https://github.com/ivoneieletrotecnico-collab/151230" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
@@ -1281,99 +1274,7 @@
     </footer>
 
     <!-- DYNAMIC ALERTS AND DIALOGS SYSTEM -->
-    <!-- 1. Residential Details Modal -->
-    <div id="residential-details-modal" class="hidden fixed inset-0 z-[95] bg-slate-950/75 backdrop-blur-sm p-4 sm:p-6 overflow-y-auto">
-      <div class="min-h-full flex items-start sm:items-center justify-center">
-        <div class="w-full max-w-4xl bg-white rounded-sm shadow-2xl border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-200 animate-fadeIn">
-          <div class="flex items-start justify-between gap-4 px-6 sm:px-8 py-6 border-b border-slate-200">
-            <div class="space-y-2">
-              <span class="text-[#FF8C00] font-mono text-[10px] font-black uppercase tracking-widest block">Instalações Residenciais</span>
-              <h3 class="font-display font-black text-xl sm:text-2xl text-[#003366] uppercase tracking-tight leading-tight">
-                ⚡ Estruturação Completa de Fiação
-              </h3>
-              <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-light max-w-2xl">
-                Sua instalação elétrica não pode depender de improvisos. Com a Estruturação Completa de Fiação, criamos uma infraestrutura elétrica organizada, segura e durável, preparada para suportar o uso diário sem surpresas na conta de luz.
-              </p>
-            </div>
-            <button
-              type="button"
-              onclick="closeResidentialDetails()"
-              class="shrink-0 text-slate-400 hover:text-[#003366] transition-colors cursor-pointer border-none bg-transparent p-1 focus:outline-none"
-              aria-label="Fechar detalhes"
-            >
-              <i data-lucide="x" class="h-6 w-6"></i>
-            </button>
-          </div>
-
-          <div class="px-6 sm:px-8 py-6 sm:py-8 space-y-8 text-slate-700">
-            <section class="space-y-3">
-              <h4 class="font-display font-black text-lg text-[#003366] uppercase tracking-tight">🧰 Lançamento e Organização Profissional de Cabos</h4>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Realizamos o lançamento de todo o cabeamento com técnica e planejamento, garantindo que cada circuito receba o material e a bitola corretos.
-              </p>
-              <ul class="space-y-2 text-sm sm:text-base leading-relaxed font-light list-disc pl-5 marker:text-[#FF8C00]">
-                <li>Dimensionamento adequado dos cabos para cada circuito</li>
-                <li>Passagem de fios sem danificar a isolação</li>
-                <li>Respeito à capacidade dos eletrodutos e trajetos bem planejados</li>
-                <li>Organização dos cabos dentro dos conduítes e quadros de distribuição</li>
-              </ul>
-              <p class="text-sm sm:text-base leading-relaxed font-semibold text-slate-800">
-                Resultado: nada de fio embolado, improviso ou “gambiarra” escondida.
-              </p>
-            </section>
-
-            <section class="space-y-3 border-t border-slate-100 pt-6">
-              <h4 class="font-display font-black text-lg text-[#003366] uppercase tracking-tight">🛡️ Materiais Certificados e de Alta Qualidade</h4>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Trabalhamos apenas com materiais certificados e homologados, garantindo segurança e confiabilidade em toda a instalação:
-              </p>
-              <ul class="space-y-2 text-sm sm:text-base leading-relaxed font-light list-disc pl-5 marker:text-[#FF8C00]">
-                <li>Cabos com selo do Inmetro</li>
-                <li>Eletrodutos, conexões e canaletas de marcas confiáveis</li>
-                <li>Terminais, conexões e dispositivos adequados para evitar aquecimento e mau contato</li>
-              </ul>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Isso aumenta a vida útil do sistema elétrico e reduz o risco de falhas, curtos e incêndios.
-              </p>
-            </section>
-
-            <section class="space-y-3 border-t border-slate-100 pt-6">
-              <h4 class="font-display font-black text-lg text-[#003366] uppercase tracking-tight">📍 Infraestrutura Limpa, Organizada e Rastreável</h4>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Criamos uma instalação elétrica que pode ser entendida e mantida com facilidade no futuro. Toda a fiação é projetada para ser:
-              </p>
-              <ul class="space-y-2 text-sm sm:text-base leading-relaxed font-light list-disc pl-5 marker:text-[#FF8C00]">
-                <li>Limpa – cabos bem acomodados, sem excesso ou desordem</li>
-                <li>Organizada – circuitos identificados por ambiente ou função</li>
-                <li>Rastreável – é possível saber de onde vem e para onde vai cada circuito</li>
-              </ul>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Essa abordagem facilita manutenções, ampliações de carga e instalação de novos equipamentos, como chuveiros, ar-condicionado, fornos elétricos e muito mais.
-              </p>
-            </section>
-
-            <section class="space-y-3 border-t border-slate-100 pt-6">
-              <h4 class="font-display font-black text-lg text-[#003366] uppercase tracking-tight">⚠️ Redução de Fugas de Corrente e Problemas Ocultos</h4>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Uma instalação mal executada pode gerar:
-              </p>
-              <ul class="space-y-2 text-sm sm:text-base leading-relaxed font-light list-disc pl-5 marker:text-[#FF8C00]">
-                <li>Fugas de corrente em emendas mal feitas</li>
-                <li>Superaquecimento de cabos</li>
-                <li>Desarme constante de disjuntores ou DR</li>
-                <li>Risco de choques e curtos-circuitos</li>
-              </ul>
-              <p class="text-sm sm:text-base leading-relaxed font-light">
-                Nossa estruturação é pensada para evitar esses problemas desde o início, com boa execução, materiais adequados e conformidade com normas técnicas, como a NBR 5410.
-              </p>
-            </section>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. Custom Alert Dialog Modal -->
+    <!-- 1. Custom Alert Dialog Modal -->
     <div id="custom-alert-container" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm select-none">
       <div class="bg-white rounded-sm border-t-4 border-l border-r border-b border-l-slate-200 border-r-slate-200 border-b-slate-200 border-t-[#FF8C00] max-w-md w-full p-6 space-y-4 shadow-2xl relative animate-fadeIn">
         <div class="flex items-start gap-3">
@@ -1396,7 +1297,7 @@
       </div>
     </div>
 
-    <!-- 3. Custom Confirm Dialog Modal -->
+    <!-- 2. Custom Confirm Dialog Modal -->
     <div id="custom-confirm-container" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-sm select-none">
       <div class="bg-white rounded-sm border-t-4 border-l border-r border-b border-l-slate-200 border-r-slate-200 border-b-slate-200 border-t-red-655 max-w-sm w-full p-6 space-y-4 shadow-2xl relative animate-fadeIn">
         <div class="flex items-start gap-4">
@@ -1476,7 +1377,7 @@
           name: 'Portfólio de Projetos | Ivonei Ferreira',
           description: 'Apresentação técnica unificada compilando projetos comerciais, subestações e laudos já entregues com ART/CRT.',
           type: 'pdf',
-          url: 'https://wa.me/5574988259925',
+          url: 'https://wa.me/5574988259925?text=Ola!%20Gostaria%20de%20receber%20o%20Portfolio%20de%20Projetos%20Ivonei%20Ferreira.',
           size: '3.5 MB',
           downloads: 215,
           date: '2024-03-05'
@@ -1694,75 +1595,34 @@
       // Initialize Lucide Icons in the browser DOM
       lucide.createIcons();
 
-      // Navigation behavior
-      const siteHeader = document.getElementById('site-header');
+      // Mobile Menu functionality
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
       const menuIcon = document.getElementById('menu-icon');
       const closeIcon = document.getElementById('close-icon');
-      const navButtons = Array.from(document.querySelectorAll('[data-nav-target]'));
-      const sectionIds = ['inicio', 'sobre', 'servicos', 'diferenciais', 'contato'];
 
-      function getHeaderOffset() {
-        return (siteHeader?.offsetHeight || 0) + 16;
-      }
-
-      function toggleMobileMenu(forceOpen) {
-        const shouldOpen = typeof forceOpen === 'boolean'
-          ? forceOpen
-          : mobileMenu.classList.contains('hidden');
-
-        mobileMenu.classList.toggle('hidden', !shouldOpen);
-        menuIcon.classList.toggle('hidden', shouldOpen);
-        closeIcon.classList.toggle('hidden', !shouldOpen);
-        mobileMenuBtn?.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-      }
-
-      function closeMobileMenu() {
-        toggleMobileMenu(false);
-      }
-
-      function setActiveNavigation(targetId) {
-        navButtons.forEach((button) => {
-          const isActive = button.dataset.navTarget === targetId;
-          button.classList.toggle('text-[#FF8C00]', isActive);
-          button.classList.toggle('after:w-full', isActive);
-          button.setAttribute('aria-current', isActive ? 'page' : 'false');
-        });
-      }
-
-      function getCurrentSectionId() {
-        const scrollPosition = window.scrollY + getHeaderOffset() + 120;
-        let currentSection = 'inicio';
-
-        sectionIds.forEach((id) => {
-          if (id === 'inicio') return;
-          const section = document.getElementById(id);
-          if (section && scrollPosition >= section.offsetTop) {
-            currentSection = id;
-          }
-        });
-
-        return currentSection;
-      }
-
-      function syncActiveNavigation() {
-        setActiveNavigation(getCurrentSectionId());
-      }
-
-      mobileMenuBtn?.addEventListener('click', () => {
-        toggleMobileMenu();
+      mobileMenuBtn.addEventListener('click', () => {
+        const isClosed = mobileMenu.classList.contains('hidden');
+        if (isClosed) {
+          mobileMenu.classList.remove('hidden');
+          menuIcon.classList.add('hidden');
+          closeIcon.classList.remove('hidden');
+        } else {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        }
       });
 
       // Auto-hide mobile navigation panel on link click
-      const mobileLinks = mobileMenu?.querySelectorAll('a, button') || [];
-      mobileLinks.forEach((link) => {
-        link.addEventListener('click', closeMobileMenu);
+      const mobileLinks = mobileMenu.querySelectorAll('a, button');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          menuIcon.classList.remove('hidden');
+          closeIcon.classList.add('hidden');
+        });
       });
-
-      window.addEventListener('scroll', syncActiveNavigation, { passive: true });
-      window.addEventListener('resize', syncActiveNavigation);
-      syncActiveNavigation();
 
       // Redirect helper for WhatsApp integration
       function handleWhatsAppRedirect(customMessage) {
@@ -1771,29 +1631,10 @@
         window.open(url, "_blank");
       }
 
-      function openResidentialDetails() {
-        document.getElementById('residential-details-modal')?.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-        lucide.createIcons();
-      }
-
-      function closeResidentialDetails() {
-        document.getElementById('residential-details-modal')?.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-      }
-
       function scrollToSection(id) {
         const target = document.getElementById(id);
         if (target) {
-          const targetTop = id === 'inicio'
-            ? 0
-            : target.getBoundingClientRect().top + window.scrollY - getHeaderOffset();
-
-          window.scrollTo({
-            top: Math.max(targetTop, 0),
-            behavior: 'smooth'
-          });
-          setActiveNavigation(id);
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
 
@@ -2072,7 +1913,6 @@
           ` : '';
 
           const fileType = item.type ? item.type.toUpperCase() : 'PDF';
-          const actionMeta = getDownloadActionMeta(item);
           
           let badgeClass = 'bg-slate-100 text-slate-800';
           if (item.type === 'pdf') badgeClass = 'bg-red-50 text-red-700 border border-red-100';
@@ -2114,9 +1954,6 @@
                 <p class="text-slate-600 text-xs leading-relaxed font-light">
                   ${escapeHtml(item.description || item.desc)}
                 </p>
-                <p class="text-[10px] uppercase tracking-widest font-mono font-bold text-slate-400">
-                  ${escapeHtml(actionMeta.helperText)}
-                </p>
               </div>
             </div>
 
@@ -2127,14 +1964,14 @@
                 ${item.size || 'N/A'}
               </span>
               <a 
-                href="${actionMeta.href}" 
+                href="${sanitizeUrl(item.url)}" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 onclick="incrementDownloadCount(${item.id})"
                 class="bg-slate-50 hover:bg-[#FF8C00] text-slate-700 hover:text-white transition-all text-[11px] font-bold uppercase tracking-wider h-10 px-4 rounded-sm flex items-center justify-center gap-2 cursor-pointer border border-slate-200 hover:border-transparent no-underline flex-1"
               >
                 <i data-lucide="download" class="h-3.5 w-3.5"></i>
-                <span>${escapeHtml(actionMeta.label)}</span>
+                <span>Download</span>
               </a>
             </div>
           </div>
@@ -2401,18 +2238,6 @@
         }
       });
 
-      document.getElementById('residential-details-modal')?.addEventListener('click', (event) => {
-        if (event.target?.id === 'residential-details-modal') {
-          closeResidentialDetails();
-        }
-      });
-
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') {
-          closeResidentialDetails();
-        }
-      });
-
       function escapeHtml(str) {
         if (!str) return '';
         return str
@@ -2434,57 +2259,6 @@
         } catch {
           return '#';
         }
-      }
-
-      function isPlaceholderDownloadUrl(url) {
-        const safeUrl = sanitizeUrl(url);
-        if (safeUrl === '#') return true;
-
-        try {
-          const parsedUrl = new URL(safeUrl, window.location.origin);
-          return ['exemplo.com', 'www.exemplo.com'].includes(parsedUrl.hostname);
-        } catch {
-          return true;
-        }
-      }
-
-      function buildDownloadRequestUrl(name) {
-        const requestMessage = `Ola! Gostaria de receber o material "${name || 'solicitado'}".`;
-        return `https://wa.me/5574988259925?text=${encodeURIComponent(requestMessage)}`;
-      }
-
-      function getDownloadActionMeta(download) {
-        const safeUrl = sanitizeUrl(download?.url || '');
-
-        if (isPlaceholderDownloadUrl(safeUrl)) {
-          return {
-            href: buildDownloadRequestUrl(download?.name),
-            label: 'Solicitar arquivo',
-            helperText: 'Arquivo enviado sob demanda no WhatsApp.'
-          };
-        }
-
-        if (safeUrl.includes('wa.me/')) {
-          return {
-            href: safeUrl,
-            label: 'Pedir no WhatsApp',
-            helperText: 'Atendimento direto para liberar o material.'
-          };
-        }
-
-        if (safeUrl.startsWith('mailto:') || safeUrl.startsWith('tel:')) {
-          return {
-            href: safeUrl,
-            label: 'Entrar em contato',
-            helperText: 'Canal direto para solicitar o material.'
-          };
-        }
-
-        return {
-          href: safeUrl,
-          label: 'Download',
-          helperText: 'Link publico disponivel para abertura imediata.'
-        };
       }
 
       // Handle Authentication Form Submission

@@ -56,7 +56,7 @@ PRONTO! ✅
 
 2. Add new site > Import from GitHub
 
-3. Selecione: eletrotcnico151230/ivonei-eletrotecnico
+3. Selecione: ivoneieletrotecnico-collab/151230
 
 4. Configuração:
    Branch: main
@@ -80,9 +80,9 @@ PRONTO! ✅
 ════════════════════════════════════════════════════════════════
 
 Após configurar:
-• Site publicado no Netlify
+• Site publicado no Vercel
 • Deploy automático a cada push
-• URL: https://ivonei-eletrotecnico.netlify.app
+• URL: https://eletrotecnico.vercel.app
 
 
 ═══════════════════════════════════════════════════════════════

@@ -6,6 +6,10 @@ Landing page estatica para divulgacao de servicos eletricos.
 
 `https://github.com/ivoneieletrotecnico-collab/151230`
 
+## URL publica
+
+`https://eletrotecnico.vercel.app/`
+
 ## Executar localmente
 
 1. Instale as dependencias:

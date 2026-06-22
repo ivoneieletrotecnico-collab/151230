@@ -63,7 +63,7 @@ O arquivo `netlify.toml` já está configurado para:
    ```
 3. O Netlify detecta automaticamente o push
 4. Deploy acontece em segundos
-5. Site atualizado em https://ivonei-eletrotecnico.netlify.app/
+5. Site atualizado em https://eletrotecnico.vercel.app/
 
 ---
 
@@ -99,7 +99,7 @@ git log --oneline
 ## 📱 Testar o Site
 
 Após o deploy:
-- URL: https://ivonei-eletrotecnico.netlify.app/
+- URL: https://eletrotecnico.vercel.app/
 - Testar WhatsApp: (74) 98825-9925
 - Testar formulário de contato
 - Testar menu mobile

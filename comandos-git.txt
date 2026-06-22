@@ -67,7 +67,7 @@ git push
 # LINKS IMPORTANTES
 # ========================================
 
-Site atual: https://ivonei-eletrotecnico.netlify.app/
+Site atual: https://eletrotecnico.vercel.app/
 GitHub: https://github.com
 Netlify: https://app.netlify.com
 Git Download: https://git-scm.com/download/win

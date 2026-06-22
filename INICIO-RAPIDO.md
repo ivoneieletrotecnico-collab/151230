@@ -5,7 +5,7 @@
 - ✅ `index-static.html` - Site completo em HTML puro (pode copiar e usar!)
 - ✅ `netlify.toml` - Configuração Netlify
 - ✅ `.gitignore` - Arquivos ignorados
-- ✅ Site já publicado: https://ivonei-eletrotecnico.netlify.app/
+- ✅ Site já publicado: https://eletrotecnico.vercel.app/
 
 ---
 
@@ -116,7 +116,7 @@ git push
 
 ## 📱 URLs
 
-- **Seu site:** https://ivonei-eletrotecnico.netlify.app/
+- **Seu site:** https://eletrotecnico.vercel.app/
 - **GitHub:** https://github.com/SEU_USUARIO/ivonei-eletrotecnico
 - **Netlify Dashboard:** https://app.netlify.com
 

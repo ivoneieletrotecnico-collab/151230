@@ -4,7 +4,7 @@
 ║                                                                ║
 ╚════════════════════════════════════════════════════════════════╝
 
-✅ SITE JÁ PUBLICADO: https://ivonei-eletrotecnico.netlify.app/
+✅ SITE JÁ PUBLICADO: https://eletrotecnico.vercel.app/
 
 
 📁 ARQUIVO PRINCIPAL

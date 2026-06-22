@@ -87,7 +87,7 @@ cd "c:\Users\User\Downloads\Meus Arquivos baixados\ivonei-ferreira-eletrotécnic
 git remote remove origin
 
 # Adicionar com novo token (SUBSTITUA SEU_TOKEN_AQUI)
-git remote add origin https://SEU_TOKEN_AQUI@github.com/eletrotcnico151230/ivonei-eletrotecnico.git
+git remote add origin https://SEU_TOKEN_AQUI@github.com/ivoneieletrotecnico-collab/151230.git
 
 # Fazer push
 git push -u origin main
@@ -95,7 +95,7 @@ git push -u origin main
 
 **Exemplo (substitua o token):**
 ```powershell
-git remote add origin https://SEU_TOKEN_AQUI@github.com/eletrotcnico151230/ivonei-eletrotecnico.git
+git remote add origin https://SEU_TOKEN_AQUI@github.com/ivoneieletrotecnico-collab/151230.git
 ```
 
 ---
@@ -145,7 +145,7 @@ Delta compression using up to 8 threads
 Compressing objects: 100% (18/18), done.
 Writing objects: 100% (21/21), 54.32 KiB | 5.43 MiB/s, done.
 Total 21 (delta 0), reused 0 (delta 0), pack-reused 0
-To https://github.com/eletrotcnico151230/ivonei-eletrotecnico.git
+To https://github.com/ivoneieletrotecnico-collab/151230.git
  * [new branch]      main -> main
 ```
 
@@ -160,7 +160,7 @@ Depois do push bem-sucedido:
 1. Acesse: https://app.netlify.com
 2. **Add new site** > **Import from GitHub**
 3. Autorize o Netlify
-4. Selecione: **eletrotcnico151230/ivonei-eletrotecnico**
+4. Selecione: **ivoneieletrotecnico-collab/151230**
 5. Configuração:
    ```
    Branch: main

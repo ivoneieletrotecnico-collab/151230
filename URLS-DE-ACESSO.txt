@@ -8,23 +8,23 @@
 📱 SITE PRINCIPAL
 ════════════════════════════════════════════════════════════════
 
-https://ivonei-eletrotecnico.netlify.app/
+https://eletrotecnico.vercel.app/
 
 
 📥 PÁGINA DE DOWNLOADS (PÚBLICA)
 ════════════════════════════════════════════════════════════════
 
-https://ivonei-eletrotecnico.netlify.app/downloads.html
+https://eletrotecnico.vercel.app/downloads
 
 
 🔐 PAINEL ADMINISTRATIVO
 ════════════════════════════════════════════════════════════════
 
 LOGIN:
-https://ivonei-eletrotecnico.netlify.app/admin-login.html
+https://eletrotecnico.vercel.app/admin
 
 PAINEL ADMIN:
-https://ivonei-eletrotecnico.netlify.app/admin-panel.html
+https://eletrotecnico.vercel.app/admin
 
 
 🔑 CREDENCIAIS DE ACESSO
@@ -43,7 +43,7 @@ OPÇÃO 1: Através do menu do site
 - Ou clique em "Downloads" e depois em "Admin"
 
 OPÇÃO 2: Diretamente pela URL
-- Acesse: https://ivonei-eletrotecnico.netlify.app/admin-login.html
+- Acesse: https://eletrotecnico.vercel.app/admin
 - Digite email e senha
 - Clique em "Entrar no Painel"
 
@@ -83,7 +83,7 @@ Dashboard Netlify:
 https://app.netlify.com
 
 Repositório GitHub:
-https://github.com/eletrotcnico151230/ivonei-eletrotecnico
+https://github.com/ivoneieletrotecnico-collab/151230
 
 
 📊 STATUS ATUAL
@@ -100,6 +100,6 @@ https://github.com/eletrotcnico151230/ivonei-eletrotecnico
 
 🎉 TUDO PRONTO!
 
-Acesse: https://ivonei-eletrotecnico.netlify.app/admin-login.html
+Acesse: https://eletrotecnico.vercel.app/admin
 
 Faça login e comece a gerenciar seus downloads!

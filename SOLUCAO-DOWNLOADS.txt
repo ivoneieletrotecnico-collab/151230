@@ -33,7 +33,7 @@ Criado arquivo downloads-data.js com:
 ════════════════════════════════════════════════════════════════
 
 PÁGINA PÚBLICA DE DOWNLOADS:
-https://ivonei-eletrotecnico.netlify.app/downloads.html
+https://eletrotecnico.vercel.app/downloads
 
 Agora você verá 5 downloads de exemplo!
 
@@ -59,7 +59,7 @@ Agora você verá 5 downloads de exemplo!
 ════════════════════════════════════════════════════════════════
 
 OPÇÃO 1: Através do Painel Admin
-1. Acesse: https://ivonei-eletrotecnico.netlify.app/admin-login.html
+1. Acesse: https://eletrotecnico.vercel.app/admin
 2. Faça login
 3. Adicione seus próprios downloads
 4. Os dados sobrescrevem os exemplos
@@ -108,7 +108,7 @@ GOOGLE DRIVE:
 
 Deploy em andamento...
 Aguarde 1-2 minutos e acesse:
-https://ivonei-eletrotecnico.netlify.app/downloads.html
+https://eletrotecnico.vercel.app/downloads
 
 
 ✅ FUNCIONALIDADES INCLUÍDAS
@@ -130,12 +130,12 @@ https://ivonei-eletrotecnico.netlify.app/downloads.html
 1. ⏱️ Aguardar deploy do Netlify (1-2 min)
 
 2. 🌐 Acessar página de downloads:
-   https://ivonei-eletrotecnico.netlify.app/downloads.html
+   https://eletrotecnico.vercel.app/downloads
 
 3. ✅ Verificar que os 5 exemplos aparecem
 
 4. 🔐 Fazer login no admin e personalizar:
-   https://ivonei-eletrotecnico.netlify.app/admin-login.html
+   https://eletrotecnico.vercel.app/admin
 
 5. 📤 Fazer upload dos seus PDFs para Google Drive
 
