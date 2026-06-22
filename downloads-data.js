@@ -150,25 +150,49 @@ function normalizeDownloadList(data) {
     return [];
 }
 
+async function parseApiResponse(response, fallbackMessage) {
+    let payload = null;
+
+    try {
+        payload = await response.json();
+    } catch {
+        payload = null;
+    }
+
+    if (response.ok) {
+        return payload;
+    }
+
+    const error = new Error(
+        payload?.message || payload?.error || fallbackMessage || 'A API retornou um erro.'
+    );
+    error.status = response.status;
+    error.payload = payload;
+    throw error;
+}
+
 async function requestDownloads(method, payload = null) {
     const requestOptions = {
         method,
+        credentials: 'include',
         headers: payload ? { 'Content-Type': 'application/json' } : undefined,
         body: payload ? JSON.stringify(payload) : undefined,
         keepalive: method !== 'GET',
     };
 
+    let lastError = null;
+
     for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
         try {
             const response = await fetch(endpoint, requestOptions);
-            if (!response.ok) continue;
-            return await response.json();
+            return await parseApiResponse(response, 'Falha ao processar downloads.');
         } catch (error) {
+            lastError = error;
             console.warn(`Falha ao acessar ${endpoint}:`, error);
         }
     }
 
-    throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
+    throw lastError || new Error('Nenhum endpoint de downloads respondeu com sucesso.');
 }
 
 async function getAllDownloads() {

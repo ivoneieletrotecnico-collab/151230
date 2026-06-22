@@ -26,10 +26,12 @@ try {
   }
 }
 
-try {
-  await cp(resolve(rootDir, 'downloads-data.js'), resolve(distDir, 'downloads-data.js'));
-} catch (error) {
-  if (error?.code !== 'ENOENT') {
-    throw error;
+for (const scriptName of ['downloads-data.js', 'auth-client.js']) {
+  try {
+    await cp(resolve(rootDir, scriptName), resolve(distDir, scriptName));
+  } catch (error) {
+    if (error?.code !== 'ENOENT') {
+      throw error;
+    }
   }
 }

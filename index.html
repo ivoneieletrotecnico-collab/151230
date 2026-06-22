@@ -202,16 +202,16 @@
 
       <!-- Hero Content -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-10 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
           
-          <div class="lg:col-span-8 space-y-6">
+          <div class="lg:col-span-8 space-y-6 lg:pr-4">
             <!-- Badge -->
             <div class="inline-flex items-center space-x-2 bg-[#FF8C00]/20 border border-[#FF8C00]/30 px-3 py-1.5 rounded-sm text-[#FF8C00] text-xs uppercase tracking-wider font-mono font-bold animate-pulse">
               <i data-lucide="shield" class="h-4 w-4"></i>
               <span>Normas NBR 5410 & NR-10 Respeitadas</span>
             </div>
             
-            <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+            <h1 class="font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
               Segurança e Serviços Técnicos de Ponta para o seu <span class="text-[#FF8C00]">Projeto Elétrico</span>
             </h1>
             
@@ -1330,6 +1330,8 @@
       </div>
     </div>
 
+    <script src="auth-client.js"></script>
+
     <!-- JavaScript Interactions Logic & Database Engine -->
     <script>
       // ----------------------------------------------------
@@ -1443,43 +1445,70 @@
       async function requestContactRequests(method, payload = null) {
         const requestOptions = {
           method,
+          credentials: 'include',
           headers: payload ? { 'Content-Type': 'application/json' } : undefined,
           body: payload ? JSON.stringify(payload) : undefined,
           keepalive: method !== 'GET',
         };
 
+        let lastError = null;
+
         for (const endpoint of CONTACT_REQUESTS_API_ENDPOINTS) {
           try {
             const response = await fetch(endpoint, requestOptions);
-            if (!response.ok) continue;
-            return await response.json();
+            return await parseApiResponse(response, 'Falha ao processar solicitações.');
           } catch (error) {
+            lastError = error;
             console.warn(`Falha ao acessar ${endpoint}:`, error);
           }
         }
 
-        throw new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
+        throw lastError || new Error('Nenhum endpoint de solicitações respondeu com sucesso.');
       }
 
       async function requestDownloads(method, payload = null) {
         const requestOptions = {
           method,
+          credentials: 'include',
           headers: payload ? { 'Content-Type': 'application/json' } : undefined,
           body: payload ? JSON.stringify(payload) : undefined,
           keepalive: method !== 'GET',
         };
 
+        let lastError = null;
+
         for (const endpoint of DOWNLOADS_API_ENDPOINTS) {
           try {
             const response = await fetch(endpoint, requestOptions);
-            if (!response.ok) continue;
-            return await response.json();
+            return await parseApiResponse(response, 'Falha ao processar downloads.');
           } catch (error) {
+            lastError = error;
             console.warn(`Falha ao acessar ${endpoint}:`, error);
           }
         }
 
-        throw new Error('Nenhum endpoint de downloads respondeu com sucesso.');
+        throw lastError || new Error('Nenhum endpoint de downloads respondeu com sucesso.');
+      }
+
+      async function parseApiResponse(response, fallbackMessage) {
+        let payload = null;
+
+        try {
+          payload = await response.json();
+        } catch {
+          payload = null;
+        }
+
+        if (response.ok) {
+          return payload;
+        }
+
+        const error = new Error(
+          payload?.message || payload?.error || fallbackMessage || 'A API retornou um erro.'
+        );
+        error.status = response.status;
+        error.payload = payload;
+        throw error;
       }
 
       function normalizeDownloadList(data) {
@@ -1520,7 +1549,7 @@
           saveCachedContactRequests(contactRequestsList);
         } catch (error) {
           console.warn('Usando cache local de solicitações:', error);
-          contactRequestsList = getCachedContactRequests();
+          contactRequestsList = [];
         }
 
         renderContactRequests();
@@ -1875,13 +1904,21 @@
       }
 
       async function loadContactRequests() {
+        if (!isMasterAdmin()) {
+          contactRequestsList = [];
+          renderContactRequests();
+          return [];
+        }
+
         try {
           await loadContactRequestsFromSource();
         } catch (e) {
           console.error("Erro ao carregar solicitações:", e);
-          contactRequestsList = getCachedContactRequests();
+          contactRequestsList = [];
           renderContactRequests();
         }
+
+        return contactRequestsList;
       }
 
       function renderDownloads(customList) {
@@ -2279,9 +2316,10 @@
           const emailVal = emailInput.value.trim().toLowerCase();
           const passwordVal = passwordInput.value;
 
-          if (emailVal === 'ivonei.energia@gmail.com' && (passwordVal === 'Miguel151230@#@#@()' || passwordVal === 'Miguel151230@' || passwordVal === 'Miguel151@')) {
+          try {
+            const session = await window.loginAdmin(emailVal, passwordVal);
             sessionStorage.setItem('adminLoggedIn', 'true');
-            sessionStorage.setItem('adminEmail', emailVal);
+            sessionStorage.setItem('adminEmail', session?.email || emailVal);
             errorMsg.classList.add('hidden');
             emailInput.value = '';
             passwordInput.value = '';
@@ -2289,7 +2327,8 @@
             updateAdminPanelSecs();
             await loadDownloads();
             await loadContactRequests();
-          } else {
+          } catch (error) {
+            console.error('Falha no login do painel:', error);
             errorMsg.classList.remove('hidden');
           }
         });
@@ -2299,8 +2338,16 @@
       const logoutBtn = document.getElementById('admin-logout-btn');
       if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
+          try {
+            await window.logoutAdmin();
+          } catch (error) {
+            console.warn('Falha ao encerrar sessao do painel:', error);
+          }
+
           sessionStorage.removeItem('adminLoggedIn');
           sessionStorage.removeItem('adminEmail');
+          localStorage.removeItem(CONTACT_REQUESTS_CACHE_KEY);
+          contactRequestsList = [];
           resetDownloadEditor();
           updateAdminPanelSecs();
           await loadDownloads();
@@ -2339,12 +2386,13 @@
             url: formData.url
           };
 
-          const isEditing = editingDownloadId !== null;
-          const savedDownload = isEditing
-            ? await updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
-            : await addDownload(payload);
+          try {
+            const isEditing = editingDownloadId !== null;
+            const savedDownload = isEditing
+              ? await updateDownload(Number(editingDownloadId) || editingDownloadId, payload)
+              : await addDownload(payload);
 
-          if (!savedDownload) {
+            if (!savedDownload) {
             showCustomAlert("Erro", "Não foi possível salvar o arquivo. Tente novamente.");
             return;
           }
@@ -2360,6 +2408,10 @@
             btn.innerHTML = originalHTML;
             lucide.createIcons();
           }, 1500);
+          } catch (error) {
+            console.error('Erro ao salvar download:', error);
+            showCustomAlert("Falha ao salvar", error?.message || "NÃ£o foi possÃ­vel salvar o arquivo.");
+            }
         });
       }
 
@@ -2388,11 +2440,16 @@
         }
 
         showCustomConfirm("Remover Download", "Deseja realmente remover este link de download?", "Sim, Remover", async () => {
-          await deleteDownload(Number(id) || id);
-          if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
-            resetDownloadEditor();
+          try {
+            await deleteDownload(Number(id) || id);
+            if (editingDownloadId !== null && Number(editingDownloadId) === Number(id)) {
+              resetDownloadEditor();
+            }
+            await loadDownloads();
+          } catch (error) {
+            console.error('Erro ao remover download:', error);
+            showCustomAlert("Falha ao remover", error?.message || "Nao foi possivel remover o download.");
           }
-          await loadDownloads();
         });
       };
 
@@ -2425,9 +2482,14 @@
           }
 
           showCustomConfirm("Restaurar Biblioteca", "Deseja restaurar a biblioteca de links para o padrão original?", "Sim, Restaurar", async () => {
-            await requestDownloads('POST', { action: 'reset' });
-            resetDownloadEditor();
-            await loadDownloads();
+            try {
+              await requestDownloads('POST', { action: 'reset' });
+              resetDownloadEditor();
+              await loadDownloads();
+            } catch (error) {
+              console.error('Erro ao restaurar biblioteca:', error);
+              showCustomAlert("Falha ao restaurar", error?.message || "Nao foi possivel restaurar a biblioteca.");
+            }
           });
         });
       }

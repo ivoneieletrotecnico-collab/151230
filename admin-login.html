@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login - Ivonei Ferreira Eletrotécnico</title>
+    <title>Admin Login - Ivonei Ferreira Eletrotecnico</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #003366 0%, #001f3f 100%);
@@ -20,21 +20,21 @@
             justify-content: center;
             padding: 1rem;
         }
-        
+
         .login-container {
             background: white;
             border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             width: 100%;
             max-width: 400px;
             padding: 2.5rem;
         }
-        
+
         .logo {
             text-align: center;
             margin-bottom: 2rem;
         }
-        
+
         .logo-icon {
             width: 60px;
             height: 60px;
@@ -45,7 +45,7 @@
             justify-content: center;
             margin-bottom: 1rem;
         }
-        
+
         .logo-icon svg {
             width: 32px;
             height: 32px;
@@ -53,22 +53,22 @@
             fill: none;
             stroke-width: 2;
         }
-        
+
         h1 {
             color: #003366;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .subtitle {
             color: #64748b;
             font-size: 0.875rem;
         }
-        
+
         .form-group {
             margin-bottom: 1.5rem;
         }
-        
+
         label {
             display: block;
             color: #003366;
@@ -76,7 +76,7 @@
             margin-bottom: 0.5rem;
             font-size: 0.875rem;
         }
-        
+
         input {
             width: 100%;
             padding: 0.75rem 1rem;
@@ -85,13 +85,13 @@
             font-size: 0.875rem;
             transition: all 0.3s;
         }
-        
+
         input:focus {
             outline: none;
             border-color: #FF8C00;
-            box-shadow: 0 0 0 3px rgba(255,140,0,0.1);
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
         }
-        
+
         .btn-login {
             width: 100%;
             background: #FF8C00;
@@ -106,13 +106,13 @@
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
-        
+
         .btn-login:hover {
             background: #e07b00;
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(255,140,0,0.3);
+            box-shadow: 0 4px 12px rgba(255, 140, 0, 0.3);
         }
-        
+
         .error-message {
             background: #fee;
             color: #c00;
@@ -122,7 +122,7 @@
             margin-bottom: 1rem;
             display: none;
         }
-        
+
         .error-message.show {
             display: block;
         }
@@ -135,53 +135,71 @@
                 <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             </div>
             <h1>Painel Administrativo</h1>
-            <p class="subtitle">Ivonei Ferreira Eletrotécnico</p>
+            <p class="subtitle">Ivonei Ferreira Eletrotecnico</p>
         </div>
-        
+
         <div class="error-message" id="error-message">
-            Email ou senha incorretos
+            Email ou senha incorretos.
         </div>
-        
+
         <form id="login-form">
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" name="email" required placeholder="seu@email.com">
             </div>
-            
+
             <div class="form-group">
                 <label for="password">Senha</label>
-                <input type="password" id="password" name="password" required placeholder="••••••••">
+                <input type="password" id="password" name="password" required placeholder="********">
             </div>
-            
+
             <button type="submit" class="btn-login">Entrar no Painel</button>
         </form>
     </div>
-    
+
+    <script src="auth-client.js"></script>
     <script>
-        // Credenciais (em produção, isso deve estar no backend!)
-        const ADMIN_EMAIL = 'ivonei.energia@gmail.com';
-        const ADMIN_PASSWORDS = ['Miguel151230@#@#@()', 'Miguel151230@', 'Miguel151@'];
-        
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
+        const loginForm = document.getElementById('login-form');
+        const errorMessage = document.getElementById('error-message');
+
+        function showLoginError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('show');
+        }
+
+        async function redirectIfAuthenticated() {
+            try {
+                const session = await window.getAdminSessionStatus();
+                if (session?.authenticated) {
+                    window.location.href = '/painel';
+                }
+            } catch (error) {
+                console.warn('Nao foi possivel validar a sessao atual:', error);
+            }
+        }
+
+        loginForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
             const email = document.getElementById('email').value.trim().toLowerCase();
-            const password = document.getElementById('password').value.trim();
-            const errorMessage = document.getElementById('error-message');
-            
-            if (email === ADMIN_EMAIL && ADMIN_PASSWORDS.includes(password)) {
-                // Login bem-sucedido
-                sessionStorage.setItem('adminLoggedIn', 'true');
-                sessionStorage.setItem('adminEmail', email);
-                window.location.href = 'admin-panel.html';
-            } else {
-                // Login falhou
-                errorMessage.classList.add('show');
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                }, 3000);
+            const password = document.getElementById('password').value;
+
+            errorMessage.classList.remove('show');
+
+            try {
+                await window.loginAdmin(email, password);
+                window.location.href = '/painel';
+            } catch (error) {
+                if (error?.status === 503) {
+                    showLoginError('Configure ADMIN_EMAIL, ADMIN_PASSWORD e ADMIN_SESSION_SECRET no Vercel.');
+                    return;
+                }
+
+                showLoginError('Email ou senha incorretos.');
             }
         });
+
+        void redirectIfAuthenticated();
     </script>
 </body>
 </html>

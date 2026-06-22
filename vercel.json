@@ -11,7 +11,7 @@
     },
     {
       "source": "/painel",
-      "destination": "/admin-login.html"
+      "destination": "/admin-panel.html"
     },
     {
       "source": "/downloads",
