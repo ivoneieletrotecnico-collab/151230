@@ -213,23 +213,23 @@ Para ambiente de produção:
 
 ## 🌐 Deploy
 
-### **Para Netlify:**
+### **Para Vercel:**
 
-Os arquivos HTML funcionam perfeitamente no Netlify:
+Os arquivos HTML funcionam perfeitamente no Vercel:
 1. Faça push para GitHub
-2. Configure Netlify
+2. Importe o repositorio no Vercel
 3. Arquivos estáticos funcionam imediatamente
 
 **⚠️ Limitação:** LocalStorage não é compartilhado entre usuários.
 
 ### **Solução para Produção:**
 
-Use Netlify Functions + FaunaDB ou Firebase:
+Use Vercel Functions + FaunaDB, Redis ou Firebase:
 ```
 /admin-login.html       → Interface
 /admin-panel.html       → Interface
 /downloads.html         → Interface
-/.netlify/functions/    → API Backend
+/api/                   → API Backend
 ```
 
 ---

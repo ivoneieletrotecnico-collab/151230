@@ -106,7 +106,7 @@
         <div class="flex justify-between items-center h-20">
           
           <!-- Logo -->
-          <button type="button" onclick="scrollToSection('inicio')" class="flex items-center space-x-3 cursor-pointer no-underline bg-transparent border-0 p-0 text-left">
+          <a href="#inicio" class="flex items-center space-x-3 cursor-pointer no-underline">
             <div class="bg-[#FF8C00] p-2.5 rounded-sm flex items-center justify-center shadow-lg transition-transform hover:scale-105">
               <i data-lucide="zap" class="h-6 w-6 text-white animate-pulse"></i>
             </div>
@@ -118,35 +118,35 @@
                 Eletrotécnico
               </span>
             </div>
-          </button>
+          </a>
 
           <!-- Desktop Navigation -->
           <nav class="hidden lg:flex space-x-8 text-xs font-semibold uppercase tracking-wider">
-            <button type="button" onclick="scrollToSection('inicio')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
+            <a href="#inicio" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Início
-            </button>
-            <button type="button" onclick="scrollToSection('sobre')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
+            </a>
+            <a href="#sobre" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Sobre Nós
-            </button>
-            <button type="button" onclick="scrollToSection('servicos')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
+            </a>
+            <a href="#servicos" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Serviços
-            </button>
-            <button type="button" onclick="scrollToSection('diferenciais')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
+            </a>
+            <a href="#diferenciais" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Diferenciais
-            </button>
-            <a href="/downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
+            </a>
+            <a href="#downloads" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline font-semibold text-[#FF8C00]">
               Downloads
             </a>
-            <button type="button" onclick="scrollToSection('contato')" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline bg-transparent border-0 p-0">
+            <a href="#contato" class="hover:text-[#FF8C00] transition-colors py-2 cursor-pointer relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 hover:after:w-full after:bg-[#FF8C00] after:transition-all text-white no-underline">
               Contato
-            </button>
+            </a>
           </nav>
 
           <!-- Desktop Action Button -->
           <div class="hidden lg:block">
-            <button type="button" onclick="scrollToSection('contato')" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline border-0">
+            <a href="#contato" class="bg-[#FF8C00] text-white px-5 py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg hover:bg-[#e07b00] transition-all duration-300 inline-block no-underline">
               Solicitar Orçamento
-            </button>
+            </a>
           </div>
 
           <!-- Mobile Menu Button -->
@@ -162,28 +162,28 @@
 
       <!-- Mobile Navigation Panel -->
       <div id="mobile-menu" class="hidden lg:hidden bg-[#002244] border-t border-slate-800 py-4 px-6 space-y-3 shadow-inner">
-        <button type="button" onclick="scrollToSection('inicio')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
+        <a href="#inicio" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Início
-        </button>
-        <button type="button" onclick="scrollToSection('sobre')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
+        </a>
+        <a href="#sobre" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Sobre Nós
-        </button>
-        <button type="button" onclick="scrollToSection('servicos')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
+        </a>
+        <a href="#servicos" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Serviços
-        </button>
-        <button type="button" onclick="scrollToSection('diferenciais')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
+        </a>
+        <a href="#diferenciais" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Diferenciais
-        </button>
-        <a href="/downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
+        </a>
+        <a href="#downloads" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Downloads
         </a>
-        <button type="button" onclick="scrollToSection('contato')" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline bg-transparent border-0">
+        <a href="#contato" class="block w-full text-left py-2 hover:text-[#FF8C00] transition-colors text-xs font-semibold uppercase tracking-wider text-white no-underline">
           Contato
-        </button>
+        </a>
         <div class="pt-2">
-          <button type="button" onclick="scrollToSection('contato')" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline border-0">
+          <a href="#contato" class="w-full bg-[#FF8C00] text-white hover:bg-[#e07b00] text-center block py-2.5 rounded-sm font-bold text-xs uppercase tracking-widest shadow-lg no-underline">
             Solicitar Orçamento
-          </button>
+          </a>
         </div>
       </div>
     </header>
@@ -202,16 +202,16 @@
 
       <!-- Hero Content -->
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative z-10 w-full">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <div class="lg:col-span-8 space-y-6 lg:pr-4">
+          <div class="lg:col-span-8 space-y-6">
             <!-- Badge -->
             <div class="inline-flex items-center space-x-2 bg-[#FF8C00]/20 border border-[#FF8C00]/30 px-3 py-1.5 rounded-sm text-[#FF8C00] text-xs uppercase tracking-wider font-mono font-bold animate-pulse">
               <i data-lucide="shield" class="h-4 w-4"></i>
               <span>Normas NBR 5410 & NR-10 Respeitadas</span>
             </div>
             
-            <h1 class="font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+            <h1 class="font-display font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
               Segurança e Serviços Técnicos de Ponta para o seu <span class="text-[#FF8C00]">Projeto Elétrico</span>
             </h1>
             
@@ -230,13 +230,12 @@
                 <i data-lucide="arrow-right" class="h-4 w-4 transform transition-transform group-hover:translate-x-1"></i>
               </button>
 
-              <button 
-                type="button"
-                onclick="scrollToSection('servicos')"
+              <a
+                href="#servicos"
                 class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto"
               >
                 Conhecer Serviços
-              </button>
+              </a>
             </div>
 
             <!-- Quick Info Grid -->
@@ -361,7 +360,7 @@
               </div>
               <div>
                 <p class="text-[10px] text-slate-500 uppercase font-mono tracking-widest font-black">CRT Emitido</p>
-                <p class="text-xs font-bold text-slate-800">Garantia Técnico Total</p>
+                <p class="text-xs font-bold text-slate-800">Garantia Técnica Total</p>
               </div>
             </div>
           </div>
@@ -417,14 +416,13 @@
             </div>
 
             <div class="pt-6">
-              <button 
-                type="button"
-                onclick="scrollToSection('contato')"
-                class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline border-0"
+              <a
+                href="#contato"
+                class="bg-[#003366] hover:bg-[#002244] text-white px-6 py-3.5 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors inline-flex items-center space-x-2 cursor-pointer shadow-md no-underline"
               >
                 <span>Agendar uma Visita Técnico</span>
                 <i data-lucide="arrow-right" class="h-4 w-4 text-white"></i>
-              </button>
+              </a>
             </div>
 
           </div>
@@ -623,14 +621,13 @@
             </p>
             
             <div class="pt-4">
-              <button 
-                type="button"
-                onclick="scrollToSection('contato')"
-                class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline border-0"
+              <a
+                href="#contato"
+                class="bg-slate-105 hover:bg-slate-200 text-[#003366] font-bold px-5 py-3.5 rounded-sm text-xs uppercase tracking-widest flex items-center space-x-2 transition-colors cursor-pointer border border-slate-200 shadow-sm inline-flex no-underline"
               >
                 <span>Solicitar Atendimento</span>
                 <i data-lucide="arrow-right" class="h-4 w-4 text-[#003366]"></i>
-              </button>
+              </a>
             </div>
           </div>
 
@@ -696,7 +693,7 @@
     </section>
 
     <!-- 5.5. PINNED/DOWNLOADS SECTION -->
-    <section class="py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200" id="downloads-section">
+    <section class="py-20 sm:py-28 bg-[#f8fafc] border-t border-b border-slate-200 scroll-mt-20" id="downloads">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <!-- Header -->
@@ -711,7 +708,7 @@
             Consulte e faça o download de normas, informativos, manuais e materiais de referência públicos para o seu projeto elétrico.
           </p>
           <p class="text-[11px] uppercase tracking-widest font-mono font-bold text-[#003366]">
-            Os arquivos publicados aparecem para todos automaticamente
+            Você controla tudo pelo painel administrativo
           </p>
         </div>
 
@@ -753,12 +750,19 @@
                 Gerenciar Biblioteca de Links
               </h4>
               <p class="text-xs text-slate-500 font-light mt-1">
-                Adicione novos links de download ou remova os existentes. As mudanças são enviadas ao servidor e ficam públicas para todos.
+                Adicione novos links de download ou remova os existentes. Os links modificados são salvos em lote no seu navegador.
               </p>
             </div>
-            <a href="/downloads" class="inline-flex items-center justify-center rounded-sm border border-[#FF8C00] bg-[#FF8C00] px-4 py-3 text-xs font-black uppercase tracking-wider text-white no-underline hover:bg-[#e57d00] transition-colors">
-              Abrir Downloads Públicos
-            </a>
+            <button
+              id="toggle-admin-btn"
+              type="button"
+              onclick="toggleAdminPanel()"
+              aria-expanded="false"
+              class="inline-flex items-center justify-center gap-2 bg-[#003366] hover:bg-[#002244] text-white px-5 py-3 rounded-sm font-bold text-xs uppercase tracking-widest transition-colors cursor-pointer border-none focus:outline-none w-full sm:w-auto"
+            >
+              <i data-lucide="plus-circle" class="h-4 w-4"></i>
+              <span>Abrir Painel de Gestão</span>
+            </button>
           </div>
           <!-- Hidden Admin Panel Drawer -->
           <div id="admin-panel" class="hidden mt-8 pt-8 border-t border-slate-100 max-w-4xl">
@@ -1615,7 +1619,7 @@
       });
 
       // Auto-hide mobile navigation panel on link click
-      const mobileLinks = mobileMenu.querySelectorAll('a, button');
+      const mobileLinks = mobileMenu.querySelectorAll('a');
       mobileLinks.forEach(link => {
         link.addEventListener('click', () => {
           mobileMenu.classList.add('hidden');

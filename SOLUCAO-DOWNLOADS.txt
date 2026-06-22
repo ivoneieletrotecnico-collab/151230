@@ -10,7 +10,7 @@
 
 PROBLEMA:
 A página de downloads estava vazia porque o LocalStorage não é
-compartilhado entre páginas diferentes no Netlify.
+compartilhado entre paginas diferentes em producao no Vercel.
 
 SOLUÇÃO:
 Criado arquivo downloads-data.js com:
@@ -127,7 +127,7 @@ https://eletrotecnico.vercel.app/downloads
 🎯 PRÓXIMOS PASSOS
 ════════════════════════════════════════════════════════════════
 
-1. ⏱️ Aguardar deploy do Netlify (1-2 min)
+1. ⏱️ Aguardar deploy do Vercel (1-2 min)
 
 2. 🌐 Acessar página de downloads:
    https://eletrotecnico.vercel.app/downloads

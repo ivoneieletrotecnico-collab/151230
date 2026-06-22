@@ -159,9 +159,9 @@ const ADMIN_PASSWORD = 'suaSenha';
    git push
 
 2. URLs geradas:
-   https://seu-site.netlify.app/admin-login.html
-   https://seu-site.netlify.app/admin-panel.html
-   https://seu-site.netlify.app/downloads.html
+   https://eletrotecnico.vercel.app/admin
+   https://eletrotecnico.vercel.app/admin
+   https://eletrotecnico.vercel.app/downloads
 
 3. ⚠️ LocalStorage não é compartilhado entre usuários
    (Para produção, use backend)

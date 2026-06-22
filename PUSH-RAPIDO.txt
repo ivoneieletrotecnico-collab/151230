@@ -1,91 +1,20 @@
-╔════════════════════════════════════════════════════════════════╗
-║                                                                ║
-║   🔐 FAZER PUSH PARA GITHUB - GUIA RÁPIDO                     ║
-║                                                                ║
-╚════════════════════════════════════════════════════════════════╝
+PUSH RAPIDO
+===========
 
-⚠️ PROBLEMA: Credenciais antigas bloqueando o push
+1. Rode:
 
+```bash
+git add .
+git commit -m "Atualizacao"
+git push origin master
+```
 
-✅ SOLUÇÃO MAIS RÁPIDA - GitHub Desktop
-════════════════════════════════════════════════════════════════
+2. Abra o dashboard:
 
-1. Baixe: https://desktop.github.com/
+https://vercel.com/dashboard
 
-2. Instale e faça login com: eletrotcnico151230
+3. Confirme o deploy:
 
-3. No GitHub Desktop:
-   File > Add Local Repository
-   
-4. Escolha esta pasta:
-   c:\Users\User\Downloads\Meus Arquivos baixados\ivonei-ferreira-eletrotécnico
-
-5. Clique em "Publish repository"
-
-PRONTO! ✅
-
-
-✅ SOLUÇÃO ALTERNATIVA - Token de Acesso
-════════════════════════════════════════════════════════════════
-
-1. Crie token em: https://github.com/settings/tokens
-   - Generate new token (classic)
-   - Marque: ✅ repo
-   - Generate token
-   - COPIE O TOKEN!
-
-2. Execute no PowerShell:
-
-   cd "c:\Users\User\Downloads\Meus Arquivos baixados\ivonei-ferreira-eletrotécnico"
-   
-   git credential reject
-   (pressione Enter duas vezes)
-   
-   git push -u origin main
-   
-   Username: eletrotcnico151230
-   Password: COLE_SEU_TOKEN_AQUI
-
-PRONTO! ✅
-
-
-🌐 DEPOIS DO PUSH - CONFIGURAR NETLIFY
-════════════════════════════════════════════════════════════════
-
-1. Acesse: https://app.netlify.com
-
-2. Add new site > Import from GitHub
-
-3. Selecione: ivoneieletrotecnico-collab/151230
-
-4. Configuração:
-   Branch: main
-   Build command: (vazio)
-   Publish directory: .
-
-5. Deploy site
-
-6. PRONTO! Site no ar com deploy automático! 🚀
-
-
-📁 ARQUIVOS PRONTOS
-════════════════════════════════════════════════════════════════
-
-✅ index.html (site completo)
-✅ netlify.toml (configuração)
-✅ Tudo commitado e pronto para push
-
-
-🎯 RESULTADO FINAL
-════════════════════════════════════════════════════════════════
-
-Após configurar:
-• Site publicado no Vercel
-• Deploy automático a cada push
-• URL: https://eletrotecnico.vercel.app
-
-
-═══════════════════════════════════════════════════════════════
-
-💡 Recomendação: Use GitHub Desktop (mais fácil!)
-   https://desktop.github.com/
+- Site: https://eletrotecnico.vercel.app/
+- Painel: https://eletrotecnico.vercel.app/admin
+- Downloads: https://eletrotecnico.vercel.app/downloads

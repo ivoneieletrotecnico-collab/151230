@@ -153,13 +153,13 @@ To https://github.com/ivoneieletrotecnico-collab/151230.git
 
 ---
 
-## 🌐 **PRÓXIMO PASSO: Netlify**
+## 🌐 **PROXIMO PASSO: Vercel**
 
 Depois do push bem-sucedido:
 
-1. Acesse: https://app.netlify.com
+1. Acesse: https://vercel.com/new
 2. **Add new site** > **Import from GitHub**
-3. Autorize o Netlify
+3. Importe o repositorio no Vercel
 4. Selecione: **ivoneieletrotecnico-collab/151230**
 5. Configuração:
    ```

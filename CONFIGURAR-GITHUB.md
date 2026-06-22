@@ -137,11 +137,11 @@ To https://github.com/ivoneieletrotecnico-collab/151230.git
 
 Após o push bem-sucedido:
 
-1. Acesse: https://app.netlify.com
+1. Acesse: https://vercel.com/new
 2. Faça login (pode usar conta GitHub)
 3. Clique: **"Add new site"** > **"Import an existing project"**
 4. Escolha: **"Deploy with GitHub"**
-5. Autorize o Netlify
+5. Importe o repositorio no Vercel
 6. Selecione: **ivoneieletrotecnico-collab/151230**
 7. Configure:
    ```
@@ -158,7 +158,7 @@ Após o push bem-sucedido:
 ## 📱 VERIFICAR SITE
 
 Após deploy:
-- URL temporária: `https://random-name-123.netlify.app`
+- URL publica: `https://eletrotecnico.vercel.app`
 - Renomear: Site settings > Domain management > Change site name
 - Sugestão: `ivonei-eletrotecnico`
 
