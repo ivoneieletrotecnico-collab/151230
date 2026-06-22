@@ -2,5 +2,19 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "other",
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/admin-login.html",
+      "destination": "/admin"
+    },
+    {
+      "source": "/admin-panel.html",
+      "destination": "/painel"
+    },
+    {
+      "source": "/downloads.html",
+      "destination": "/downloads"
+    }
+  ]
 }
