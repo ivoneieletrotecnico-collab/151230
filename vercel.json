@@ -7,15 +7,11 @@
   "rewrites": [
     {
       "source": "/admin",
-      "destination": "/admin-login.html"
+      "destination": "/admin-login"
     },
     {
       "source": "/painel",
-      "destination": "/admin-panel.html"
-    },
-    {
-      "source": "/downloads",
-      "destination": "/downloads.html"
+      "destination": "/admin-panel"
     }
   ]
 }
