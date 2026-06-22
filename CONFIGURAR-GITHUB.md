@@ -2,7 +2,7 @@
 
 ## ⚠️ Problema Detectado
 
-O Git está tentando usar credenciais antigas (`ivoneifsapp`) que não têm permissão para o repositório `eletrotcnico151230/ivonei-eletrotecnico`.
+O Git está tentando usar credenciais antigas (`ivoneifsapp`) que não têm permissão para o repositório `ivoneieletrotecnico-collab/151230`.
 
 ---
 
@@ -67,7 +67,7 @@ git push -u origin main
 git remote remove origin
 
 # Adicionar com token (substituir TOKEN pelo seu token)
-git remote add origin https://SEU_TOKEN@github.com/eletrotcnico151230/ivonei-eletrotecnico.git
+git remote add origin https://SEU_TOKEN@github.com/ivoneieletrotecnico-collab/151230.git
 
 # Push
 git push -u origin main
@@ -104,7 +104,7 @@ Get-Content ~/.ssh/id_ed25519.pub | clip
 git remote remove origin
 
 # Adicionar origin SSH
-git remote add origin git@github.com:eletrotcnico151230/ivonei-eletrotecnico.git
+git remote add origin git@github.com:ivoneieletrotecnico-collab/151230.git
 
 # Push
 git push -u origin main
@@ -127,7 +127,7 @@ Se der certo, você verá:
 Enumerating objects: 21, done.
 Counting objects: 100% (21/21), done.
 ...
-To https://github.com/eletrotcnico151230/ivonei-eletrotecnico.git
+To https://github.com/ivoneieletrotecnico-collab/151230.git
  * [new branch]      main -> main
 ```
 
@@ -137,12 +137,12 @@ To https://github.com/eletrotcnico151230/ivonei-eletrotecnico.git
 
 Após o push bem-sucedido:
 
-1. Acesse: https://app.netlify.com
+1. Acesse: https://vercel.com/new
 2. Faça login (pode usar conta GitHub)
 3. Clique: **"Add new site"** > **"Import an existing project"**
 4. Escolha: **"Deploy with GitHub"**
-5. Autorize o Netlify
-6. Selecione: **eletrotcnico151230/ivonei-eletrotecnico**
+5. Importe o repositorio no Vercel
+6. Selecione: **ivoneieletrotecnico-collab/151230**
 7. Configure:
    ```
    Branch to deploy: main
@@ -158,7 +158,7 @@ Após o push bem-sucedido:
 ## 📱 VERIFICAR SITE
 
 Após deploy:
-- URL temporária: `https://random-name-123.netlify.app`
+- URL publica: `https://eletrotecnico.vercel.app`
 - Renomear: Site settings > Domain management > Change site name
 - Sugestão: `ivonei-eletrotecnico`
 

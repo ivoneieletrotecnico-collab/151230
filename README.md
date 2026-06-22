@@ -1,31 +1,42 @@
-# Ivonei Ferreira Eletrotécnico
+# Ivonei Ferreira Eletrotecnico
 
-Landing page estática para divulgação de serviços elétricos.
+Landing page estatica para divulgacao de servicos eletricos.
+
+## Repositorio atual
+
+`https://github.com/ivoneieletrotecnico-collab/151230`
+
+## URL publica
+
+`https://eletrotecnico.vercel.app/`
 
 ## Executar localmente
 
-1. Instale as dependências:
+1. Instale as dependencias:
    `npm install`
 2. Inicie o servidor local:
    `npm run dev`
 
 ## Build
 
-Gera a pasta `dist/` com `index.html` e os ativos estáticos:
+Gera a pasta `dist/` com `index.html` e os ativos estaticos:
 
 `npm run build`
 
-## Prévia do build
+## Previa do build
 
-Serve o conteúdo gerado em `dist/`:
+Serve o conteudo gerado em `dist/`:
 
 `npm run preview`
 
-## Downloads sincronizados
+## Deploy no Vercel
 
-O painel administrativo salva os downloads em um armazenamento compartilhado.
-Assim, quando o administrador adiciona, edita ou remove arquivos, os usuários veem a atualização automaticamente após a próxima sincronização da página.
+O projeto esta preparado para deploy automatico no Vercel com:
 
-## Solicitações do formulário
+- `Build Command`: `npm run build`
+- `Output Directory`: `dist`
+- `vercel.json` com rotas para `/admin`, `/painel` e `/downloads`
+- funcoes em `/api` para downloads e solicitacoes
 
-Os envios do formulário público são registrados no painel administrativo com nome, telefone, e-mail, serviço e mensagem completa.
+Para persistir dados em producao, conecte uma integracao Redis no Vercel que forneca
+`UPSTASH_REDIS_REST_URL` e `UPSTASH_REDIS_REST_TOKEN`.

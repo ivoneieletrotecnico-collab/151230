@@ -1,135 +1,22 @@
-╔════════════════════════════════════════════════════════════════╗
-║                                                                ║
-║   🎉 SITE PRONTO - IVONEI FERREIRA ELETROTÉCNICO              ║
-║                                                                ║
-╚════════════════════════════════════════════════════════════════╝
+LEIA-ME PRIMEIRO
+================
 
-✅ SITE JÁ PUBLICADO: https://ivonei-eletrotecnico.netlify.app/
+Este projeto publica no Vercel.
 
+Links atuais:
+- Site: https://eletrotecnico.vercel.app/
+- Painel: https://eletrotecnico.vercel.app/admin
+- Downloads: https://eletrotecnico.vercel.app/downloads
+- GitHub: https://github.com/ivoneieletrotecnico-collab/151230
 
-📁 ARQUIVO PRINCIPAL
-════════════════════════════════════════════════════════════════
+Fluxo normal:
+1. Edite os arquivos
+2. Rode `git add .`
+3. Rode `git commit -m "Atualizacao"`
+4. Rode `git push origin master`
+5. Verifique o deploy em https://vercel.com/dashboard
 
-📄 index-static.html
-   └─ Este é seu site COMPLETO em um único arquivo!
-   └─ HTML + CSS + JavaScript tudo junto
-   └─ Pode copiar e usar em qualquer lugar
-   └─ Funciona sem servidor, sem Node.js, sem React
-
-
-🚀 3 FORMAS DE USAR
-════════════════════════════════════════════════════════════════
-
-1️⃣  OPÇÃO MAIS SIMPLES (sem GitHub)
-   ───────────────────────────────────────────────────────
-   • Abra index-static.html no navegador
-   • Ou envie para Netlify via drag & drop
-   • https://app.netlify.com
-   
-   Desvantagem: precisa fazer upload manual a cada alteração
-
-
-2️⃣  OPÇÃO RECOMENDADA (com GitHub - Deploy Automático!)
-   ───────────────────────────────────────────────────────
-   📖 Siga o guia: INICIO-RAPIDO.md
-   
-   OU execute o script automático:
-   • Clique com botão direito em: setup-git.ps1
-   • Escolha: "Executar com PowerShell"
-   • Siga as instruções na tela
-   
-   Vantagem: cada alteração é publicada automaticamente!
-
-
-3️⃣  OPÇÃO MANUAL (comandos Git)
-   ───────────────────────────────────────────────────────
-   📖 Abra: comandos-git.txt
-   └─ Copie e cole os comandos no PowerShell
-
-
-📚 DOCUMENTAÇÃO
-════════════════════════════════════════════════════════════════
-
-📄 INICIO-RAPIDO.md    → Guia passo a passo completo
-📄 DEPLOY.md           → Documentação detalhada do deploy
-📄 comandos-git.txt    → Comandos Git prontos para copiar
-📄 README.md           → Informações técnicas do projeto
-⚙️ setup-git.ps1       → Script automático de configuração
-
-
-🎯 PRÓXIMOS PASSOS
-════════════════════════════════════════════════════════════════
-
-Se você quer DEPLOY AUTOMÁTICO:
-
-1. Instale o Git (se não tiver)
-   https://git-scm.com/download/win
-
-2. Execute: setup-git.ps1
-   (clique direito > Executar com PowerShell)
-
-3. Crie repositório no GitHub
-   https://github.com/new
-   Nome: ivonei-eletrotecnico
-
-4. Conecte com Netlify
-   https://app.netlify.com
-   Add new site > Import from GitHub
-
-5. PRONTO! Cada alteração será publicada automaticamente ⚡
-
-
-💡 DICA RÁPIDA
-════════════════════════════════════════════════════════════════
-
-Para fazer alterações no site:
-• Edite o arquivo: index-static.html
-• Procure por textos, cores, imagens, etc.
-• Salve o arquivo
-• Se tiver GitHub configurado: git add . && git commit -m "atualização" && git push
-• Se não: faça upload manual no Netlify
-
-
-📱 FUNCIONALIDADES DO SITE
-════════════════════════════════════════════════════════════════
-
-✅ Design responsivo (mobile, tablet, desktop)
-✅ Menu de navegação com scroll suave
-✅ Integração WhatsApp: (74) 98825-9925
-✅ Formulário de contato funcional
-✅ 4 seções de serviços
-✅ Informações sobre normas NBR 5410 e NR-10
-✅ Totalmente funcional sem dependências
-
-
-🆘 PRECISA DE AJUDA?
-════════════════════════════════════════════════════════════════
-
-1. Leia: INICIO-RAPIDO.md (tem tudo explicado!)
-2. Veja: comandos-git.txt (comandos prontos)
-3. Execute: setup-git.ps1 (automatiza tudo)
-
-
-🎨 PERSONALIZAÇÕES COMUNS
-════════════════════════════════════════════════════════════════
-
-Para alterar CORES:
-• Procure por: --color-primary: #003366
-• Procure por: --color-secondary: #FF8C00
-• Na seção: <style> no topo do HTML
-
-Para alterar TELEFONE:
-• Procure por: (74) 98825-9925
-• Substitua em todos os lugares
-
-Para alterar TEXTOS:
-• Basta procurar e substituir no arquivo HTML
-
-
-═══════════════════════════════════════════════════════════════
-
-Qualquer dúvida, consulte os guias em:
-• INICIO-RAPIDO.md
-• DEPLOY.md
-
-Boa sorte com seu site! 🚀⚡
+Guia completo:
+- `README.md`
+- `DEPLOY.md`
+- `INICIO-RAPIDO.md`

@@ -18,6 +18,18 @@ for (const file of htmlFiles) {
   await cp(resolve(rootDir, file.name), resolve(distDir, file.name));
 }
 
+const routeAliases = [
+  { source: 'admin-login.html', targetDir: 'admin' },
+  { source: 'admin-panel.html', targetDir: 'painel' },
+  { source: 'downloads.html', targetDir: 'downloads' },
+];
+
+for (const alias of routeAliases) {
+  const routeDir = resolve(distDir, alias.targetDir);
+  await mkdir(routeDir, { recursive: true });
+  await cp(resolve(rootDir, alias.source), resolve(routeDir, 'index.html'));
+}
+
 try {
   await cp(assetsSource, assetsTarget, { recursive: true });
 } catch (error) {
@@ -26,10 +38,12 @@ try {
   }
 }
 
-try {
-  await cp(resolve(rootDir, 'downloads-data.js'), resolve(distDir, 'downloads-data.js'));
-} catch (error) {
-  if (error?.code !== 'ENOENT') {
-    throw error;
+for (const scriptName of ['downloads-data.js', 'auth-client.js']) {
+  try {
+    await cp(resolve(rootDir, scriptName), resolve(distDir, scriptName));
+  } catch (error) {
+    if (error?.code !== 'ENOENT') {
+      throw error;
+    }
   }
 }

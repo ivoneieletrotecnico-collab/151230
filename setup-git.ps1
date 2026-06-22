@@ -74,8 +74,8 @@ Write-Host "   git remote add origin https://github.com/SEU_USUARIO/ivonei-eletr
 Write-Host "   git branch -M main" -ForegroundColor White
 Write-Host "   git push -u origin main" -ForegroundColor White
 Write-Host ""
-Write-Host "4. Configure Netlify:" -ForegroundColor Yellow
-Write-Host "   - Acesse https://app.netlify.com" -ForegroundColor White
+Write-Host "4. Configure Vercel:" -ForegroundColor Yellow
+Write-Host "   - Acesse https://vercel.com/new" -ForegroundColor White
 Write-Host "   - Add new site > Import from GitHub" -ForegroundColor White
 Write-Host "   - Selecione o repositório ivonei-eletrotecnico" -ForegroundColor White
 Write-Host "   - Deploy!" -ForegroundColor White
