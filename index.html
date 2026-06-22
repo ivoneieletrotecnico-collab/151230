@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Landing page profissional de Ivonei Ferreira Eletrotecnico, com projetos, instalacoes, laudos e atendimento em Irece e regiao." />
-    <link rel="canonical" href="https://ivonei-eletrotecnico.netlify.app/" />
     <title>Ivonei Ferreira Eletrotécnico | Instalações e Projetos Elétricos</title>
     <script>
       (function () {
@@ -1241,16 +1240,16 @@
                 Links oficiais
               </h4>
               <div class="space-y-3 text-sm">
-                <a href="https://ivonei-eletrotecnico.netlify.app/" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
-                  Site publicado no Netlify
+                <a href="https://vercel.com/ivonei-eletrotecnico/151230" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                  Projeto no Vercel
                 </a>
-                <a href="https://ivonei-eletrotecnico.netlify.app/admin-login.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="/admin-login.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Painel de Gestão
                 </a>
-                <a href="https://ivonei-eletrotecnico.netlify.app/downloads.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="/downloads.html" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Downloads Públicos
                 </a>
-                <a href="https://github.com/eletrotcnico151230/ivonei-eletrotecnico" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
+                <a href="https://github.com/ivoneieletrotecnico-collab/151230" target="_blank" rel="noopener noreferrer" class="block text-white no-underline hover:text-[#FF8C00] transition-colors">
                   Repositório no GitHub
                 </a>
               </div>
@@ -1485,9 +1484,9 @@
       ];
 
       const DOWNLOADS_CACHE_KEY = 'downloads';
-      const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+      const DOWNLOADS_API_ENDPOINTS = ['/api/downloads'];
       const CONTACT_REQUESTS_CACHE_KEY = 'contact-requests';
-      const CONTACT_REQUESTS_API_ENDPOINTS = ['/.netlify/functions/contact-requests', '/api/contact-requests'];
+      const CONTACT_REQUESTS_API_ENDPOINTS = ['/api/contact-requests'];
 
       function getCachedDownloads() {
         const stored = localStorage.getItem(DOWNLOADS_CACHE_KEY);

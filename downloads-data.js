@@ -1,5 +1,5 @@
 const DOWNLOADS_CACHE_KEY = 'downloads';
-const DOWNLOADS_API_ENDPOINTS = ['/.netlify/functions/downloads', '/api/downloads'];
+const DOWNLOADS_API_ENDPOINTS = ['/api/downloads'];
 const DOWNLOADS_SUPPORT_NUMBER = '5574988259925';
 
 function buildDownloadRequestUrl(downloadName = 'material tecnico') {
