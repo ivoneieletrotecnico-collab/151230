@@ -3,30 +3,19 @@
   "framework": "other",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/admin-login.html"
-    },
-    {
-      "source": "/painel",
-      "destination": "/admin-panel.html"
-    },
-    {
-      "source": "/downloads",
-      "destination": "/downloads.html"
-    },
+  "cleanUrls": true,
+  "redirects": [
     {
       "source": "/admin-login.html",
-      "destination": "/admin-login.html"
+      "destination": "/admin"
     },
     {
       "source": "/admin-panel.html",
-      "destination": "/admin-panel.html"
+      "destination": "/painel"
     },
     {
       "source": "/downloads.html",
-      "destination": "/downloads.html"
+      "destination": "/downloads"
     }
   ]
 }

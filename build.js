@@ -24,10 +24,19 @@ const routeAliases = [
   { source: 'downloads.html', targetDir: 'downloads' },
 ];
 
+const cleanUrlAliases = [
+  { source: 'admin-login.html', targetFile: 'admin.html' },
+  { source: 'admin-panel.html', targetFile: 'painel.html' },
+];
+
 for (const alias of routeAliases) {
   const routeDir = resolve(distDir, alias.targetDir);
   await mkdir(routeDir, { recursive: true });
   await cp(resolve(rootDir, alias.source), resolve(routeDir, 'index.html'));
+}
+
+for (const alias of cleanUrlAliases) {
+  await cp(resolve(rootDir, alias.source), resolve(distDir, alias.targetFile));
 }
 
 try {
