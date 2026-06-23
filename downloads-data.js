@@ -74,8 +74,8 @@ function resolveDownloadAction(download) {
 const DOWNLOADS_DATABASE = [
     {
         id: 1,
-        name: 'Catálogo de Serviços 2024',
-        description: 'Catálogo completo com todos os serviços elétricos oferecidos. Instalações residenciais, industriais, projetos e laudos técnicos.',
+        name: 'Catalogo de Servicos 2024',
+        description: 'Catalogo completo com todos os servicos eletricos oferecidos. Instalacoes residenciais, industriais, projetos e laudos tecnicos.',
         type: 'pdf',
         url: buildDownloadRequestUrl('Catalogo de Servicos 2024'),
         size: '2.5 MB',
@@ -84,8 +84,8 @@ const DOWNLOADS_DATABASE = [
     },
     {
         id: 2,
-        name: 'Manual de Segurança NR-10',
-        description: 'Normas regulamentadoras de segurança em instalações e serviços em eletricidade. Procedimentos obrigatórios e boas práticas.',
+        name: 'Manual de Seguranca NR-10',
+        description: 'Normas regulamentadoras de seguranca em instalacoes e servicos em eletricidade. Procedimentos obrigatorios e boas praticas.',
         type: 'pdf',
         url: 'https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/inspecao-do-trabalho/seguranca-e-saude-no-trabalho/sst-normas-regulamentadoras/norma-regulamentadora-nr-10.pdf',
         size: '1.8 MB',
@@ -94,8 +94,8 @@ const DOWNLOADS_DATABASE = [
     },
     {
         id: 3,
-        name: 'Template de Orçamento',
-        description: 'Planilha modelo para elaboração de orçamentos de serviços elétricos. Inclui todos os itens necessários e cálculos automáticos.',
+        name: 'Template de Orcamento',
+        description: 'Planilha modelo para elaboracao de orcamentos de servicos eletricos. Inclui todos os itens necessarios e calculos automaticos.',
         type: 'xls',
         url: buildDownloadRequestUrl('Template de Orcamento'),
         size: '850 KB',
@@ -105,7 +105,7 @@ const DOWNLOADS_DATABASE = [
     {
         id: 4,
         name: 'Checklist NBR 5410',
-        description: 'Lista de verificação completa baseada na norma NBR 5410 para instalações elétricas de baixa tensão.',
+        description: 'Lista de verificacao completa baseada na norma NBR 5410 para instalacoes eletricas de baixa tensao.',
         type: 'pdf',
         url: buildDownloadRequestUrl('Checklist NBR 5410'),
         size: '1.2 MB',
@@ -114,8 +114,8 @@ const DOWNLOADS_DATABASE = [
     },
     {
         id: 5,
-        name: 'Catálogo de Produtos',
-        description: 'Catálogo com os principais produtos e equipamentos elétricos utilizados em nossos projetos. Marcas e especificações técnicas.',
+        name: 'Catalogo de Produtos',
+        description: 'Catalogo com os principais produtos e equipamentos eletricos utilizados em nossos projetos. Marcas e especificacoes tecnicas.',
         type: 'pdf',
         url: buildDownloadRequestUrl('Catalogo de Produtos'),
         size: '3.2 MB',
@@ -136,11 +136,78 @@ function getCachedDownloads() {
             console.error('Erro ao carregar downloads do cache local:', error);
         }
     }
-    return DOWNLOADS_DATABASE;
+    return JSON.parse(JSON.stringify(DOWNLOADS_DATABASE));
 }
 
 function saveCachedDownloads(downloads) {
     localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify(downloads));
+}
+
+function getNextDownloadId(downloads) {
+    return downloads.reduce((maxId, item) => Math.max(maxId, Number(item?.id) || 0), 0) + 1;
+}
+
+function normalizeDownload(download, currentId = null, currentDownloads = 0, currentDate = null) {
+    return {
+        id: currentId ?? Date.now(),
+        name: String(download?.name || '').trim(),
+        description: String(download?.description || download?.desc || '').trim(),
+        type: String(download?.type || 'pdf').trim().toLowerCase(),
+        url: sanitizeDownloadUrl(download?.url || ''),
+        size: String(download?.size || 'Varia').trim(),
+        downloads: Number(currentDownloads || 0),
+        date: currentDate || new Date().toISOString().split('T')[0],
+    };
+}
+
+function createLocalDownload(download) {
+    const downloads = getCachedDownloads();
+    const createdDownload = normalizeDownload(download, getNextDownloadId(downloads));
+    const updatedDownloads = [createdDownload, ...downloads];
+    saveCachedDownloads(updatedDownloads);
+    return createdDownload;
+}
+
+function updateLocalDownload(id, updatedData) {
+    const downloads = getCachedDownloads();
+    const targetId = String(id);
+    const index = downloads.findIndex((download) => String(download.id) === targetId);
+
+    if (index === -1) {
+        throw new Error('Download nao encontrado no armazenamento local.');
+    }
+
+    const currentDownload = downloads[index];
+    downloads[index] = normalizeDownload(
+        { ...currentDownload, ...updatedData },
+        currentDownload.id,
+        currentDownload.downloads || 0,
+        currentDownload.date
+    );
+    saveCachedDownloads(downloads);
+    return downloads[index];
+}
+
+function deleteLocalDownload(id) {
+    const downloads = getCachedDownloads();
+    const targetId = String(id);
+    const filteredDownloads = downloads.filter((download) => String(download.id) !== targetId);
+    saveCachedDownloads(filteredDownloads);
+    return filteredDownloads.length !== downloads.length;
+}
+
+function incrementLocalDownloadCount(id) {
+    const downloads = getCachedDownloads();
+    const targetId = String(id);
+    const index = downloads.findIndex((download) => String(download.id) === targetId);
+
+    if (index === -1) {
+        return false;
+    }
+
+    downloads[index].downloads = Number(downloads[index].downloads || 0) + 1;
+    saveCachedDownloads(downloads);
+    return true;
 }
 
 function normalizeDownloadList(data) {
@@ -214,27 +281,42 @@ async function getDownloadById(id) {
 }
 
 async function addDownload(download) {
-    const response = await requestDownloads('POST', { action: 'create', download });
-    const updatedDownloads = normalizeDownloadList(response);
-    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-    saveCachedDownloads(downloads);
-    return response && response.download ? response.download : downloads[0] || null;
+    try {
+        const response = await requestDownloads('POST', { action: 'create', download });
+        const updatedDownloads = normalizeDownloadList(response);
+        const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloads);
+        return response && response.download ? response.download : downloads[0] || null;
+    } catch (error) {
+        console.warn('API de downloads indisponivel para cadastro. Usando armazenamento local.', error);
+        return createLocalDownload(download);
+    }
 }
 
 async function updateDownload(id, updatedData) {
-    const response = await requestDownloads('PUT', { id, updatedData });
-    const updatedDownloads = normalizeDownloadList(response);
-    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-    saveCachedDownloads(downloads);
-    return downloads.find((download) => String(download.id) === String(id)) || null;
+    try {
+        const response = await requestDownloads('PUT', { id, updatedData });
+        const updatedDownloads = normalizeDownloadList(response);
+        const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloads);
+        return downloads.find((download) => String(download.id) === String(id)) || null;
+    } catch (error) {
+        console.warn('API de downloads indisponivel para edicao. Usando armazenamento local.', error);
+        return updateLocalDownload(id, updatedData);
+    }
 }
 
 async function deleteDownload(id) {
-    const response = await requestDownloads('DELETE', { id });
-    const updatedDownloads = normalizeDownloadList(response);
-    const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
-    saveCachedDownloads(downloads);
-    return true;
+    try {
+        const response = await requestDownloads('DELETE', { id });
+        const updatedDownloads = normalizeDownloadList(response);
+        const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
+        saveCachedDownloads(downloads);
+        return true;
+    } catch (error) {
+        console.warn('API de downloads indisponivel para exclusao. Usando armazenamento local.', error);
+        return deleteLocalDownload(id);
+    }
 }
 
 async function incrementDownloadCount(id) {
@@ -244,7 +326,8 @@ async function incrementDownloadCount(id) {
         const downloads = updatedDownloads.length > 0 ? updatedDownloads : getCachedDownloads();
         saveCachedDownloads(downloads);
     } catch (error) {
-        console.warn('Não foi possível incrementar o contador de download:', error);
+        console.warn('Nao foi possivel incrementar o contador via API. Usando armazenamento local.', error);
+        incrementLocalDownloadCount(id);
     }
 }
 
