@@ -15,7 +15,7 @@
 ```powershell
 git add .
 git commit -m "Atualizacao do site"
-git push origin master
+git push origin main
 ```
 
 3. O Vercel publica automaticamente.

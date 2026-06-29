@@ -26,7 +26,7 @@ O projeto ja esta preparado para o Vercel com:
 ```bash
 git add .
 git commit -m "Atualizacao do site"
-git push origin master
+git push origin main
 ```
 
 3. O Vercel detecta o push e publica automaticamente.

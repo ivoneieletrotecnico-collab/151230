@@ -6,7 +6,7 @@ PUSH RAPIDO
 ```bash
 git add .
 git commit -m "Atualizacao"
-git push origin master
+git push origin main
 ```
 
 2. Abra o dashboard:
