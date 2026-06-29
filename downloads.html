@@ -45,6 +45,11 @@
             --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
         }
 
+        html {
+            font-size: clamp(15px, 0.18vw + 14.4px, 16px);
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
             background:
@@ -52,10 +57,24 @@
                 linear-gradient(180deg, #f8fafc 0%, #edf4fb 100%);
             color: var(--color-text);
             min-height: 100vh;
+            overflow-x: hidden;
+            text-rendering: optimizeLegibility;
         }
 
         a {
             color: inherit;
+        }
+
+        h1, h2, h3, h4, p, span, a, button, label, input, select {
+            overflow-wrap: anywhere;
+        }
+
+        h1, h2, h3, h4 {
+            text-wrap: balance;
+        }
+
+        p {
+            text-wrap: pretty;
         }
 
         header {
@@ -228,8 +247,8 @@
         }
 
         .hero h1 {
-            font-size: clamp(2rem, 4vw, 3.6rem);
-            line-height: 1;
+            font-size: clamp(2rem, 5.2vw, 3.55rem);
+            line-height: 1.08;
             text-transform: uppercase;
             letter-spacing: -0.03em;
             margin-bottom: 1rem;
@@ -413,7 +432,9 @@
             font-weight: 800;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            white-space: nowrap;
+            white-space: normal;
+            text-align: center;
+            line-height: 1.2;
         }
 
         .badge-pdf { background: #fff1f2; color: #b91c1c; }
@@ -577,6 +598,10 @@
         }
 
         @media (max-width: 720px) {
+            html {
+                font-size: 15px;
+            }
+
             .header-content {
                 align-items: flex-start;
                 flex-direction: column;
@@ -603,6 +628,34 @@
 
             .toolbar {
                 padding: 1rem;
+            }
+
+            .btn-link,
+            .btn-primary,
+            .download-action {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-content,
+            .hero-inner,
+            .main-content,
+            .footer-inner {
+                width: min(100% - 1.25rem, 1180px);
+            }
+
+            .hero {
+                padding: 2.65rem 0 2rem;
+            }
+
+            .hero-panel,
+            .download-card,
+            .toolbar,
+            .support-box {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
         }
     </style>

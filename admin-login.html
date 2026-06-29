@@ -11,6 +11,11 @@
             box-sizing: border-box;
         }
 
+        html {
+            font-size: clamp(15px, 0.18vw + 14.4px, 16px);
+            -webkit-text-size-adjust: 100%;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #003366 0%, #001f3f 100%);
@@ -19,6 +24,7 @@
             align-items: center;
             justify-content: center;
             padding: 1rem;
+            overflow-x: hidden;
         }
 
         .login-container {
@@ -28,6 +34,10 @@
             width: 100%;
             max-width: 400px;
             padding: 2.5rem;
+        }
+
+        h1, p, label, button, input {
+            overflow-wrap: anywhere;
         }
 
         .logo {
@@ -56,8 +66,10 @@
 
         h1 {
             color: #003366;
-            font-size: 1.5rem;
+            font-size: clamp(1.45rem, 3vw, 1.75rem);
             margin-bottom: 0.5rem;
+            line-height: 1.15;
+            text-wrap: balance;
         }
 
         .subtitle {
@@ -125,6 +137,12 @@
 
         .error-message.show {
             display: block;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>

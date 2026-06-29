@@ -78,6 +78,11 @@
     
     <!-- Custom Style Rules -->
     <style>
+      html {
+        font-size: clamp(15px, 0.18vw + 14.4px, 16px);
+        -webkit-text-size-adjust: 100%;
+      }
+
       @keyframes fadeIn {
         from { opacity: 0; transform: translateY(10px); }
         to { opacity: 1; transform: translateY(0); }
@@ -89,6 +94,8 @@
       /* Active state animations and custom classes */
       body {
         font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+        text-rendering: optimizeLegibility;
       }
       .font-display {
         font-family: 'Space Grotesk', sans-serif;
@@ -96,12 +103,77 @@
       .font-mono {
         font-family: 'JetBrains Mono', monospace;
       }
+      h1, h2, h3, h4, h5, h6, .font-display {
+        text-wrap: balance;
+        overflow-wrap: anywhere;
+      }
+      p, li, label, a, button, input, textarea, select {
+        overflow-wrap: anywhere;
+      }
+      p, li {
+        text-wrap: pretty;
+      }
+      img, svg {
+        max-width: 100%;
+      }
+      [class*="grid"] > *,
+      [class*="flex"] > * {
+        min-width: 0;
+      }
+      .hero-title {
+        font-size: clamp(2.15rem, 6vw, 4.75rem) !important;
+        line-height: 1.08 !important;
+      }
+      .section-title {
+        font-size: clamp(2rem, 4.2vw, 3.4rem) !important;
+        line-height: 1.12 !important;
+      }
+      .section-title-compact {
+        font-size: clamp(1.35rem, 2.05vw, 2.15rem) !important;
+        line-height: 1.08 !important;
+      }
+      .section-title-desktop-line {
+        white-space: nowrap;
+      }
+      .hero-copy {
+        font-size: clamp(1rem, 1vw + 0.78rem, 1.18rem) !important;
+        line-height: 1.72 !important;
+      }
+      .tight-card-title {
+        line-height: 1.2 !important;
+      }
+      @media (max-width: 640px) {
+        html {
+          font-size: 15px;
+        }
+        .section-title-desktop-line {
+          white-space: normal;
+        }
+      }
     </style>
   </head>
   <body class="min-h-screen flex flex-col font-sans bg-slate-50 selection:bg-[#FF8C00] selection:text-white text-slate-900" id="inicio">
 
     <!-- 1. HEADER (Cabeçalho) -->
     <header class="sticky top-0 z-40 bg-[#003366] text-white border-b-4 border-[#FF8C00] shadow-sm">
+      <div class="hidden md:block bg-[#002244] border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-4 text-[11px] uppercase tracking-widest font-mono text-blue-100/85">
+          <div class="flex items-center gap-4 flex-wrap">
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="map-pin" class="h-3.5 w-3.5 text-[#FF8C00]"></i>
+              <span>IrecÃª e regiÃ£o</span>
+            </span>
+            <span class="inline-flex items-center gap-2">
+              <i data-lucide="clock-3" class="h-3.5 w-3.5 text-[#FF8C00]"></i>
+              <span>Atendimento por WhatsApp</span>
+            </span>
+          </div>
+          <a href="tel:+5574988259925" class="inline-flex items-center gap-2 text-white no-underline hover:text-[#FF8C00] transition-colors">
+            <i data-lucide="phone-call" class="h-3.5 w-3.5 text-[#FF8C00]"></i>
+            <span>(74) 98825-9925</span>
+          </a>
+        </div>
+      </div>
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           
@@ -207,16 +279,16 @@
           <div class="lg:col-span-8 space-y-6 lg:pr-4">
             <!-- Badge -->
             <div class="inline-flex items-center space-x-2 bg-[#FF8C00]/20 border border-[#FF8C00]/30 px-3 py-1.5 rounded-sm text-[#FF8C00] text-xs uppercase tracking-wider font-mono font-bold animate-pulse">
-              <i data-lucide="shield" class="h-4 w-4"></i>
-              <span>Normas NBR 5410 & NR-10 Respeitadas</span>
+              <i data-lucide="badge-check" class="h-4 w-4"></i>
+              <span>Atendimento residencial, predial e industrial</span>
             </div>
             
-            <h1 class="font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
-              Segurança e Serviços Técnicos de Ponta para o seu <span class="text-[#FF8C00]">Projeto Elétrico</span>
+            <h1 class="hero-title font-display font-black text-2xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-tight uppercase">
+              Soluções elétricas com padrão técnico e <span class="text-[#FF8C00]">atendimento de confiança</span>
             </h1>
             
-            <p class="text-blue-100 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed font-light">
-              Soluções integradas com rigor técnico para residências, condomínios, construtoras e indústrias na região de <strong class="text-white font-medium">Irecê e arredores</strong>. Projetos elétricos com garantia extrema e conformidade integral com as normas regulamentadoras.
+            <p class="hero-copy text-blue-100 text-base sm:text-lg md:text-xl max-w-2xl leading-relaxed font-light">
+              Instalações, manutenção, painéis, laudos e projetos elétricos para residências, empresas e indústrias em <strong class="text-white font-medium">Irecê e arredores</strong>, com foco em segurança, organização e execução correta.
             </p>
 
             <div class="pt-4 flex flex-col sm:flex-row gap-4">
@@ -226,7 +298,7 @@
                 class="bg-[#FF8C00] hover:bg-[#e07b00] text-white px-8 py-4 rounded-sm font-bold text-sm uppercase tracking-wider transition-all duration-300 hover:shadow-lg shadow-[#FF8C00]/20 flex items-center justify-center space-x-3 cursor-pointer group italic focus:outline-none w-full sm:w-auto"
               >
                 <i data-lucide="phone" class="h-5 w-5 text-white"></i>
-                <span>Falar no WhatsApp: (74) 98825-9925</span>
+                <span>Solicitar atendimento no WhatsApp</span>
                 <i data-lucide="arrow-right" class="h-4 w-4 transform transition-transform group-hover:translate-x-1"></i>
               </button>
 
@@ -234,31 +306,30 @@
                 href="#servicos"
                 class="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white px-8 py-4 rounded-sm font-bold text-sm tracking-wider uppercase transition-all duration-300 flex items-center justify-center cursor-pointer no-underline w-full sm:w-auto"
               >
-                Conhecer Serviços
+                Ver serviços
               </a>
             </div>
 
-            <!-- Quick Info Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8 border-t border-slate-800">
-              <div class="flex items-center space-x-2">
-                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
-                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Garantia Total</span>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-8 border-t border-slate-800">
+              <div class="rounded-sm border border-white/10 bg-white/5 px-4 py-3">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-blue-100/70 font-mono mb-1">Especialidade</p>
+                <p class="text-sm font-semibold text-white">Instalações e manutenção</p>
               </div>
-              <div class="flex items-center space-x-2">
-                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
-                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Escopo Credenciado</span>
+              <div class="rounded-sm border border-white/10 bg-white/5 px-4 py-3">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-blue-100/70 font-mono mb-1">Atendimento</p>
+                <p class="text-sm font-semibold text-white">Residencial, predial e industrial</p>
               </div>
-              <div class="flex items-center space-x-2 col-span-2 sm:col-span-1">
-                <i data-lucide="check-circle" class="h-5 w-5 text-[#FF8C00]"></i>
-                <span class="text-slate-350 text-xs font-mono uppercase tracking-wider font-semibold">Irecê e Região</span>
+              <div class="rounded-sm border border-white/10 bg-white/5 px-4 py-3">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-blue-100/70 font-mono mb-1">Compromisso</p>
+                <p class="text-sm font-semibold text-white">Segurança, prazo e organização</p>
               </div>
             </div>
           </div>
 
           <!-- Side visual card -->
           <div class="lg:col-span-4 hidden lg:block bg-slate-900/90 backdrop-blur-md p-8 rounded-sm border-l-4 border-[#FF8C00] border-t border-r border-b border-slate-800 shadow-2xl space-y-6 lg:sticky lg:top-24">
-            <h3 class="font-display font-black text-lg text-white border-b border-slate-850 pb-4 uppercase tracking-tight">
-              Atendimento Técnico Rápido
+            <h3 class="tight-card-title font-display font-black text-lg text-white border-b border-slate-850 pb-4 uppercase tracking-tight">
+              Atendimento Comercial Direto
             </h3>
             
             <div class="space-y-4">
@@ -277,8 +348,8 @@
                   <i data-lucide="clock" class="h-4 w-4 text-[#FF8C00]"></i>
                 </div>
                 <div>
-                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Horário de Resposta</p>
-                  <p class="text-sm font-medium text-slate-300">Retorno garantido em até 2 horas</p>
+                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Canal Prioritário</p>
+                  <p class="text-sm font-medium text-slate-300">WhatsApp para orçamentos e visitas</p>
                 </div>
               </div>
 
@@ -287,24 +358,24 @@
                   <i data-lucide="shield" class="h-4 w-4 text-[#FF8C00]"></i>
                 </div>
                 <div>
-                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Segurança Ativa</p>
-                  <p class="text-sm font-medium text-slate-300">NR-10 e NBR 5410 em 100% das obras</p>
+                  <p class="text-[10px] font-mono text-slate-500 uppercase font-black tracking-widest">Padrão Técnico</p>
+                  <p class="text-sm font-medium text-slate-300">NR-10 e NBR 5410 aplicadas nas execuções</p>
                 </div>
               </div>
             </div>
 
             <div class="bg-[#FF8C00]/10 border border-[#FF8C00]/25 p-4 rounded-sm text-xs space-y-2">
-              <p class="font-black text-[#FF8C00] uppercase tracking-wider">Laudos e Pareceres Rápidos</p>
+              <p class="font-black text-[#FF8C00] uppercase tracking-wider">Orçamento e Visita Técnica</p>
               <p class="text-slate-400 leading-normal">
-                Precisa de ART/CRT urgente para aprovação técnica junto à concessionária de energia? Nós cuidamos de tudo.
+                Atendimento focado em diagnóstico, proposta clara e solução bem executada para a sua instalação.
               </p>
             </div>
 
             <button 
-              onclick="handleWhatsAppRedirect('Olá! Gostaria de esclarecer uma dúvida técnica sobre projetos elétricos.')"
+              onclick="handleWhatsAppRedirect('Olá! Gostaria de solicitar um atendimento e receber um orçamento para meu serviço elétrico.')"
               class="w-full bg-[#003366] hover:bg-[#002244] border border-[#FF8C00]/30 text-white font-bold py-3 rounded-sm tracking-wider text-xs uppercase text-center transition-colors block cursor-pointer focus:outline-none"
             >
-              Tire suas Dúvidas Online
+              Pedir atendimento agora
             </button>
           </div>
 
@@ -371,7 +442,7 @@
               Sobre Ivonei Ferreira
             </span>
             
-            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+            <h2 class="section-title section-title-compact font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
               Autoridade, Rigor Técnico e Resolução Rápida de Problemas Elétricos
             </h2>
             
@@ -440,7 +511,7 @@
           <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
             Nossas Especialidades
           </span>
-          <h2 class="font-display font-black text-3xl sm:text-4xl md:text-5xl text-[#003366] tracking-tight uppercase leading-tight">
+          <h2 class="section-title font-display font-black text-3xl sm:text-4xl md:text-5xl text-[#003366] tracking-tight uppercase leading-tight">
             Áreas de Atuação Técnica
           </h2>
           <p class="text-slate-655 text-base sm:text-lg font-light leading-relaxed">
@@ -462,11 +533,15 @@
                 Instalações Residenciais
               </h3>
               <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
-                BAIXA TENSÃO / RESIDENCIAL / PREDIAL
+                ENGENHARIA ELÉTRICA / RESIDENCIAL / PREDIAL / AUTOMAÇÃO
               </span>
               
               <p class="text-slate-600 text-sm leading-relaxed font-light">
-                Soluções completas abrangendo estruturação completa da fiação, cálculo e adequação de carga elétrica ideal, montagem e organização de quadros de distribuição, e adaptação ao padrão de entrada correto exigido pela concessionária. Seguimos à risca cada norma estabelecida pela <strong class="font-semibold text-slate-800">ABNT NBR 5410</strong> para fiação segura de baixa tensão.
+                Oferecemos soluções de engenharia elétrica residencial que transcendem o convencional, projetadas para a segurança, eficiência e o conforto do lar moderno. Nossa expertise abrange a estruturação completa de sistemas de fiação, desde o projeto inicial até a execução final, garantindo rotas otimizadas e seguras. Realizamos o dimensionamento preciso e a adequação da carga elétrica para otimização do consumo e prevenção de sobrecargas, além da montagem e organização de quadros de distribuição com máxima segurança, identificação clara e facilidade de manutenção. Cuidamos da adaptação rigorosa ao padrão de entrada exigido pela concessionária, assegurando a conformidade e a agilidade na conexão.
+              </p>
+
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Expandimos nossos serviços para incluir a instalação de sistemas de aterramento de alta performance, essenciais para a proteção contra surtos e descargas atmosféricas, e a implementação de infraestrutura para automação residencial, preparando seu imóvel para tecnologias inteligentes e conectadas. Também oferecemos a instalação de pontos de recarga para veículos elétricos (EV Chargers), integrando seu lar às demandas da mobilidade sustentável. Operamos em estrita conformidade com cada preceito da ABNT NBR 5410 e demais normas regulamentadoras, garantindo instalações de baixa tensão que são sinônimo de segurança, durabilidade, eficiência energética e desempenho superior para seu patrimônio.
               </p>
             </div>
 
@@ -482,29 +557,29 @@
             </div>
           </div>
 
-          <!-- Card 2: Sistemas de Emergência e Predial -->
+          <!-- Card 2: Energia Solar Fotovoltaica -->
           <div class="bg-white rounded-sm p-6 sm:p-8 h-full shadow-sm border-l-4 border-[#003366] border-t border-r border-b border-slate-200/85 hover:shadow-lg transition-all duration-300 group flex flex-col justify-between relative">
             <div class="space-y-4">
               <div class="bg-[#003366]/5 text-[#003366] group-hover:bg-[#FF8C00] group-hover:text-white p-3.5 rounded-sm w-14 h-14 flex items-center justify-center transition-colors duration-300">
-                <i data-lucide="flame" class="h-7 w-7"></i>
+                <i data-lucide="sun-medium" class="h-7 w-7"></i>
               </div>
               
               <h3 class="font-display font-black uppercase text-xl text-[#003366] group-hover:text-[#FF8C00] transition-colors leading-snug">
-                Sistemas de Emergência e Predial
+                Instalação e Manutenção de Sistemas de Energia Solar
               </h3>
               <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
-                PROTEÇÃO ATIVA / SEGURANÇA PATRIMONIAL
+                ENERGIA INTELIGENTE / INDEPENDÊNCIA ENERGÉTICA
               </span>
               
               <p class="text-slate-600 text-sm leading-relaxed font-light">
-                Proteção patrimonial profunda. Executamos infraestrutura predial inteligente, rotas redundantes de energia ininterrupta para geradores e no-breaks comerciais, proteção estrutural ativa contra curtos e falhas de aterramento de grandes dimensões, além de instalações específicas voltadas à sinalização, extintores elétricos e rotas de emergência para proteção ativa contra incêndios.
+                A vanguarda da sustentabilidade energética. Projetamos e implementamos infraestruturas fotovoltaicas de alta performance, garantindo a geração otimizada de energia limpa e renovável. Nossas soluções abrangem desde a análise de viabilidade e dimensionamento preciso, até a instalação meticulosa de painéis de última geração, inversores inteligentes e sistemas de monitoramento em tempo real. Asseguramos a integração perfeita com a rede elétrica existente, a homologação completa junto às concessionárias e a máxima eficiência operacional, proporcionando autonomia energética, significativa redução de custos e um retorno sobre investimento acelerado, com manutenção preditiva e corretiva que garante a longevidade e o desempenho superior do seu ativo solar.
               </p>
             </div>
 
             <div class="border-t border-slate-100 pt-6 mt-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 text-[10px] font-mono font-black tracking-widest uppercase text-slate-500">
-              <span>FIDELIDADE OPERACIONAL</span>
+              <span>SISTEMAS DE ENERGIA SOLAR FOTOVOLTAICA</span>
               <button 
-                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para Sistemas de Emergência e Redes Prediais.')"
+                onclick="handleWhatsAppRedirect('Olá Ivonei, gostaria de solicitar um orçamento para instalação e manutenção de sistemas de energia solar fotovoltaica.')"
                 class="text-[#003366] hover:text-[#FF8C00] hover:underline cursor-pointer flex items-center space-x-1 border-none bg-none p-0 focus:outline-none"
               >
                 <span>Orçar via WhatsApp</span>
@@ -524,11 +599,25 @@
                 Instalações Industriais
               </h3>
               <span class="inline-block text-[#FF8C00] font-black font-mono text-[10px] uppercase tracking-wider">
-                AUTOMAÇÃO / MOTORES / PAINÉIS DE FORÇA
+                AUTOMAÇÃO / MOTORES / PAINÉIS DE FORÇA E CONTROLE
               </span>
               
               <p class="text-slate-600 text-sm leading-relaxed font-light">
-                Foco na produtividade e redução de paradas não programadas. Especialidade em engenharia reversa e montagem de painéis de distribuição e comando de maquinário, instalação de infraestrutura pesada de alta e baixa tensão, dimensionamento térmico e ligação profissional de motores trifásicos, além de automação industrial de base e CLP.
+                Nossas soluções em instalações industriais são projetadas para maximizar a produtividade, otimizar a eficiência energética e eliminar paradas não programadas, garantindo a continuidade operacional e a segurança dos seus processos. Somos especialistas em:
+              </p>
+
+              <ul class="space-y-2 text-slate-600 text-sm leading-relaxed font-light list-disc pl-5">
+                <li><strong class="font-semibold text-slate-800">Engenharia Reversa e Projeto:</strong> Desenvolvimento de projetos elétricos complexos a partir de sistemas existentes ou para novas plantas, com foco em otimização e conformidade.</li>
+                <li><strong class="font-semibold text-slate-800">Montagem e Otimização de Painéis:</strong> Fabricação, montagem e organização de painéis de distribuição de força, comando e controle (CCM, QGBT, QTA), com componentes de alta qualidade e design ergonômico para manutenção.</li>
+                <li><strong class="font-semibold text-slate-800">Infraestrutura Elétrica Pesada:</strong> Instalação e manutenção de redes de alta e baixa tensão, incluindo subestações, barramentos blindados (busways) e sistemas de distribuição robustos, projetados para ambientes industriais exigentes.</li>
+                <li><strong class="font-semibold text-slate-800">Dimensionamento e Conexão de Motores:</strong> Expertise no dimensionamento térmico e elétrico, instalação e ligação profissional de motores trifásicos de diversas potências, incluindo sistemas de partida suave (soft-starters) e inversores de frequência (VFDs) para controle preciso e economia de energia.</li>
+                <li><strong class="font-semibold text-slate-800">Automação Industrial Avançada:</strong> Implementação de sistemas de automação de base, controladores lógicos programáveis (CLP/PLC), sistemas SCADA e interfaces homem-máquina (IHM), visando a otimização de processos, monitoramento em tempo real e integração de linhas de produção.</li>
+                <li><strong class="font-semibold text-slate-800">Sistemas de Aterramento e Proteção:</strong> Instalação de sistemas de aterramento industrial robustos e dispositivos de proteção contra surtos (DPS) e descargas atmosféricas, essenciais para a segurança de equipamentos e pessoal.</li>
+                <li><strong class="font-semibold text-slate-800">Eficiência Energética Industrial:</strong> Análise e implementação de soluções para redução do consumo de energia, como correção do fator de potência e otimização de cargas.</li>
+              </ul>
+
+              <p class="text-slate-600 text-sm leading-relaxed font-light">
+                Operamos em estrita conformidade com as normas regulamentadoras nacionais e internacionais, garantindo instalações que são sinônimo de confiabilidade, segurança operacional e excelência em engenharia para o seu parque industrial.
               </p>
             </div>
 
@@ -584,7 +673,7 @@
           </div>
           
           <div class="space-y-4 max-w-2xl relative z-10">
-            <h3 class="font-display font-black uppercase text-2xl sm:text-3xl leading-tight">
+            <h3 class="section-title font-display font-black uppercase text-2xl sm:text-3xl leading-tight">
               Seu projeto elétrico precisa de um Laudo de Conformidade Técnica?
             </h3>
             <p class="text-blue-100 text-sm sm:text-base font-light">
@@ -613,8 +702,8 @@
             <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
               Por que escolher a nossa empresa?
             </span>
-            <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight leading-tight uppercase">
-              Os Diferenciais da Marca Ivonei Ferreira
+            <h2 class="section-title section-title-compact section-title-desktop-line font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight leading-tight uppercase">
+              Os Diferenciais da Marca<br>IVONEI FERREIRA
             </h2>
             <p class="text-slate-650 font-light text-base leading-relaxed">
               Tornamos as etapas elétricas a parte mais simples e segura do seu planejamento de obra ou expansão predial. Atendimento com velocidade em toda a região de Irecê.
@@ -701,7 +790,7 @@
           <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
             Biblioteca de Arquivos Públicos
           </span>
-          <h2 class="font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
+          <h2 class="section-title section-title-compact font-display font-black text-3xl sm:text-4xl text-[#003366] tracking-tight uppercase leading-tight">
             Documentos & Downloads Úteis
           </h2>
           <p class="text-slate-600 text-base font-light leading-relaxed">
@@ -995,7 +1084,7 @@
             <span class="text-[#FF8C00] font-mono text-xs tracking-widest font-black uppercase block">
               Fale Conosco
             </span>
-            <h2 class="font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
+            <h2 class="section-title section-title-compact font-display font-black text-3xl sm:text-4xl text-white tracking-tight uppercase leading-tight">
               Pronto para colocar sua engenharia em conformidade com as normas federais?
             </h2>
             <p class="text-blue-100 font-light text-sm sm:text-base leading-relaxed">
