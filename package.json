@@ -1,0 +1,19 @@
+{
+  "name": "nexus-ia-irece",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "node build.js",
+    "preview": "node server.js --dist",
+    "clean": "node clean.js",
+    "supabase:migrate": "node migrate-supabase.js",
+    "supabase:test": "node test-supabase.js"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.35.6",
+    "dotenv": "^17.2.3",
+    "express": "^4.21.2"
+  }
+}
