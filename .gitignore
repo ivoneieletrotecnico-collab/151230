@@ -11,3 +11,4 @@ users.store.json
 supabase/.deploy/
 supabase/.temp/
 supabase/functions-bundle/
+.vercel
