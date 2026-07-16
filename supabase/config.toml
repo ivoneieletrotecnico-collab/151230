@@ -1,0 +1,24 @@
+# FluxoIA — Supabase self-hosted (appsbrasil.store)
+project_id = "default"
+
+[api]
+enabled = true
+port = 54321
+schemas = ["public", "storage", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[functions]
+enabled = true
+
+[functions.auth]
+verify_jwt = false
+
+[functions.downloads]
+verify_jwt = false
+
+[functions.contact-requests]
+verify_jwt = false
+
+[functions.users]
+verify_jwt = false

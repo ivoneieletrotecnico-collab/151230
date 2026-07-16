@@ -8,3 +8,6 @@ coverage/
 downloads.store.json
 contact-requests.store.json
 users.store.json
+supabase/.deploy/
+supabase/.temp/
+supabase/functions-bundle/

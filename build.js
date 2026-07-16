@@ -49,6 +49,7 @@ for (const dir of ['css', 'js', 'images']) {
 }
 
 for (const file of [
+  'api-config.js',
   'contact-requests.defaults.js',
   'downloads.defaults.js',
   'auth-client.js',

@@ -10,7 +10,11 @@
     "clean": "node clean.js",
     "supabase:schema": "node apply-supabase-schema.js",
     "supabase:migrate": "node migrate-supabase.js",
-    "supabase:test": "node test-supabase.js"
+    "supabase:test": "node test-supabase.js",
+    "test:edge-functions": "node test-edge-functions.js",
+    "deploy:supabase:storage": "node deploy-supabase-storage.js",
+    "deploy:supabase:functions": "node deploy-supabase-functions.js",
+    "deploy:supabase": "node deploy-supabase-storage.js && node deploy-supabase-functions.js"
   },
   "dependencies": {
     "@upstash/redis": "^1.35.6",

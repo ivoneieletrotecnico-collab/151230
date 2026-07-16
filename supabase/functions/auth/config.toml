@@ -1,0 +1,11 @@
+[functions.auth]
+verify_jwt = false
+
+[functions.downloads]
+verify_jwt = false
+
+[functions.contact-requests]
+verify_jwt = false
+
+[functions.users]
+verify_jwt = false

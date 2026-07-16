@@ -1,8 +1,12 @@
 /* Cliente de autenticação do painel FluxoIA.
-   Conversa com /api/auth (login por sessão via cookie HttpOnly assinado). */
+   Conversa com Edge Functions /functions/v1/auth (sessão via cookie HttpOnly). */
 (function (global) {
-  const LOGIN_URL = '/admin';
-  const PANEL_URL = '/painel';
+  const LOGIN_URL = '/admin.html';
+  const PANEL_URL = '/painel.html';
+
+  function authUrl() {
+    return global.FluxoAPI?.auth || '/api/auth';
+  }
 
   async function parseJson(response) {
     try {
@@ -13,18 +17,20 @@
   }
 
   async function getSession() {
-    const response = await fetch('/api/auth', {
+    const response = await fetch(authUrl(), {
       method: 'GET',
       headers: { Accept: 'application/json' },
+      credentials: 'include',
       cache: 'no-store',
     });
     return parseJson(response);
   }
 
   async function login(email, password) {
-    const response = await fetch('/api/auth', {
+    const response = await fetch(authUrl(), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     });
     const data = await parseJson(response);
@@ -37,7 +43,7 @@
 
   async function logout() {
     try {
-      await fetch('/api/auth', { method: 'DELETE' });
+      await fetch(authUrl(), { method: 'DELETE', credentials: 'include' });
     } catch {
       /* silencioso */
     }
@@ -72,9 +78,16 @@
   }
 
   // Wrapper de fetch para as rotas /api que exige sessão; redireciona no 401.
+  function resolveApiUrl(url) {
+    if (!global.FluxoAPI || !url.startsWith('/api/')) return url;
+    const route = url.replace(/^\/api\//, '');
+    return `${global.FluxoAPI.base}/${route}`;
+  }
+
   async function apiFetch(url, options = {}) {
-    const response = await fetch(url, {
+    const response = await fetch(resolveApiUrl(url), {
       ...options,
+      credentials: 'include',
       headers: {
         Accept: 'application/json',
         ...(options.body ? { 'Content-Type': 'application/json' } : {}),
@@ -101,6 +114,7 @@
     requireAuth,
     redirectIfAuthenticated,
     apiFetch,
+    resolveApiUrl,
     LOGIN_URL,
     PANEL_URL,
   };
