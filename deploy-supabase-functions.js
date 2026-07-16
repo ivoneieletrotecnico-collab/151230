@@ -119,7 +119,7 @@ async function tryManagementDeploy(name) {
 function trySshDeploy() {
   const host = process.env.SUPABASE_SSH_HOST || '';
   const user = process.env.SUPABASE_SSH_USER || 'root';
-  const remotePath = process.env.SUPABASE_FUNCTIONS_PATH || '/opt/supabase/docker/volumes/functions';
+  const remotePath = process.env.SUPABASE_FUNCTIONS_PATH || '/data/coolify/services/trnrt2q82d5v3rygega7jisi/volumes/functions';
   const keyPath = process.env.SUPABASE_SSH_KEY || '';
 
   if (!host) {
