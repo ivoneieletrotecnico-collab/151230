@@ -1,11 +1,27 @@
-/* Cliente de autenticação do painel FluxoIA.
+﻿/* Cliente de autenticação do painel FluxoIA.
    Conversa com Edge Functions /functions/v1/auth (sessão via cookie HttpOnly). */
 (function (global) {
-  const LOGIN_URL = '/admin.html';
-  const PANEL_URL = '/painel.html';
+  const SUPABASE_FUNCTIONS_AUTH = 'https://supabase.appsbrasil.store/functions/v1/auth';
+  const ASSET_VERSION = '20260716b';
+
+  function getSiteBase() {
+    const path = global.location.pathname;
+    const slash = path.lastIndexOf('/');
+    return slash >= 0 ? path.slice(0, slash + 1) : '/';
+  }
+
+  const LOGIN_URL = `${getSiteBase()}admin.html`;
+  const PANEL_URL = `${getSiteBase()}painel.html`;
 
   function authUrl() {
-    return global.FluxoAPI?.auth || '/api/auth';
+    if (global.FluxoAPI?.auth) return global.FluxoAPI.auth;
+    if (
+      global.location.hostname === 'supabase.appsbrasil.store' ||
+      global.location.hostname.endsWith('.appsbrasil.store')
+    ) {
+      return SUPABASE_FUNCTIONS_AUTH;
+    }
+    return '/api/auth';
   }
 
   async function parseJson(response) {
@@ -23,7 +39,11 @@
       credentials: 'include',
       cache: 'no-store',
     });
-    return parseJson(response);
+    const data = await parseJson(response);
+    if (!response.ok) {
+      return { authenticated: false, configured: null, missing: [] };
+    }
+    return data;
   }
 
   async function login(email, password) {
@@ -50,7 +70,6 @@
     global.location.href = LOGIN_URL;
   }
 
-  // Redireciona para o login se a sessão não estiver ativa. Usado no painel.
   async function requireAuth() {
     try {
       const session = await getSession();
@@ -65,7 +84,6 @@
     }
   }
 
-  // Se já estiver logado, pula a tela de login e vai para o painel.
   async function redirectIfAuthenticated() {
     try {
       const session = await getSession();
@@ -77,7 +95,29 @@
     }
   }
 
-  // Wrapper de fetch para as rotas /api que exige sessão; redireciona no 401.
+  /** Só reporta não configurado com HTTP 200 e configured === false. */
+  async function probeAuthConfigured() {
+    try {
+      const response = await fetch(authUrl(), {
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+        credentials: 'include',
+        cache: 'no-store',
+      });
+      const status = await parseJson(response);
+      if (!response.ok || typeof status.configured !== 'boolean') {
+        return { reachable: false, configured: null, missing: [] };
+      }
+      return {
+        reachable: true,
+        configured: status.configured,
+        missing: Array.isArray(status.missing) ? status.missing : [],
+      };
+    } catch {
+      return { reachable: false, configured: null, missing: [] };
+    }
+  }
+
   function resolveApiUrl(url) {
     if (!global.FluxoAPI || !url.startsWith('/api/')) return url;
     const route = url.replace(/^\/api\//, '');
@@ -113,9 +153,11 @@
     logout,
     requireAuth,
     redirectIfAuthenticated,
+    probeAuthConfigured,
     apiFetch,
     resolveApiUrl,
     LOGIN_URL,
     PANEL_URL,
+    ASSET_VERSION,
   };
 })(window);

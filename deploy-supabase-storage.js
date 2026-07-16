@@ -38,6 +38,9 @@ function ok(message) {
 
 function getMimeType(filePath) {
   const ext = filePath.slice(filePath.lastIndexOf('.')).toLowerCase();
+  if (ext === '.html') return 'text/html; charset=utf-8';
+  if (ext === '.js') return 'application/javascript; charset=utf-8';
+  if (ext === '.css') return 'text/css; charset=utf-8';
   return MIME[ext] || 'application/octet-stream';
 }
 
@@ -161,18 +164,28 @@ async function walkFiles(dir, base = dir) {
 }
 
 async function uploadFile(serviceRoleKey, relativePath, fullPath) {
-  const body = await readFile(fullPath);
+  const bytes = await readFile(fullPath);
   const objectPath = relativePath.split('\\').join('/');
   const url = `${SUPABASE_URL}/storage/v1/object/${BUCKET}/${objectPath}`;
+  const contentType = getMimeType(objectPath);
+  const cacheControl =
+    objectPath.endsWith('.html') || objectPath.endsWith('.js')
+      ? 'no-store, no-cache, must-revalidate, max-age=0'
+      : 'public, max-age=86400';
+
+  // FormData + Blob: MIME na parte do arquivo (metadata correta no Storage).
+  // Obs: o storage-api pode forcar HTML como text/plain; no host use /root/fluxoia-fixes/allow-storage-html.sh.
+  // Nao definir Content-Type no request - o fetch define multipart/form-data com boundary.
+  const form = new FormData();
+  form.append('', new Blob([bytes], { type: contentType }), basename(objectPath));
 
   const response = await fetch(url, {
     method: 'POST',
     headers: supabaseHeaders(serviceRoleKey, {
-      'Content-Type': getMimeType(objectPath),
       'x-upsert': 'true',
-      'Cache-Control': objectPath.endsWith('.html') ? 'no-cache' : 'public, max-age=31536000, immutable',
+      'cache-control': cacheControl,
     }),
-    body,
+    body: form,
   });
 
   if (!response.ok) {

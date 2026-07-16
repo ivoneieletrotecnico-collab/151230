@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Login | Painel FluxoIA</title>
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,8 +152,80 @@
     <a class="back-link" href="/">← Voltar ao site</a>
   </div>
 
-<script src="/api-config.js"></script>
-<script src="/auth-client.js"></script>
+<script>
+/* api-config.js inline — evita cache de script externo */
+(function (global) {
+  const SUPABASE_URL = 'https://supabase.appsbrasil.store';
+  const FUNCTIONS_BASE = `${SUPABASE_URL}/functions/v1`;
+  const host = global.location?.hostname || '';
+  const useEdgeFunctions =
+    host === 'supabase.appsbrasil.store' ||
+    host.endsWith('.appsbrasil.store');
+  if (useEdgeFunctions) {
+    global.FluxoAPI = {
+      base: FUNCTIONS_BASE,
+      auth: `${FUNCTIONS_BASE}/auth`,
+      downloads: `${FUNCTIONS_BASE}/downloads`,
+      contactRequests: `${FUNCTIONS_BASE}/contact-requests`,
+      users: `${FUNCTIONS_BASE}/users`,
+    };
+    return;
+  }
+  global.FluxoAPI = {
+    base: '/api',
+    auth: '/api/auth',
+    downloads: '/api/downloads',
+    contactRequests: '/api/contact-requests',
+    users: '/api/users',
+  };
+})(window);
+</script>
+<script>
+/* auth-client.js inline v20260716b */
+(function (global) {
+  const SUPABASE_FUNCTIONS_AUTH = 'https://supabase.appsbrasil.store/functions/v1/auth';
+  function getSiteBase() {
+    const path = global.location.pathname;
+    const slash = path.lastIndexOf('/');
+    return slash >= 0 ? path.slice(0, slash + 1) : '/';
+  }
+  const LOGIN_URL = `${getSiteBase()}admin.html`;
+  const PANEL_URL = `${getSiteBase()}painel.html`;
+  function authUrl() {
+    if (global.FluxoAPI?.auth) return global.FluxoAPI.auth;
+    if (global.location.hostname === 'supabase.appsbrasil.store' || global.location.hostname.endsWith('.appsbrasil.store')) {
+      return SUPABASE_FUNCTIONS_AUTH;
+    }
+    return '/api/auth';
+  }
+  async function parseJson(response) {
+    try { return await response.json(); } catch { return {}; }
+  }
+  async function getSession() {
+    const response = await fetch(authUrl(), { method: 'GET', headers: { Accept: 'application/json' }, credentials: 'include', cache: 'no-store' });
+    const data = await parseJson(response);
+    if (!response.ok) return { authenticated: false, configured: null, missing: [] };
+    return data;
+  }
+  async function login(email, password) {
+    const response = await fetch(authUrl(), { method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include', body: JSON.stringify({ email, password }) });
+    const data = await parseJson(response);
+    if (!response.ok) throw new Error(data?.message || 'Não foi possível entrar. Verifique e-mail e senha.');
+    return data;
+  }
+  async function logout() {
+    try { await fetch(authUrl(), { method: 'DELETE', credentials: 'include' }); } catch { /* silencioso */ }
+    global.location.href = LOGIN_URL;
+  }
+  async function redirectIfAuthenticated() {
+    try {
+      const session = await getSession();
+      if (session?.authenticated) global.location.href = PANEL_URL;
+    } catch { /* permanece na tela de login */ }
+  }
+  global.FluxoAuth = { getSession, login, logout, redirectIfAuthenticated, LOGIN_URL, PANEL_URL, ASSET_VERSION: '20260716b' };
+})(window);
+</script>
 <script>
   const form = document.getElementById('loginForm');
   const alertBox = document.getElementById('alert');
