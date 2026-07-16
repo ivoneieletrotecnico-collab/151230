@@ -8,6 +8,7 @@
     "build": "node build.js",
     "preview": "node server.js --dist",
     "clean": "node clean.js",
+    "supabase:schema": "node apply-supabase-schema.js",
     "supabase:migrate": "node migrate-supabase.js",
     "supabase:test": "node test-supabase.js"
   },

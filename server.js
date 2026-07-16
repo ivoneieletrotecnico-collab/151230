@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import {
   handleContactRequestsRequest,
   handleDownloadsRequest,
+  handleUsersRequest,
 } from './lib/api-service.js';
 import { handleAuthRequest } from './lib/auth.js';
 
@@ -66,11 +67,34 @@ app.all('/api/contact-requests', async (request, response) => {
   }
 });
 
+app.all('/api/users', async (request, response) => {
+  try {
+    const result = await handleUsersRequest(request.method || 'GET', request.body, request);
+    sendApiResponse(response, result);
+  } catch (error) {
+    sendApiError(response, error, 'Falha inesperada ao processar usuarios.');
+  }
+});
+
+// Clean URLs para paridade com o comportamento do Vercel (cleanUrls: true).
+app.get('/downloads', (request, response) => {
+  response.sendFile(resolve(serveDir, 'downloads.html'));
+});
+
+// Aliases do painel administrativo FluxoIA.
+app.get('/admin', (request, response) => {
+  response.sendFile(resolve(serveDir, 'admin-login.html'));
+});
+
+app.get('/painel', (request, response) => {
+  response.sendFile(resolve(serveDir, 'admin-panel.html'));
+});
+
 app.use(express.static(serveDir));
 
 const port = Number(process.env.PORT || 3000);
 const host = process.env.HOST || '0.0.0.0';
 
 app.listen(port, host, () => {
-  console.log(`Nexus IA servindo ${serveDir} em http://${host}:${port}`);
+  console.log(`FluxoIA servindo ${serveDir} em http://${host}:${port}`);
 });

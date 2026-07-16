@@ -3,6 +3,7 @@
 Repositorio: https://github.com/ivoneieletrotecnico-collab/151230
 
 > **Status atual:** ver `DEPLOY-STATUS.md` para o panorama completo.
+> **Guia completo:** `CONFIGURAR-GITHUB.md` (PR, Vercel, gh auth) · **MCP no Cursor:** `CONFIGURAR-MCP-GITHUB.md`
 
 ## Estado atual (15/07/2026)
 

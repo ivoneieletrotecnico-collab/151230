@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Painel FluxoIA</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul-escuro:#012A36;
+    --petroleo:#014F59;
+    --petroleo-claro:#017C87;
+    --petroleo-suave:#0AA6A6;
+    --dourado:#F2B33D;
+    --branco:#FFFFFF;
+    --cinza-claro:#F4F8F9;
+    --cinza-texto:#5A7278;
+    --texto-escuro:#0A2E36;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg, var(--azul-escuro) 0%, var(--petroleo) 60%, var(--petroleo-claro) 100%);
+    padding:24px;
+    color:var(--texto-escuro);
+    position:relative;
+    overflow:hidden;
+  }
+  body::after{
+    content:"";
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle, rgba(10,166,166,0.25) 0%, transparent 70%);
+    top:-220px;right:-180px;
+  }
+  .login-card{
+    position:relative;
+    z-index:2;
+    background:var(--branco);
+    width:100%;
+    max-width:420px;
+    border-radius:22px;
+    padding:44px 38px;
+    box-shadow:0 24px 60px rgba(1,42,54,0.35);
+  }
+  .logo{
+    font-size:28px;
+    font-weight:800;
+    color:var(--azul-escuro);
+    text-align:center;
+    margin-bottom:6px;
+  }
+  .logo span{color:var(--dourado);}
+  .login-sub{
+    text-align:center;
+    color:var(--cinza-texto);
+    font-size:14px;
+    margin-bottom:30px;
+  }
+  label{
+    display:block;
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:8px;
+    color:var(--petroleo);
+  }
+  .form-group{margin-bottom:20px;}
+  input{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #DCE7E9;
+    border-radius:12px;
+    font-size:15px;
+    font-family:inherit;
+    color:var(--texto-escuro);
+    transition:border-color .2s, box-shadow .2s;
+  }
+  input:focus{
+    outline:none;
+    border-color:var(--petroleo-suave);
+    box-shadow:0 0 0 3px rgba(10,166,166,0.15);
+  }
+  .btn-full{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:50px;
+    background:var(--dourado);
+    color:var(--azul-escuro);
+    font-weight:700;
+    font-size:15px;
+    cursor:pointer;
+    transition:all .3s ease;
+  }
+  .btn-full:hover{
+    background:#ffc75e;
+    transform:translateY(-2px);
+    box-shadow:0 10px 25px rgba(242,179,61,0.4);
+  }
+  .btn-full:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none;}
+  .alert{
+    display:none;
+    background:rgba(211,47,47,0.08);
+    color:#c0392b;
+    border:1px solid rgba(211,47,47,0.2);
+    padding:12px 14px;
+    border-radius:10px;
+    font-size:13px;
+    margin-bottom:20px;
+  }
+  .alert.show{display:block;}
+  .back-link{
+    display:block;
+    text-align:center;
+    margin-top:24px;
+    font-size:13px;
+    color:var(--cinza-texto);
+    text-decoration:none;
+  }
+  .back-link:hover{color:var(--petroleo-claro);}
+</style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo">Fluxo<span>IA</span></div>
+    <p class="login-sub">Painel administrativo</p>
+
+    <div class="alert" id="alert"></div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" autocomplete="username" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" autocomplete="current-password" required>
+      </div>
+      <button type="submit" class="btn-full" id="submitBtn">Entrar</button>
+    </form>
+
+    <a class="back-link" href="/">← Voltar ao site</a>
+  </div>
+
+<script src="/auth-client.js"></script>
+<script>
+  const form = document.getElementById('loginForm');
+  const alertBox = document.getElementById('alert');
+  const submitBtn = document.getElementById('submitBtn');
+
+  FluxoAuth.redirectIfAuthenticated();
+
+  function showError(message){
+    alertBox.textContent = message;
+    alertBox.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    alertBox.classList.remove('show');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Entrando...';
+
+    try{
+      await FluxoAuth.login(
+        document.getElementById('email').value.trim(),
+        document.getElementById('password').value
+      );
+      window.location.href = FluxoAuth.PANEL_URL;
+    }catch(error){
+      showError(error.message || 'Não foi possível entrar.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Entrar';
+    }
+  });
+</script>
+</body>
+</html>

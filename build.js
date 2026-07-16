@@ -17,7 +17,29 @@ async function exists(path) {
 await rm(distDir, { recursive: true, force: true });
 await mkdir(distDir, { recursive: true });
 
-await cp(resolve(rootDir, 'index.html'), resolve(distDir, 'index.html'));
+for (const htmlFile of [
+  'index.html',
+  'downloads.html',
+  'admin-login.html',
+  'admin-panel.html',
+]) {
+  const source = resolve(rootDir, htmlFile);
+  if (await exists(source)) {
+    await cp(source, resolve(distDir, htmlFile));
+  }
+}
+
+// Aliases de rota (paridade com cleanUrls do Vercel): /admin, /painel.
+const routeAliases = [
+  ['admin-login.html', 'admin.html'],
+  ['admin-panel.html', 'painel.html'],
+];
+for (const [source, alias] of routeAliases) {
+  const sourcePath = resolve(rootDir, source);
+  if (await exists(sourcePath)) {
+    await cp(sourcePath, resolve(distDir, alias));
+  }
+}
 
 for (const dir of ['css', 'js', 'images']) {
   const source = resolve(rootDir, dir);
@@ -26,7 +48,11 @@ for (const dir of ['css', 'js', 'images']) {
   }
 }
 
-for (const file of ['contact-requests.defaults.js', 'downloads.defaults.js']) {
+for (const file of [
+  'contact-requests.defaults.js',
+  'downloads.defaults.js',
+  'auth-client.js',
+]) {
   const source = resolve(rootDir, file);
   if (await exists(source)) {
     await cp(source, resolve(distDir, file));

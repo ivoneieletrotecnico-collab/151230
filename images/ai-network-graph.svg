@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-label="Grafo de rede de inteligencia artificial">
+  <defs>
+    <radialGradient id="ngBg" cx="0.5" cy="0.5" r="0.7">
+      <stop offset="0" stop-color="#1B5E6E"/>
+      <stop offset="1" stop-color="#0A2E38"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" rx="32" fill="url(#ngBg)"/>
+  <g stroke="#2A7A8C" stroke-width="3">
+    <line x1="400" y1="400" x2="400" y2="180"/><line x1="400" y1="400" x2="600" y2="280"/><line x1="400" y1="400" x2="640" y2="500"/>
+    <line x1="400" y1="400" x2="500" y2="620"/><line x1="400" y1="400" x2="260" y2="600"/><line x1="400" y1="400" x2="180" y2="420"/><line x1="400" y1="400" x2="240" y2="230"/>
+  </g>
+  <g fill="#3A8FA3">
+    <circle cx="400" cy="180" r="24"/><circle cx="600" cy="280" r="24"/><circle cx="640" cy="500" r="24"/><circle cx="500" cy="620" r="24"/><circle cx="260" cy="600" r="24"/><circle cx="180" cy="420" r="24"/><circle cx="240" cy="230" r="24"/>
+  </g>
+  <circle cx="400" cy="400" r="50" fill="#5FB3C4"/>
+  <circle cx="400" cy="400" r="22" fill="#FFFFFF"/>
+</svg>

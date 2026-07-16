@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downloads | FluxoIA — Materiais gratuitos de IA e automação em Irecê-BA</title>
+<meta name="description" content="Baixe gratuitamente guias, checklists e materiais sobre automação com IA, chatbots e n8n para o seu negócio em Irecê, Bahia e região.">
+<meta name="author" content="FluxoIA">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://fluxoia.com.br/downloads">
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Downloads | FluxoIA">
+<meta property="og:description" content="Materiais gratuitos sobre automação com IA, chatbots e n8n para negócios em Irecê-BA.">
+<meta property="og:url" content="https://fluxoia.com.br/downloads">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --azul-escuro:#012A36;
+    --petroleo:#014F59;
+    --petroleo-claro:#017C87;
+    --petroleo-suave:#0AA6A6;
+    --dourado:#F2B33D;
+    --branco:#FFFFFF;
+    --cinza-claro:#F4F8F9;
+    --cinza-texto:#5A7278;
+    --texto-escuro:#0A2E36;
+    --sombra: 0 10px 30px rgba(1,42,54,0.12);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    font-family:'Inter',sans-serif;
+    color:var(--texto-escuro);
+    background:var(--branco);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+
+  .container{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:16px 32px;
+    border-radius:50px;
+    font-weight:700;
+    font-size:15px;
+    border:none;
+    cursor:pointer;
+    transition:all .3s ease;
+  }
+  .btn-primary{
+    background:var(--dourado);
+    color:var(--azul-escuro);
+  }
+  .btn-primary:hover{
+    background:#ffc75e;
+    transform:translateY(-3px);
+    box-shadow:0 10px 25px rgba(242,179,61,0.4);
+  }
+  .btn-outline{
+    background:transparent;
+    color:var(--branco);
+    border:2px solid rgba(255,255,255,0.4);
+  }
+  .btn-outline:hover{
+    border-color:var(--branco);
+    background:rgba(255,255,255,0.08);
+  }
+
+  .tag{
+    display:inline-block;
+    padding:8px 18px;
+    background:rgba(242,179,61,0.12);
+    color:var(--dourado);
+    border-radius:30px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .tag-light{
+    background:rgba(1,124,135,0.08);
+    color:var(--petroleo-claro);
+  }
+
+  h1,h2,h3{
+    font-weight:800;
+    line-height:1.2;
+    color:var(--azul-escuro);
+  }
+
+  section{padding:100px 0;}
+
+  /* ===== HEADER ===== */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:1000;
+    background:rgba(1,42,54,0.85);
+    backdrop-filter:blur(10px);
+    padding:18px 0;
+    transition:padding .3s ease;
+  }
+  .header-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .logo{
+    font-size:22px;
+    font-weight:800;
+    color:var(--branco);
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .logo span{color:var(--dourado);}
+  nav ul{
+    display:flex;
+    gap:32px;
+  }
+  nav a{
+    color:rgba(255,255,255,0.85);
+    font-size:15px;
+    font-weight:500;
+    transition:color .3s;
+  }
+  nav a:hover{color:var(--dourado);}
+  .menu-toggle{
+    display:none;
+    flex-direction:column;
+    gap:5px;
+    cursor:pointer;
+    background:none;
+    border:none;
+  }
+  .menu-toggle span{
+    width:26px;height:2px;background:var(--branco);
+  }
+
+  /* ===== DOWNLOADS HERO ===== */
+  .downloads-hero{
+    padding:170px 0 90px;
+    background:linear-gradient(135deg, var(--azul-escuro) 0%, var(--petroleo) 60%, var(--petroleo-claro) 100%);
+    position:relative;
+    overflow:hidden;
+    text-align:center;
+  }
+  .downloads-hero::after{
+    content:"";
+    position:absolute;
+    width:600px;height:600px;
+    background:radial-gradient(circle, rgba(10,166,166,0.25) 0%, transparent 70%);
+    top:-220px;right:-180px;
+  }
+  .downloads-hero-inner{
+    position:relative;
+    z-index:2;
+    max-width:680px;
+    margin:0 auto;
+  }
+  .downloads-hero h1{
+    font-size:44px;
+    color:var(--branco);
+    margin-bottom:18px;
+  }
+  .downloads-hero h1 .highlight{color:var(--dourado);}
+  .downloads-hero p{
+    color:rgba(255,255,255,0.82);
+    font-size:18px;
+    margin:0 auto;
+    max-width:560px;
+  }
+
+  /* ===== DOWNLOADS LIST ===== */
+  .downloads-section{padding:80px 0 100px;}
+  .downloads-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:26px;
+  }
+  .download-card{
+    background:var(--branco);
+    border:1px solid #E7EEF0;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:var(--sombra);
+    display:flex;
+    flex-direction:column;
+    transition:all .3s ease;
+  }
+  .download-card:hover{
+    transform:translateY(-6px);
+    border-color:transparent;
+    box-shadow:0 16px 40px rgba(1,42,54,0.16);
+  }
+  .download-top{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    margin-bottom:18px;
+  }
+  .download-icon{
+    width:56px;height:56px;
+    border-radius:14px;
+    background:linear-gradient(135deg,var(--petroleo),var(--petroleo-suave));
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .download-head{flex:1;}
+  .download-head h3{font-size:20px;margin-bottom:6px;}
+  .download-type{
+    display:inline-block;
+    padding:4px 12px;
+    border-radius:20px;
+    background:rgba(1,124,135,0.1);
+    color:var(--petroleo-claro);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+  }
+  .download-card p.download-desc{
+    color:var(--cinza-texto);
+    font-size:15px;
+    margin-bottom:22px;
+    flex:1;
+  }
+  .download-meta{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    font-size:13px;
+    color:var(--cinza-texto);
+    margin-bottom:22px;
+  }
+  .download-meta span{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+  }
+  .download-card .btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .downloads-state{
+    text-align:center;
+    padding:60px 0;
+    color:var(--cinza-texto);
+    font-size:16px;
+    grid-column:1 / -1;
+  }
+  .spinner{
+    width:38px;height:38px;
+    border:3px solid rgba(1,124,135,0.2);
+    border-top-color:var(--petroleo-claro);
+    border-radius:50%;
+    margin:0 auto 18px;
+    animation:spin 0.8s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .storage-note{
+    text-align:center;
+    margin-top:40px;
+    font-size:13px;
+    color:var(--cinza-texto);
+  }
+
+  /* ===== CTA ===== */
+  .cta{
+    background:linear-gradient(135deg,var(--petroleo),var(--azul-escuro));
+    text-align:center;
+    padding:90px 0;
+  }
+  .cta h2{color:var(--branco);font-size:34px;margin-bottom:16px;}
+  .cta p{color:rgba(255,255,255,0.8);margin-bottom:34px;font-size:17px;}
+
+  /* ===== FOOTER ===== */
+  footer{
+    background:var(--azul-escuro);
+    color:rgba(255,255,255,0.7);
+    padding:50px 0 24px;
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:20px;
+    padding-bottom:24px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .footer-logo{color:var(--branco);font-size:20px;font-weight:800;}
+  .footer-links{display:flex;gap:24px;}
+  .footer-links a{font-size:14px;color:rgba(255,255,255,0.7);}
+  .footer-bottom{
+    text-align:center;
+    font-size:13px;
+    padding-top:20px;
+  }
+
+  /* ===== WHATSAPP FLOAT ===== */
+  .whatsapp-float{
+    position:fixed;
+    bottom:26px;right:26px;
+    width:60px;height:60px;
+    background:#25D366;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(0,0,0,0.25);
+    z-index:999;
+    transition:transform .3s ease;
+  }
+  .whatsapp-float:hover{transform:scale(1.08);}
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:900px){
+    nav, .header-right{display:none;}
+    .menu-toggle{display:flex;}
+    nav.open{
+      display:flex;
+      position:absolute;
+      top:100%;left:0;right:0;
+      background:var(--azul-escuro);
+      flex-direction:column;
+      padding:20px;
+    }
+    nav.open ul{flex-direction:column;gap:16px;}
+    .downloads-hero h1{font-size:32px;}
+    .downloads-grid{grid-template-columns:1fr;}
+    section{padding:70px 0;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container header-inner">
+    <a href="index.html" class="logo">Fluxo<span>IA</span></a>
+    <nav id="nav">
+      <ul>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#processo">Como funciona</a></li>
+        <li><a href="index.html#portfolio">Portfólio</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
+        <li><a href="index.html#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <div class="header-right">
+      <a href="index.html#contato" class="btn btn-primary">Diagnóstico grátis</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="downloads-hero">
+  <div class="container downloads-hero-inner">
+    <span class="tag">Materiais gratuitos</span>
+    <h1>Downloads da <span class="highlight">FluxoIA</span></h1>
+    <p>Guias, checklists e materiais práticos sobre automação com IA, chatbots e n8n para você aplicar no seu negócio em Irecê, Bahia e região.</p>
+  </div>
+</section>
+
+<section class="downloads-section">
+  <div class="container">
+    <div class="downloads-grid" id="downloadsGrid">
+      <div class="downloads-state" id="downloadsState">
+        <div class="spinner"></div>
+        Carregando materiais...
+      </div>
+    </div>
+    <p class="storage-note" id="storageNote"></p>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <h2>Quer automatizar sua empresa?</h2>
+    <p>Fale com a FluxoIA e receba um diagnóstico gratuito e sem compromisso.</p>
+    <a href="index.html#contato" class="btn btn-primary">Solicitar diagnóstico gratuito</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">Fluxo<span style="color:#F2B33D;">IA</span></div>
+      <div class="footer-links">
+        <a href="index.html#servicos">Serviços</a>
+        <a href="index.html#portfolio">Portfólio</a>
+        <a href="downloads.html">Downloads</a>
+        <a href="index.html#contato">Contato</a>
+      </div>
+    </div>
+    <p class="footer-bottom">© 2026 FluxoIA — Automação com IA em Irecê-BA. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/5574988259925?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20automa%C3%A7%C3%A3o%20com%20IA." class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4.4 15 4 13.5 4 12c0-4.4 3.6-8 8-8s8 3.6 8 8-3.6 8-8 8zm4.4-5.9c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.7.8-.8.9-.1.1-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 4 3.5.6.2 1 .4 1.4.5.6.2 1.1.2 1.5.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3z"/></svg>
+</a>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('nav');
+  menuToggle.addEventListener('click', () => nav.classList.toggle('open'));
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', () => nav.classList.remove('open'));
+  });
+
+  const grid = document.getElementById('downloadsGrid');
+  const stateBox = document.getElementById('downloadsState');
+  const storageNote = document.getElementById('storageNote');
+
+  const documentIcon = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M14 3H7a2 2 0 00-2 2v14a2 2 0 002 2h10a2 2 0 002-2V8z"/><path d="M14 3v5h5"/></svg>';
+
+  function escapeHtml(value){
+    return String(value ?? '')
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  function formatDate(value){
+    if(!value) return '';
+    const parsed = new Date(value);
+    if(Number.isNaN(parsed.getTime())) return escapeHtml(value);
+    return parsed.toLocaleDateString('pt-BR', { day:'2-digit', month:'2-digit', year:'numeric' });
+  }
+
+  function renderDownloads(list){
+    if(!Array.isArray(list) || list.length === 0){
+      grid.innerHTML = '<div class="downloads-state">Nenhum material disponível no momento. Volte em breve!</div>';
+      return;
+    }
+
+    grid.innerHTML = list.map(item => {
+      const id = escapeHtml(item.id);
+      const name = escapeHtml(item.name || 'Material');
+      const description = escapeHtml(item.description || '');
+      const type = escapeHtml((item.type || 'arquivo').toUpperCase());
+      const size = escapeHtml(item.size || 'Varia');
+      const url = escapeHtml(item.url || '#');
+      const count = Number(item.downloads || 0);
+      const date = formatDate(item.date);
+
+      return `
+        <article class="download-card">
+          <div class="download-top">
+            <div class="download-icon">${documentIcon}</div>
+            <div class="download-head">
+              <h3>${name}</h3>
+              <span class="download-type">${type}</span>
+            </div>
+          </div>
+          <p class="download-desc">${description}</p>
+          <div class="download-meta">
+            <span title="Tamanho">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A7278" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+              ${size}
+            </span>
+            <span title="Downloads" data-count-for="${id}">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A7278" stroke-width="2"><path d="M12 20a8 8 0 100-16 8 8 0 000 16z"/><path d="M12 8v4l3 2"/></svg>
+              ${count} ${count === 1 ? 'download' : 'downloads'}
+            </span>
+            ${date ? `<span title="Data">${date}</span>` : ''}
+          </div>
+          <a class="btn btn-primary" href="${url}" target="_blank" rel="noopener" data-download-id="${id}">
+            Baixar material
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#012A36" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+          </a>
+        </article>`;
+    }).join('');
+
+    grid.querySelectorAll('[data-download-id]').forEach(btn => {
+      btn.addEventListener('click', () => incrementDownload(btn.getAttribute('data-download-id')));
+    });
+  }
+
+  async function incrementDownload(id){
+    try{
+      const response = await fetch('/api/downloads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'increment', id })
+      });
+      if(!response.ok) return;
+      const data = await response.json();
+      const updated = (data.downloads || []).find(d => String(d.id) === String(id));
+      if(updated){
+        const counter = grid.querySelector(`[data-count-for="${id}"]`);
+        if(counter){
+          const count = Number(updated.downloads || 0);
+          counter.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5A7278" stroke-width="2"><path d="M12 20a8 8 0 100-16 8 8 0 000 16z"/><path d="M12 8v4l3 2"/></svg>
+            ${count} ${count === 1 ? 'download' : 'downloads'}`;
+        }
+      }
+    }catch(error){
+      /* silencioso: o download continua funcionando mesmo se a contagem falhar */
+    }
+  }
+
+  async function loadDownloads(){
+    try{
+      const response = await fetch('/api/downloads', { headers: { 'Accept': 'application/json' } });
+      if(!response.ok) throw new Error('Falha ao carregar');
+      const data = await response.json();
+      renderDownloads(data.downloads);
+      if(data.storage){
+        storageNote.textContent = data.storage === 'supabase'
+          ? 'Materiais sincronizados com o Supabase.'
+          : 'Materiais carregados do armazenamento local.';
+      }
+    }catch(error){
+      grid.innerHTML = '<div class="downloads-state">Não foi possível carregar os materiais agora. Tente novamente em instantes ou fale conosco no WhatsApp.</div>';
+    }
+  }
+
+  loadDownloads();
+</script>
+
+</body>
+</html>

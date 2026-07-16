@@ -24,3 +24,14 @@ create table if not exists public.contact_requests (
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+create table if not exists public.users (
+  id bigint primary key,
+  email text unique not null,
+  name text not null default '',
+  password_hash text not null,
+  role text not null default 'admin',
+  order_index integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);

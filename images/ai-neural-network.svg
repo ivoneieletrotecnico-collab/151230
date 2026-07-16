@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" fill="none" role="img" aria-label="Rede neural de inteligencia artificial">
+  <defs>
+    <linearGradient id="nnBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A2E38"/>
+      <stop offset="1" stop-color="#1B5E6E"/>
+    </linearGradient>
+    <radialGradient id="nnGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#3A8FA3" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#3A8FA3" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="800" rx="32" fill="url(#nnBg)"/>
+  <circle cx="400" cy="400" r="320" fill="url(#nnGlow)"/>
+  <g stroke="#2A7A8C" stroke-width="2.5" opacity="0.7">
+    <line x1="180" y1="240" x2="400" y2="200"/><line x1="180" y1="240" x2="400" y2="400"/><line x1="180" y1="240" x2="400" y2="600"/>
+    <line x1="180" y1="400" x2="400" y2="200"/><line x1="180" y1="400" x2="400" y2="400"/><line x1="180" y1="400" x2="400" y2="600"/>
+    <line x1="180" y1="560" x2="400" y2="200"/><line x1="180" y1="560" x2="400" y2="400"/><line x1="180" y1="560" x2="400" y2="600"/>
+    <line x1="400" y1="200" x2="620" y2="320"/><line x1="400" y1="200" x2="620" y2="480"/>
+    <line x1="400" y1="400" x2="620" y2="320"/><line x1="400" y1="400" x2="620" y2="480"/>
+    <line x1="400" y1="600" x2="620" y2="320"/><line x1="400" y1="600" x2="620" y2="480"/>
+  </g>
+  <g>
+    <circle cx="180" cy="240" r="26" fill="#3A8FA3"/><circle cx="180" cy="400" r="26" fill="#3A8FA3"/><circle cx="180" cy="560" r="26" fill="#3A8FA3"/>
+    <circle cx="400" cy="200" r="30" fill="#5FB3C4"/><circle cx="400" cy="400" r="30" fill="#5FB3C4"/><circle cx="400" cy="600" r="30" fill="#5FB3C4"/>
+    <circle cx="620" cy="320" r="34" fill="#FFFFFF"/><circle cx="620" cy="480" r="34" fill="#FFFFFF"/>
+  </g>
+</svg>
